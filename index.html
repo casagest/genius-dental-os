@@ -1,24 +1,63 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>genius-dental-os</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+    <title>MedicalCor GENIUS - AI Operating System pentru Clinica Dentară</title>
+    <meta name="description" content="Primul ecosistem AI complet pentru clinici dentare din România. Automatizare, optimizare, creștere profitabilitate 120%." />
+    <meta name="author" content="MedicalCor" />
+    <meta name="keywords" content="AI stomatologie, clinica dentară, automatizare medicală, România, MedicalCor, GENIUS" />
 
-    <meta property="og:title" content="genius-dental-os" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="MedicalCor GENIUS - AI Operating System" />
+    <meta property="og:description" content="România's Most Advanced Dental Intelligence Platform" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:image" content="https://lovable.dev/opengraph-medicalcor.png" />
+    <meta property="og:url" content="https://medicalcor-genius.lovable.app" />
 
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta name="twitter:title" content="MedicalCor GENIUS - AI Operating System" />
+    <meta name="twitter:description" content="Primul ecosistem AI complet pentru clinici dentare din România" />
+    <meta name="twitter:image" content="https://lovable.dev/opengraph-medicalcor.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/medicalcor-favicon.svg" />
+    <link rel="alternate icon" href="/favicon.ico" />
+
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Medical theme colors for mobile browsers -->
+    <meta name="theme-color" content="#0284c7" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+    <!-- Security headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Performance monitoring snippet -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>

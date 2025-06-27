@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MessageSquare, Clock, Plus, Search } from "lucide-react";
+import { Calendar, MessageSquare, Clock, Plus, Search, Mic, Settings } from "lucide-react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import StatsGrid from "@/components/dashboard/StatsGrid";
 import AppointmentCalendar from "@/components/appointments/AppointmentCalendar";
@@ -10,8 +10,25 @@ import RecentActivity from "@/components/dashboard/RecentActivity";
 import QuickActions from "@/components/dashboard/QuickActions";
 import AIInsights from "@/components/dashboard/AIInsights";
 import ChatWidget from "@/components/chat/ChatWidget";
+import VoiceChatBot from "@/components/voice/VoiceChatBot";
+import VoiceSettings from "@/components/voice/VoiceSettings";
 
 const Index = () => {
+  const [showVoiceSettings, setShowVoiceSettings] = useState(false);
+  const [voiceSettings, setVoiceSettings] = useState({
+    elevenLabsApiKey: '',
+    openAIApiKey: '',
+    voiceId: 'pNInz6obpgDQGcFmaJgB',
+    language: 'ro' as const,
+    hotwordEnabled: true,
+    micSensitivity: 0.7
+  });
+
+  const handleVoiceSettingsSave = (settings: any) => {
+    setVoiceSettings(settings);
+    setShowVoiceSettings(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-white">
       <DashboardHeader />
@@ -21,7 +38,7 @@ const Index = () => {
         <div className="text-center space-y-4 mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">
             <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></div>
-            MedicalCor GENIUS v1.0 - AI Operating System
+            MedicalCor GENIUS v1.0 - AI Operating System cu Interfață Vocală
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent leading-tight">
             România's Most Advanced
@@ -31,7 +48,44 @@ const Index = () => {
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             Ecosistem AI complet pentru clinică și laborator - automatizează, optimizează, crește profitabilitatea cu 120%
           </p>
+          
+          {/* Voice Interface Controls */}
+          <div className="flex justify-center space-x-4 mt-6">
+            <Button
+              onClick={() => setShowVoiceSettings(true)}
+              variant="outline"
+              className="bg-white/80 hover:bg-white"
+            >
+              <Settings className="w-4 h-4 mr-2" />
+              Configurare Voce
+            </Button>
+            <Badge variant="secondary" className="px-4 py-2">
+              <Mic className="w-4 h-4 mr-2" />
+              Interfață Vocală Activă
+            </Badge>
+          </div>
         </div>
+
+        {/* Voice Settings Modal */}
+        {showVoiceSettings && (
+          <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="p-4 border-b flex justify-between items-center">
+                <h2 className="text-lg font-semibold">Configurare Interfață Vocală</h2>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowVoiceSettings(false)}
+                >
+                  ✕
+                </Button>
+              </div>
+              <div className="p-4">
+                <VoiceSettings onSettingsSave={handleVoiceSettingsSave} />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Stats Overview */}
         <StatsGrid />
@@ -44,9 +98,18 @@ const Index = () => {
             <RecentActivity />
           </div>
 
-          {/* Right Column - Quick Actions & AI Insights */}
+          {/* Right Column - Quick Actions, AI Insights & Voice Assistant */}
           <div className="space-y-6">
             <QuickActions />
+            
+            {/* Voice Assistant Widget */}
+            <VoiceChatBot
+              elevenLabsApiKey={voiceSettings.elevenLabsApiKey}
+              openAIApiKey={voiceSettings.openAIApiKey}
+              language={voiceSettings.language}
+              autoSpeak={true}
+            />
+            
             <AIInsights />
           </div>
         </div>
@@ -55,15 +118,15 @@ const Index = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           <ModuleCard
             title="GENIUS Hub"
-            description="Scheduling 24/7 + Chatbot AI"
+            description="Scheduling 24/7 + Chatbot AI + Interfață Vocală"
             status="LIVE"
             progress={100}
-            icon={<Calendar className="w-6 h-6" />}
+            icon={<Mic className="w-6 h-6" />}
             color="bg-green-500"
           />
           <ModuleCard
             title="LabSync"
-            description="Exocad ↔ Medit ↔ ERP"
+            description="Exocad ↔ Medit ↔ ERP + Comenzi Vocale"
             status="DEVELOPMENT"
             progress={75}
             icon={<Clock className="w-6 h-6" />}
@@ -71,7 +134,7 @@ const Index = () => {
           />
           <ModuleCard
             title="InventoryBrain"
-            description="Auto-reorder + QR Scan"
+            description="Auto-reorder + QR Scan + Voice Control"
             status="PLANNING"
             progress={25}
             icon={<Search className="w-6 h-6" />}
@@ -79,7 +142,7 @@ const Index = () => {
           />
           <ModuleCard
             title="Clinical Agent"
-            description="AI Diagnostics + Plans"
+            description="AI Diagnostics + Transcriere Vocală"
             status="CONCEPT"
             progress={10}
             icon={<MessageSquare className="w-6 h-6" />}
@@ -87,7 +150,7 @@ const Index = () => {
           />
           <ModuleCard
             title="AI Marketing"
-            description="Lead Scoring + Campaigns"
+            description="Lead Scoring + Campaigns + Voice Ads"
             status="ROADMAP"
             progress={0}
             icon={<Plus className="w-6 h-6" />}
@@ -95,7 +158,7 @@ const Index = () => {
           />
           <ModuleCard
             title="CFO Dashboard"
-            description="Analytics + ANAF Sync"
+            description="Analytics + ANAF Sync + Rapoarte Vocale"
             status="ROADMAP"
             progress={0}
             icon={<Plus className="w-6 h-6" />}
@@ -104,7 +167,7 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Chat Widget - Available globally */}
+      {/* Chat Widget - Available globally with voice */}
       <ChatWidget />
     </div>
   );

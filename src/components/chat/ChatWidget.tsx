@@ -1,10 +1,10 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MessageCircle, Send, X, User, Bot, Phone, Calendar, Clock } from "lucide-react";
+import { MessageCircle, Send, X, User, Bot, Phone, Calendar, Clock, Mic, MicOff, Volume2 } from "lucide-react";
+import useVoiceInterface from "@/hooks/useVoiceInterface";
 
 interface Message {
   id: string;
@@ -23,10 +23,11 @@ interface QuickReply {
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [voiceMode, setVoiceMode] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      text: 'Bună ziua! Sunt GENIUS, asistentul virtual MedicalCor. Cum vă pot ajuta astăzi?',
+      text: 'Bună ziua! Sunt GENIUS, asistentul virtual MedicalCor. Cum vă pot ajuta astăzi? Puteți scrie sau apăsa butonul de microfon pentru a vorbi.',
       sender: 'bot',
       timestamp: new Date(),
     }
@@ -34,6 +35,42 @@ const ChatWidget = () => {
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Voice interface configuration
+  const voiceConfig = {
+    language: 'ro' as const,
+    elevenLabsApiKey: undefined, // Will be set by user
+    openAIApiKey: undefined, // Will be set by user
+    voiceId: 'pNInz6obpgDQGcFmaJgB', // Romanian voice
+    hotwordEnabled: true,
+    micSensitivity: 0.7
+  };
+
+  const {
+    isListening,
+    isSpeaking,
+    transcript,
+    error: voiceError,
+    startListening,
+    stopListening,
+    speak
+  } = useVoiceInterface(voiceConfig);
+
+  // Handle voice input
+  useEffect(() => {
+    if (transcript && voiceMode) {
+      setInputValue(transcript);
+      // Auto-send after 2 seconds of no new input
+      const timer = setTimeout(() => {
+        if (transcript.trim()) {
+          handleSendMessage(transcript);
+          stopListening();
+        }
+      }, 2000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [transcript, voiceMode]);
 
   const quickReplies: QuickReply[] = [
     {
@@ -117,7 +154,25 @@ const ChatWidget = () => {
       
       setMessages(prev => [...prev, botResponse]);
       setIsTyping(false);
+
+      // Auto-speak bot response if voice mode is enabled
+      if (voiceMode) {
+        speak(botResponse.text);
+      }
     }, 1500);
+  };
+
+  const handleVoiceToggle = async () => {
+    if (voiceMode) {
+      setVoiceMode(false);
+      stopListening();
+    } else {
+      setVoiceMode(true);
+      await speak('Modul vocal activat. Vă ascult acum.');
+      setTimeout(() => {
+        startListening();
+      }, 1000);
+    }
   };
 
   const handleQuickReply = (quickReply: QuickReply) => {
@@ -158,21 +213,58 @@ const ChatWidget = () => {
               </div>
               <div>
                 <CardTitle className="text-lg font-bold">GENIUS Assistant</CardTitle>
-                <p className="text-blue-100 text-sm">MedicalCor AI • Online acum</p>
+                <p className="text-blue-100 text-sm">
+                  MedicalCor AI • {voiceMode ? 'Mod vocal activ' : 'Online acum'}
+                </p>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsOpen(false)}
-              className="text-white hover:bg-white/20"
-            >
-              <X className="w-5 h-5" />
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleVoiceToggle}
+                className={`text-white hover:bg-white/20 ${voiceMode ? 'bg-white/30' : ''}`}
+              >
+                {voiceMode ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setIsOpen(false)}
+                className="text-white hover:bg-white/20"
+              >
+                <X className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
+
+          {/* Voice Status */}
+          {voiceMode && (
+            <div className="flex items-center justify-center mt-2">
+              {isListening && (
+                <Badge variant="secondary" className="animate-pulse bg-white/20 text-white">
+                  <Mic className="w-3 h-3 mr-1" />
+                  Ascult...
+                </Badge>
+              )}
+              {isSpeaking && (
+                <Badge variant="secondary" className="animate-pulse bg-white/20 text-white">
+                  <Volume2 className="w-3 h-3 mr-1" />
+                  Vorbesc...
+                </Badge>
+              )}
+            </div>
+          )}
         </CardHeader>
 
         <CardContent className="flex-1 flex flex-col p-0">
+          {/* Voice Error Display */}
+          {voiceError && (
+            <div className="px-4 py-2 bg-red-50 text-red-600 text-sm border-b">
+              {voiceError}
+            </div>
+          )}
+
           {/* Messages Area */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50">
             {messages.map((message) => (
@@ -250,27 +342,30 @@ const ChatWidget = () => {
               <Input
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
-                placeholder="Scrieți întrebarea dumneavoastră..."
+                placeholder={voiceMode ? "Vorbește sau scrie..." : "Scrieți întrebarea dumneavoastră..."}
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') {
                     handleSendMessage(inputValue);
                   }
                 }}
                 className="flex-1 border-2 border-slate-200 focus:border-blue-400"
+                disabled={isListening}
               />
               <Button
                 onClick={() => handleSendMessage(inputValue)}
-                disabled={!inputValue.trim() || isTyping}
+                disabled={!inputValue.trim() || isTyping || isListening}
                 className="bg-blue-600 hover:bg-blue-700"
               >
                 <Send className="w-4 h-4" />
               </Button>
             </div>
             <div className="flex items-center justify-between mt-2 text-xs text-slate-500">
-              <span>Apăsați Enter pentru a trimite</span>
+              <span>
+                {voiceMode ? 'Mod vocal activ - Apăsați Enter sau vorbiți' : 'Apăsați Enter pentru a trimite'}
+              </span>
               <div className="flex items-center space-x-1">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span>Online 24/7</span>
+                <div className={`w-2 h-2 rounded-full ${voiceMode ? 'bg-green-500' : 'bg-blue-500'}`}></div>
+                <span>{voiceMode ? 'Vocal 24/7' : 'Online 24/7'}</span>
               </div>
             </div>
           </div>

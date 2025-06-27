@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ import AppointmentCalendar from "@/components/appointments/AppointmentCalendar";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import QuickActions from "@/components/dashboard/QuickActions";
 import AIInsights from "@/components/dashboard/AIInsights";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 const Index = () => {
   return (
@@ -103,6 +103,9 @@ const Index = () => {
           />
         </div>
       </main>
+
+      {/* Chat Widget - Available globally */}
+      <ChatWidget />
     </div>
   );
 };

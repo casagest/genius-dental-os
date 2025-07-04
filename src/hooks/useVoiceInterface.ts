@@ -1,5 +1,6 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react';
+import '../types/speech.d.ts';
 
 export interface VoiceConfig {
   language: 'ro' | 'en';
@@ -24,7 +25,7 @@ const useVoiceInterface = (config: VoiceConfig) => {
   const [error, setError] = useState<string | null>(null);
   const [isHotwordActive, setIsHotwordActive] = useState(config.hotwordEnabled);
   
-  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const recognitionRef = useRef<any>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);

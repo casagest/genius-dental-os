@@ -96,12 +96,20 @@ const Index = () => {
           <div className="lg:col-span-2 space-y-6">
           <div className="text-center space-y-4">
             <p className="text-slate-600">Calendarul avansat de programări este disponibil în secțiunea dedicată.</p>
-            <Link to="/appointments">
-              <Button className="space-x-2">
-                <Calendar className="w-4 h-4" />
-                <span>Deschide Calendarul Programări</span>
-              </Button>
-            </Link>
+            <div className="flex justify-center space-x-4">
+              <Link to="/appointments">
+                <Button className="space-x-2">
+                  <Calendar className="w-4 h-4" />
+                  <span>Calendarul Programări</span>
+                </Button>
+              </Link>
+              <Link to="/integrations">
+                <Button variant="outline" className="space-x-2">
+                  <Settings className="w-4 h-4" />
+                  <span>Integrări</span>
+                </Button>
+              </Link>
+            </div>
           </div>
             <RecentActivity />
           </div>

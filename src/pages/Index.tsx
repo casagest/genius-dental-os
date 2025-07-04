@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, MessageSquare, Clock, Plus, Search, Mic, Settings } from "lucide-react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import StatsGrid from "@/components/dashboard/StatsGrid";
-import AppointmentCalendar from "@/components/appointments/AppointmentCalendar";
+import { Link } from "react-router-dom";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import QuickActions from "@/components/dashboard/QuickActions";
 import AIInsights from "@/components/dashboard/AIInsights";
@@ -94,7 +94,15 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Calendar & Appointments */}
           <div className="lg:col-span-2 space-y-6">
-            <AppointmentCalendar />
+          <div className="text-center space-y-4">
+            <p className="text-slate-600">Calendarul avansat de programări este disponibil în secțiunea dedicată.</p>
+            <Link to="/appointments">
+              <Button className="space-x-2">
+                <Calendar className="w-4 h-4" />
+                <span>Deschide Calendarul Programări</span>
+              </Button>
+            </Link>
+          </div>
             <RecentActivity />
           </div>
 

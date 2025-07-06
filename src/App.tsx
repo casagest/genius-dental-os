@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { AuthProvider } from "@/components/auth/AuthProvider";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TestPage from "./pages/TestPage";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Appointments from "./pages/Appointments";
@@ -21,19 +22,16 @@ import { AuthGuard } from "@/components/auth/AuthGuard";
 
 const queryClient = new QueryClient();
 
-const App = () => {
-  console.log('App component rendering...');
-  
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <LanguageProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
+const App = () => (
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <LanguageProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Index />} />
+              <Route path="/" element={<TestPage />} />
               <Route path="/appointments" element={<AuthGuard><Appointments /></AuthGuard>} />
               <Route path="/integrations" element={<AuthGuard><Integrations /></AuthGuard>} />
               <Route path="/dashboard" element={<AuthGuard><MedicalDashboard /></AuthGuard>} />
@@ -44,15 +42,13 @@ const App = () => {
               <Route path="/allonx" element={<AuthGuard><AllOnXHub /></AuthGuard>} />
               <Route path="/cfo" element={<AuthGuard><CFODashboard /></AuthGuard>} />
               <Route path="/istoma-integration" element={<AuthGuard><IStomaIntegration /></AuthGuard>} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-          </TooltipProvider>
-        </LanguageProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  );
-};
+        </TooltipProvider>
+      </LanguageProvider>
+    </AuthProvider>
+  </QueryClientProvider>
+);
 
 export default App;

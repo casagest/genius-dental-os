@@ -331,7 +331,6 @@ const translations = {
 };
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  console.log('LanguageProvider loading...');
   const [language, setLanguage] = useState<Language>('ro');
 
   useEffect(() => {

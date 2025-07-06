@@ -31,6 +31,8 @@ import {
   Database
 } from "lucide-react";
 import CBCTAnalyzer from "@/components/cbct/CBCTAnalyzer";
+import RealCBCTProcessor from "@/components/cbct/RealCBCTProcessor";
+import CBCT3DViewer from "@/components/cbct/CBCT3DViewer";
 import SurgicalPlanningAI from "@/components/surgical/SurgicalPlanningAI";
 import RealTimeSurgicalMonitor from "@/components/surgical/RealTimeSurgicalMonitor";
 import AdvancedVoiceCommands from "@/components/voice/AdvancedVoiceCommands";
@@ -530,12 +532,55 @@ const AllOnXHub = () => {
           </TabsContent>
 
           <TabsContent value="cbct-analysis" className="space-y-6">
-            <CBCTAnalyzer onAnalysisComplete={(result) => {
-              toast({
-                title: "CBCT Analysis Complete",
-                description: `AI a analizat scanul cu succes - ${result.aiScore.confidence}% confidence`,
-              });
-            }} />
+            <div className="grid grid-cols-1 gap-6">
+              {/* Real CBCT Processor */}
+              <RealCBCTProcessor onAnalysisComplete={(result) => {
+                toast({
+                  title: "AI Analysis Complete",
+                  description: `Real CBCT analysis completed with ${result.qualityMetrics.diagnosticValue.toFixed(1)}% diagnostic confidence`,
+                });
+              }} />
+              
+              {/* 3D Viewer */}
+              <CBCT3DViewer 
+                implantPositions={[
+                  {
+                    position: "13",
+                    coordinates: { x: -15, y: 8, z: -3 },
+                    angle: 12,
+                    confidence: 0.92,
+                    riskLevel: 'low'
+                  },
+                  {
+                    position: "11", 
+                    coordinates: { x: -3, y: 12, z: -2 },
+                    angle: 0,
+                    confidence: 0.95,
+                    riskLevel: 'low'
+                  },
+                  {
+                    position: "21",
+                    coordinates: { x: 3, y: 12, z: -2 },
+                    angle: -2,
+                    confidence: 0.94,
+                    riskLevel: 'low'
+                  },
+                  {
+                    position: "23",
+                    coordinates: { x: 15, y: 8, z: -3 },
+                    angle: -15,
+                    confidence: 0.87,
+                    riskLevel: 'moderate'
+                  }
+                ]}
+                onImplantSelect={(implant) => {
+                  toast({
+                    title: `Implant Position ${implant.position}`,
+                    description: `Selected ${implant.riskLevel} risk implant with ${(implant.confidence * 100).toFixed(0)}% confidence`,
+                  });
+                }}
+              />
+            </div>
           </TabsContent>
 
           <TabsContent value="live-surgery" className="space-y-6">

@@ -3,8 +3,35 @@ import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Bell, Settings, User, MessageSquare } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const DashboardHeader = () => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleNotifications = () => {
+    toast({
+      title: "Notificări",
+      description: "3 notificări noi disponibile",
+    });
+  };
+
+  const handleSettings = () => {
+    navigate("/integrations");
+  };
+
+  const handleChat = () => {
+    navigate("/clinical");
+  };
+
+  const handleProfile = () => {
+    toast({
+      title: "Profil Utilizator",
+      description: "Dr. Marin - Configurări profil disponibile în curând",
+    });
+  };
+
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50">
       <div className="container mx-auto px-4 py-4">
@@ -32,23 +59,40 @@ const DashboardHeader = () => {
             </div>
 
             {/* Action Buttons */}
-            <Button variant="outline" size="sm" className="relative">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="relative"
+              onClick={handleNotifications}
+            >
               <Bell className="w-4 h-4" />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
                 3
               </span>
             </Button>
             
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleChat}
+            >
               <MessageSquare className="w-4 h-4 mr-2" />
               AI Chat
             </Button>
 
-            <Button variant="outline" size="sm">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleSettings}
+            >
               <Settings className="w-4 h-4" />
             </Button>
 
-            <Button size="sm" className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800">
+            <Button 
+              size="sm" 
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+              onClick={handleProfile}
+            >
               <User className="w-4 h-4 mr-2" />
               Dr. Marin
             </Button>

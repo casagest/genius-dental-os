@@ -5,7 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Settings, Save, TestTube, Volume2, Mic } from "lucide-react";
+import { Settings, Save, TestTube, Volume2, Mic, Shield } from "lucide-react";
+import { useSecureApiKeys } from "@/hooks/useSecureStorage";
+import { validateFormData, VoiceSettingsSchema } from "@/lib/validation";
+import { validateApiKey, sanitizeText, checkRateLimit } from "@/lib/security";
+import { useToast } from "@/hooks/use-toast";
 
 interface VoiceSettingsProps {
   onSettingsSave: (settings: VoiceSettings) => void;
@@ -21,6 +25,9 @@ interface VoiceSettings {
 }
 
 const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
+  const { toast } = useToast();
+  const { value: secureApiKeys, setValue: setSecureApiKeys } = useSecureApiKeys();
+  
   const [settings, setSettings] = useState<VoiceSettings>({
     elevenLabsApiKey: '',
     openAIApiKey: '',
@@ -40,6 +47,11 @@ const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
   });
 
   const handleSettingsChange = (key: keyof VoiceSettings, value: any) => {
+    // Sanitize text inputs
+    if (typeof value === 'string' && key !== 'elevenLabsApiKey' && key !== 'openAIApiKey') {
+      value = sanitizeText(value);
+    }
+    
     setSettings(prev => ({
       ...prev,
       [key]: value
@@ -48,6 +60,26 @@ const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
 
   const testElevenLabsConnection = async () => {
     if (!settings.elevenLabsApiKey || !settings.voiceId) return;
+    
+    // Rate limiting check
+    if (!checkRateLimit('elevenlabs-test', 3, 60000)) {
+      toast({
+        title: "Prea multe încercări",
+        description: "Încercați din nou în câteva minute",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate API key format
+    if (!validateApiKey(settings.elevenLabsApiKey, 'sk-')) {
+      toast({
+        title: "API Key invalid",
+        description: "Verificați formatul API key-ului ElevenLabs",
+        variant: "destructive",
+      });
+      return;
+    }
     
     try {
       const response = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${settings.voiceId}`, {
@@ -73,41 +105,91 @@ const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
         const audioUrl = URL.createObjectURL(audioBlob);
         const audio = new Audio(audioUrl);
         audio.play();
+        
+        toast({
+          title: "Test reușit",
+          description: "Conexiunea ElevenLabs funcționează",
+        });
+      } else {
+        toast({
+          title: "Test eșuat",
+          description: "Verificați API key-ul și permisiunile",
+          variant: "destructive",
+        });
       }
     } catch (error) {
       setTestResults(prev => ({
         ...prev,
         elevenLabs: false
       }));
+      toast({
+        title: "Eroare conexiune",
+        description: "Nu s-a putut conecta la ElevenLabs",
+        variant: "destructive",
+      });
     }
   };
 
   const testOpenAIConnection = async () => {
     if (!settings.openAIApiKey) return;
     
+    // Rate limiting check
+    if (!checkRateLimit('openai-test', 3, 60000)) {
+      toast({
+        title: "Prea multe încercări",
+        description: "Încercați din nou în câteva minute",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate API key format
+    if (!validateApiKey(settings.openAIApiKey, 'sk-')) {
+      toast({
+        title: "API Key invalid",
+        description: "Verificați formatul API key-ului OpenAI",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     try {
-      const testAudio = new Blob(['test'], { type: 'audio/wav' });
-      const formData = new FormData();
-      formData.append('file', testAudio, 'test.wav');
-      formData.append('model', 'whisper-1');
-      
-      const response = await fetch('https://api.openai.com/v1/audio/transcriptions', {
-        method: 'POST',
+      // Test with a simple models request instead of audio
+      const response = await fetch('https://api.openai.com/v1/models', {
+        method: 'GET',
         headers: {
           'Authorization': `Bearer ${settings.openAIApiKey}`,
         },
-        body: formData,
       });
       
+      const isValid = response.ok;
       setTestResults(prev => ({
         ...prev,
-        openAI: response.status === 400 // 400 means API key is valid but audio is invalid
+        openAI: isValid
       }));
+      
+      if (isValid) {
+        toast({
+          title: "Test reușit",
+          description: "Conexiunea OpenAI funcționează",
+        });
+      } else {
+        toast({
+          title: "Test eșuat",
+          description: "Verificați API key-ul OpenAI",
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       setTestResults(prev => ({
         ...prev,
         openAI: false
       }));
+      toast({
+        title: "Eroare conexiune",
+        description: "Nu s-a putut conecta la OpenAI",
+        variant: "destructive",
+      });
     }
   };
 
@@ -123,22 +205,81 @@ const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
     setTestInProgress(false);
   };
 
-  const handleSave = () => {
-    onSettingsSave(settings);
-    localStorage.setItem('genius-voice-settings', JSON.stringify(settings));
+  const handleSave = async () => {
+    // Validate settings before saving
+    const validation = validateFormData(VoiceSettingsSchema, settings);
+    
+    if (!validation.success) {
+      toast({
+        title: "Date invalide",
+        description: validation.errors?.errors[0]?.message || "Verificați datele introduse",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      // Save API keys securely (separated from other settings)
+      await setSecureApiKeys({
+        elevenLabsApiKey: settings.elevenLabsApiKey,
+        openAIApiKey: settings.openAIApiKey
+      });
+      
+      // Save non-sensitive settings in regular storage
+      const publicSettings = {
+        voiceId: settings.voiceId,
+        language: settings.language,
+        hotwordEnabled: settings.hotwordEnabled,
+        micSensitivity: settings.micSensitivity
+      };
+      
+      localStorage.setItem('genius-voice-public-settings', JSON.stringify(publicSettings));
+      
+      onSettingsSave(settings);
+      
+      toast({
+        title: "Configurație salvată",
+        description: "Setările au fost salvate în siguranță",
+      });
+      
+    } catch (error) {
+      toast({
+        title: "Eroare salvare",
+        description: "Nu s-au putut salva setările",
+        variant: "destructive",
+      });
+    }
   };
 
-  // Load settings from localStorage on mount
+  // Load settings from secure storage on mount
   React.useEffect(() => {
-    const saved = localStorage.getItem('genius-voice-settings');
-    if (saved) {
+    const loadSettings = async () => {
       try {
-        setSettings(JSON.parse(saved));
+        // Load public settings
+        const publicSaved = localStorage.getItem('genius-voice-public-settings');
+        if (publicSaved) {
+          const publicSettings = JSON.parse(publicSaved);
+          setSettings(prev => ({
+            ...prev,
+            ...publicSettings
+          }));
+        }
+        
+        // Load API keys from secure storage
+        if (secureApiKeys && typeof secureApiKeys === 'object' && 'elevenLabsApiKey' in secureApiKeys) {
+          setSettings(prev => ({
+            ...prev,
+            elevenLabsApiKey: (secureApiKeys as any).elevenLabsApiKey || '',
+            openAIApiKey: (secureApiKeys as any).openAIApiKey || ''
+          }));
+        }
       } catch (error) {
         console.error('Failed to load voice settings:', error);
       }
-    }
-  }, []);
+    };
+    
+    loadSettings();
+  }, [secureApiKeys]);
 
   const getTestBadge = (result: boolean | null) => {
     if (result === null) return <Badge variant="secondary">Netestat</Badge>;
@@ -152,6 +293,9 @@ const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
         <CardTitle className="flex items-center space-x-2">
           <Settings className="w-5 h-5" />
           <span>Configurare Interfață Vocală GENIUS</span>
+          <div title="Configurare securizată">
+            <Shield className="w-4 h-4 text-green-600" />
+          </div>
         </CardTitle>
       </CardHeader>
 

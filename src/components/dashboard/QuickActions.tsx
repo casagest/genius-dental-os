@@ -3,24 +3,8 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar, MessageSquare, Plus, Search, Clock, FileText } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
 
 const QuickActions = () => {
-  const navigate = useNavigate();
-  const { toast } = useToast();
-
-  const handleAction = (actionTitle: string) => {
-    if (actionTitle === "Programare Rapidă") {
-      navigate("/appointments");
-    } else {
-      toast({
-        title: `${actionTitle} activat`,
-        description: "Funcționalitatea va fi disponibilă în curând.",
-      });
-    }
-  };
-
   const actions = [
     {
       title: "AI Chat Support",
@@ -80,7 +64,6 @@ const QuickActions = () => {
             <Button
               key={index}
               variant="outline"
-              onClick={() => handleAction(action.title)}
               className={`h-auto p-4 justify-start hover:shadow-md transition-all duration-200 ${action.color} hover:text-white border-2 hover:border-transparent group`}
             >
               <div className="flex items-center space-x-3 w-full">

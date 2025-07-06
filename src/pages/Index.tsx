@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, MessageSquare, Clock, Plus, Search, Mic, Settings } from "lucide-react";
+import { Calendar, MessageSquare, Clock, Plus, Search, Mic, Settings, DollarSign } from "lucide-react";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import StatsGrid from "@/components/dashboard/StatsGrid";
 import { Link } from "react-router-dom";
@@ -194,10 +194,11 @@ const Index = () => {
           <ModuleCard
             title="CFO Dashboard"
             description="Analytics + ANAF Sync + Rapoarte Vocale"
-            status="ROADMAP"
-            progress={0}
-            icon={<Plus className="w-6 h-6" />}
-            color="bg-slate-500"
+            status="LIVE"
+            progress={100}
+            icon={<DollarSign className="w-6 h-6" />}
+            color="bg-emerald-500"
+            link="/cfo"
           />
         </div>
       </main>

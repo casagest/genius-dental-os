@@ -13,6 +13,7 @@ import InventoryBrain from "./pages/InventoryBrain";
 import ClinicalAgent from "./pages/ClinicalAgent";
 import AIMarketing from "./pages/AIMarketing";
 import AllOnXHub from "./pages/AllOnXHub";
+import CFODashboard from "./pages/CFODashboard";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/clinical" element={<ClinicalAgent />} />
           <Route path="/marketing" element={<AIMarketing />} />
           <Route path="/allonx" element={<AllOnXHub />} />
+          <Route path="/cfo" element={<CFODashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -15,6 +15,7 @@ import VoiceSettings from "@/components/voice/VoiceSettings";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  console.log('Index component rendering...');
   const [showVoiceSettings, setShowVoiceSettings] = useState(false);
   const { t } = useLanguage();
   const [voiceSettings, setVoiceSettings] = useState({

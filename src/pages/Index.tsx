@@ -149,10 +149,11 @@ const Index = () => {
           <ModuleCard
             title="LabSync"
             description="Exocad ↔ Medit ↔ ERP + Comenzi Vocale"
-            status="DEVELOPMENT"
-            progress={75}
+            status="LIVE"
+            progress={100}
             icon={<Clock className="w-6 h-6" />}
             color="bg-blue-500"
+            link="/labsync"
           />
           <ModuleCard
             title="InventoryBrain"
@@ -202,9 +203,10 @@ interface ModuleCardProps {
   progress: number;
   icon: React.ReactNode;
   color: string;
+  link?: string;
 }
 
-const ModuleCard = ({ title, description, status, progress, icon, color }: ModuleCardProps) => {
+const ModuleCard = ({ title, description, status, progress, icon, color, link }: ModuleCardProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'LIVE': return 'bg-green-100 text-green-800 border-green-200';
@@ -245,6 +247,11 @@ const ModuleCard = ({ title, description, status, progress, icon, color }: Modul
             variant="outline" 
             size="sm" 
             className="w-full group-hover:bg-blue-50 group-hover:border-blue-300 transition-colors"
+            onClick={() => {
+              if (link && progress === 100) {
+                window.location.href = link;
+              }
+            }}
           >
             {progress === 100 ? 'Access Module' : progress > 0 ? 'View Progress' : 'Learn More'}
           </Button>

@@ -327,10 +327,12 @@ const AllOnXHub = () => {
         </div>
 
         <Tabs defaultValue="active-cases" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-white border-2">
+          <TabsList className="grid w-full grid-cols-6 bg-white border-2">
             <TabsTrigger value="active-cases">Active Cases</TabsTrigger>
             <TabsTrigger value="ai-planning">AI Planning</TabsTrigger>
             <TabsTrigger value="cbct-analysis">CBCT Analysis</TabsTrigger>
+            <TabsTrigger value="live-surgery">Live Surgery</TabsTrigger>
+            <TabsTrigger value="voice-control">Voice Control</TabsTrigger>
             <TabsTrigger value="outcomes">Outcomes</TabsTrigger>
           </TabsList>
 

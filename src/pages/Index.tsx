@@ -176,10 +176,11 @@ const Index = () => {
           <ModuleCard
             title="AI Marketing"
             description="Lead Scoring + Campaigns + Voice Ads"
-            status="ROADMAP"
-            progress={0}
-            icon={<Plus className="w-6 h-6" />}
+            status="LIVE"
+            progress={100}
+            icon={<MessageSquare className="w-6 h-6" />}
             color="bg-indigo-500"
+            link="/marketing"
           />
           <ModuleCard
             title="CFO Dashboard"

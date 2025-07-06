@@ -28,44 +28,32 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Get initial user
-    getUser();
+    // Get initial user safely
+    const initAuth = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        setUser(user);
+      } catch (error) {
+        console.error('Error getting user:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initAuth();
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null);
         setLoading(false);
-
-        if (event === 'SIGNED_IN') {
-          toast({
-            title: "Bun venit!",
-            description: "V-ați autentificat cu succes.",
-          });
-        } else if (event === 'SIGNED_OUT') {
-          toast({
-            title: "La revedere!",
-            description: "V-ați deconectat cu succes.",
-          });
-        }
       }
     );
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [toast]);
-
-  async function getUser() {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-    } catch (error) {
-      console.error('Error getting user:', error);
-    } finally {
-      setLoading(false);
-    }
-  }
+  }, []);
 
   const signIn = async (email: string, password: string) => {
     try {

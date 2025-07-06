@@ -103,6 +103,12 @@ const Index = () => {
                   <span>Calendarul Programări</span>
                 </Button>
               </Link>
+              <Link to="/dashboard">
+                <Button className="space-x-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800">
+                  <MessageSquare className="w-4 h-4" />
+                  <span>Dashboard Medical</span>
+                </Button>
+              </Link>
               <Link to="/integrations">
                 <Button variant="outline" className="space-x-2">
                   <Settings className="w-4 h-4" />

@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Calendar, MessageSquare, Plus, Search, Clock, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const QuickActions = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleAction = (actionTitle: string, route?: string) => {
     if (route) {
@@ -23,61 +25,61 @@ const QuickActions = () => {
 
   const actions = [
     {
-      title: "AI Chat Support",
-      description: "Întreabă GENIUS orice despre clinic",
+      title: t('quickActions.aiChat'),
+      description: t('quickActions.aiChatDesc'),
       icon: <MessageSquare className="w-5 h-5" />,
       color: "bg-blue-600 hover:bg-blue-700",
       shortcut: "Cmd+K",
       route: "/clinical"
     },
     {
-      title: "Programare Rapidă",
-      description: "Slot nou în calendarul liber",
+      title: t('quickActions.appointment'),
+      description: t('quickActions.appointmentDesc'),
       icon: <Calendar className="w-5 h-5" />,
       color: "bg-green-600 hover:bg-green-700",
       shortcut: "Cmd+N",
       route: "/appointments"
     },
     {
-      title: "Case Lab Nou",
-      description: "Inițiază workflow tehnică dentară",
+      title: t('quickActions.labCase'),
+      description: t('quickActions.labCaseDesc'),
       icon: <Plus className="w-5 h-5" />,
       color: "bg-orange-600 hover:bg-orange-700",
       shortcut: "Cmd+L",
       route: "/labsync"
     },
     {
-      title: "Inventory Scan",
-      description: "QR scan consumabile",
+      title: t('quickActions.inventory'),
+      description: t('quickActions.inventoryDesc'),
       icon: <Search className="w-5 h-5" />,
       color: "bg-purple-600 hover:bg-purple-700",
       shortcut: "Cmd+I",
       route: "/inventory"
     },
     {
-      title: "Treatment Plans",
-      description: "AI-generated cu cost estimates",
+      title: t('quickActions.treatments'),
+      description: t('quickActions.treatmentsDesc'),
       icon: <FileText className="w-5 h-5" />,
       color: "bg-indigo-600 hover:bg-indigo-700",
       shortcut: "Cmd+T",
       route: "/allonx"
     },
     {
-      title: "Analytics",
-      description: "CFO dashboard & reports",
+      title: t('quickActions.analytics'),
+      description: t('quickActions.analyticsDesc'),
       icon: <Clock className="w-5 h-5" />,
       color: "bg-slate-600 hover:bg-slate-700",
       shortcut: "Cmd+A",
-      route: "/dashboard"
+      route: "/cfo"
     }
   ];
 
   return (
     <Card className="border-2 hover:border-blue-200 transition-colors">
       <CardHeader>
-        <CardTitle className="text-xl text-slate-800">Quick Actions</CardTitle>
+        <CardTitle className="text-xl text-slate-800">{t('quickActions.title')}</CardTitle>
         <CardDescription>
-          Funcții principale la un click distanță
+          {t('quickActions.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>

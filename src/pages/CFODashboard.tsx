@@ -14,6 +14,7 @@ import {
   CreditCard, Target, AlertTriangle, PiggyBank, Building,
   FileText, Calculator, Zap, Brain, RefreshCw, Download
 } from 'lucide-react';
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Generare date financiare live pentru clinica dentară
 const generateFinancialData = () => ({
@@ -74,6 +75,7 @@ const CFODashboard = () => {
   const [financialData, setFinancialData] = useState(generateFinancialData());
   const [lastUpdate, setLastUpdate] = useState(new Date());
   const [selectedPeriod, setSelectedPeriod] = useState('month');
+  const { t } = useLanguage();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -98,11 +100,11 @@ const CFODashboard = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-900 via-emerald-700 to-emerald-500 bg-clip-text text-transparent">
-              CFO Dashboard - Financial Intelligence
+              {t('cfo.title')}
             </h1>
             <p className="text-slate-600 mt-2 flex items-center space-x-2">
               <Brain className="w-4 h-4 text-emerald-600" />
-              <span>AI-Powered Financial Analytics - Last update: {lastUpdate.toLocaleTimeString('ro-RO')}</span>
+              <span>{t('cfo.subtitle')}: {lastUpdate.toLocaleTimeString('ro-RO')}</span>
             </p>
           </div>
           <div className="flex space-x-3">

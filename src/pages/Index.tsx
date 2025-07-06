@@ -12,9 +12,11 @@ import AIInsights from "@/components/dashboard/AIInsights";
 import ChatWidget from "@/components/chat/ChatWidget";
 import VoiceChatBot from "@/components/voice/VoiceChatBot";
 import VoiceSettings from "@/components/voice/VoiceSettings";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
   const [showVoiceSettings, setShowVoiceSettings] = useState(false);
+  const { t } = useLanguage();
   const [voiceSettings, setVoiceSettings] = useState({
     elevenLabsApiKey: '',
     openAIApiKey: '',
@@ -38,15 +40,15 @@ const Index = () => {
         <div className="text-center space-y-4 mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">
             <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></div>
-            MedicalCor GENIUS v1.0 - AI Operating System cu Interfață Vocală
+            {t('home.tagline')}
           </div>
           <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent leading-tight">
-            România's Most Advanced
+            {t('home.title1')}
             <br />
-            <span className="text-slate-800">Dental Intelligence</span>
+            <span className="text-slate-800">{t('home.title2')}</span>
           </h1>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-            Ecosistem AI complet pentru clinică și laborator - automatizează, optimizează, crește profitabilitatea cu 120%
+            {t('home.description')}
           </p>
           
           {/* Voice Interface Controls */}
@@ -57,11 +59,11 @@ const Index = () => {
               className="bg-white/80 hover:bg-white"
             >
               <Settings className="w-4 h-4 mr-2" />
-              Configurare Voce
+              {t('home.voiceConfig')}
             </Button>
             <Badge variant="secondary" className="px-4 py-2">
               <Mic className="w-4 h-4 mr-2" />
-              Interfață Vocală Activă
+              {t('home.voiceActive')}
             </Badge>
           </div>
         </div>
@@ -95,24 +97,24 @@ const Index = () => {
           {/* Left Column - Calendar & Appointments */}
           <div className="lg:col-span-2 space-y-6">
           <div className="text-center space-y-4">
-            <p className="text-slate-600">Calendarul avansat de programări este disponibil în secțiunea dedicată.</p>
+            <p className="text-slate-600">{t('home.calendarSection')}</p>
             <div className="flex justify-center space-x-4">
               <Link to="/appointments">
                 <Button className="space-x-2">
                   <Calendar className="w-4 h-4" />
-                  <span>Calendarul Programări</span>
+                  <span>{t('home.appointmentCalendar')}</span>
                 </Button>
               </Link>
               <Link to="/dashboard">
                 <Button className="space-x-2 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800">
                   <MessageSquare className="w-4 h-4" />
-                  <span>Dashboard Medical</span>
+                  <span>{t('home.medicalDashboard')}</span>
                 </Button>
               </Link>
               <Link to="/integrations">
                 <Button variant="outline" className="space-x-2">
                   <Settings className="w-4 h-4" />
-                  <span>Integrări</span>
+                  <span>{t('home.integrations')}</span>
                 </Button>
               </Link>
             </div>
@@ -139,62 +141,62 @@ const Index = () => {
         {/* AI Modules Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           <ModuleCard
-            title="All-on-X Hub"
-            description="State-of-Art Full Arch Rehabilitation + AI Analysis"
-            status="LIVE"
+            title={t('modules.allonx')}
+            description={t('modules.allonxDesc')}
+            status={t('status.live')}
             progress={100}
             icon={<Calendar className="w-6 h-6" />}
             color="bg-indigo-500"
             link="/allonx"
           />
           <ModuleCard
-            title="GENIUS Hub"
-            description="Scheduling 24/7 + Chatbot AI + Interfață Vocală"
-            status="LIVE"
+            title={t('modules.genius')}
+            description={t('modules.geniusDesc')}
+            status={t('status.live')}
             progress={100}
             icon={<Mic className="w-6 h-6" />}
             color="bg-green-500"
           />
           <ModuleCard
-            title="LabSync"
-            description="Exocad ↔ Medit ↔ ERP + Comenzi Vocale"
-            status="LIVE"
+            title={t('modules.labsync')}
+            description={t('modules.labsyncDesc')}
+            status={t('status.live')}
             progress={100}
             icon={<Clock className="w-6 h-6" />}
             color="bg-blue-500"
             link="/labsync"
           />
           <ModuleCard
-            title="InventoryBrain"
-            description="Auto-reorder + QR Scan + Voice Control"
-            status="LIVE"
+            title={t('modules.inventory')}
+            description={t('modules.inventoryDesc')}
+            status={t('status.live')}
             progress={100}
             icon={<Search className="w-6 h-6" />}
             color="bg-orange-500"
             link="/inventory"
           />
           <ModuleCard
-            title="Clinical Agent"
-            description="AI Diagnostics + Transcriere Vocală"
-            status="LIVE"
+            title={t('modules.clinical')}
+            description={t('modules.clinicalDesc')}
+            status={t('status.live')}
             progress={100}
             icon={<MessageSquare className="w-6 h-6" />}
             color="bg-purple-500"
             link="/clinical"
           />
           <ModuleCard
-            title="AI Marketing"
-            description="Lead Scoring + Campaigns + Voice Ads"
-            status="LIVE"
+            title={t('modules.marketing')}
+            description={t('modules.marketingDesc')}
+            status={t('status.live')}
             progress={100}
             icon={<MessageSquare className="w-6 h-6" />}
             color="bg-indigo-500"
             link="/marketing"
           />
           <ModuleCard
-            title="CFO Dashboard"
-            description="Analytics + ANAF Sync + Rapoarte Vocale"
-            status="LIVE"
+            title={t('modules.cfo')}
+            description={t('modules.cfoDesc')}
+            status={t('status.live')}
             progress={100}
             icon={<DollarSign className="w-6 h-6" />}
             color="bg-emerald-500"
@@ -220,12 +222,14 @@ interface ModuleCardProps {
 }
 
 const ModuleCard = ({ title, description, status, progress, icon, color, link }: ModuleCardProps) => {
+  const { t } = useLanguage();
+  
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'LIVE': return 'bg-green-100 text-green-800 border-green-200';
-      case 'DEVELOPMENT': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'PLANNING': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'CONCEPT': return 'bg-purple-100 text-purple-800 border-purple-200';
+      case t('status.live'): return 'bg-green-100 text-green-800 border-green-200';
+      case t('status.development'): return 'bg-blue-100 text-blue-800 border-blue-200';
+      case t('status.planning'): return 'bg-orange-100 text-orange-800 border-orange-200';
+      case t('status.concept'): return 'bg-purple-100 text-purple-800 border-purple-200';
       default: return 'bg-slate-100 text-slate-600 border-slate-200';
     }
   };
@@ -247,7 +251,7 @@ const ModuleCard = ({ title, description, status, progress, icon, color, link }:
       <CardContent>
         <div className="space-y-3">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-slate-600">Progress</span>
+            <span className="text-slate-600">{t('status.progress')}</span>
             <span className="font-semibold text-slate-800">{progress}%</span>
           </div>
           <div className="w-full bg-slate-200 rounded-full h-2">
@@ -266,7 +270,7 @@ const ModuleCard = ({ title, description, status, progress, icon, color, link }:
               }
             }}
           >
-            {progress === 100 ? 'Access Module' : progress > 0 ? 'View Progress' : 'Learn More'}
+            {progress === 100 ? t('status.accessModule') : progress > 0 ? t('status.viewProgress') : t('status.learnMore')}
           </Button>
         </div>
       </CardContent>

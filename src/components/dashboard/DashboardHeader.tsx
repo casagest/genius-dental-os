@@ -5,14 +5,17 @@ import { Badge } from "@/components/ui/badge";
 import { Bell, Settings, User, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/ui/language-switcher";
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleNotifications = () => {
     toast({
-      title: "Notificări",
+      title: t('common.notifications'),
       description: "3 notificări noi disponibile",
     });
   };
@@ -27,7 +30,7 @@ const DashboardHeader = () => {
 
   const handleProfile = () => {
     toast({
-      title: "Profil Utilizator",
+      title: t('common.profile'),
       description: "Dr. Marin - Configurări profil disponibile în curând",
     });
   };
@@ -42,8 +45,8 @@ const DashboardHeader = () => {
               <span className="text-white font-bold text-lg">M</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-slate-800">MedicalCor GENIUS</h1>
-              <p className="text-sm text-slate-600">AI Operating System</p>
+              <h1 className="text-xl font-bold text-slate-800">{t('header.title')}</h1>
+              <p className="text-sm text-slate-600">{t('header.subtitle')}</p>
             </div>
           </div>
 
@@ -52,11 +55,14 @@ const DashboardHeader = () => {
             {/* Live Status */}
             <div className="hidden md:flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-slate-600">System Online</span>
+              <span className="text-sm text-slate-600">{t('header.systemOnline')}</span>
               <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
-                24/7 Active
+                {t('header.active24')}
               </Badge>
             </div>
+
+            
+            <LanguageSwitcher />
 
             {/* Action Buttons */}
             <Button 
@@ -77,7 +83,7 @@ const DashboardHeader = () => {
               onClick={handleChat}
             >
               <MessageSquare className="w-4 h-4 mr-2" />
-              AI Chat
+              {t('header.aiChat')}
             </Button>
 
             <Button 
@@ -94,7 +100,7 @@ const DashboardHeader = () => {
               onClick={handleProfile}
             >
               <User className="w-4 h-4 mr-2" />
-              Dr. Marin
+              {t('header.profile')}
             </Button>
           </div>
         </div>

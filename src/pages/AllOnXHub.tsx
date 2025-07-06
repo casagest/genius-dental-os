@@ -30,6 +30,10 @@ import {
   Cpu,
   Database
 } from "lucide-react";
+import CBCTAnalyzer from "@/components/cbct/CBCTAnalyzer";
+import SurgicalPlanningAI from "@/components/surgical/SurgicalPlanningAI";
+import RealTimeSurgicalMonitor from "@/components/surgical/RealTimeSurgicalMonitor";
+import AdvancedVoiceCommands from "@/components/voice/AdvancedVoiceCommands";
 
 // All-on-X Case Types
 interface AllOnXCase {
@@ -513,115 +517,58 @@ const AllOnXHub = () => {
             </Card>
           </TabsContent>
 
-          <TabsContent value="ai-planning">
-            <Card className="border-2 border-indigo-200">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Brain className="w-6 h-6 text-indigo-600" />
-                  <span>AI-Powered Surgical Planning</span>
-                </CardTitle>
-                <CardDescription>
-                  Advanced AI analysis pentru optimizarea pozițiilor implanturilor
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12">
-                  <div className="w-20 h-20 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Cpu className="w-10 h-10 text-indigo-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-800 mb-4">AI Planning Module</h3>
-                  <p className="text-slate-600 mb-6 max-w-2xl mx-auto">
-                    Bazat pe experiența MedicalCor cu 3000+ CBCT-uri și 1000+ proceduri All-on-X, 
-                    sistemul nostru AI oferă planificare chirurgicală de precizie.
-                  </p>
-                  <Button className="bg-indigo-600 hover:bg-indigo-700 text-lg px-8 py-3">
-                    <Brain className="w-5 h-5 mr-2" />
-                    Start AI Planning Session
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+          <TabsContent value="ai-planning" className="space-y-6">
+            <SurgicalPlanningAI 
+              caseId={selectedCase || "default"}
+              onPlanComplete={(plan) => {
+                toast({
+                  title: "AI Surgical Plan Generated",
+                  description: `Plan complet generat cu ${plan.aiAnalysis.successPrediction}% success rate`,
+                });
+              }}
+            />
           </TabsContent>
 
-          <TabsContent value="cbct-analysis">
-            <Card className="border-2 border-purple-200">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <Scan className="w-6 h-6 text-purple-600" />
-                  <span>CBCT AI Analysis Engine</span>
-                </CardTitle>
-                <CardDescription>
-                  Analiză automată CBCT cu algoritmi antrenați pe 3000+ scanuri MedicalCor
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-xl font-semibold text-slate-800 mb-4">Upload & Analyze CBCT</h3>
-                    <div className="border-2 border-dashed border-purple-300 rounded-lg p-8 text-center">
-                      <FileImage className="w-12 h-12 text-purple-400 mx-auto mb-4" />
-                      <p className="text-slate-600 mb-4">
-                        Drag & drop CBCT files sau click pentru upload
-                      </p>
-                      <Button variant="outline" className="border-purple-300 text-purple-600">
-                        <Camera className="w-4 h-4 mr-2" />
-                        Select CBCT Files
-                      </Button>
-                    </div>
-                    
-                    {cbctAnalysisRunning && (
-                      <div className="mt-6 p-4 bg-purple-50 rounded-lg">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-purple-600"></div>
-                          <span className="font-medium text-purple-800">AI Analysis Running...</span>
-                        </div>
-                        <Progress value={65} className="mb-2" />
-                        <p className="text-sm text-purple-600">
-                          Analyzing bone density, implant positions, risk factors...
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-xl font-semibold text-slate-800 mb-4">AI Capabilities</h3>
-                    <div className="space-y-4">
-                      <div className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
-                        <div>
-                          <h4 className="font-medium text-slate-800">Bone Density Analysis</h4>
-                          <p className="text-sm text-slate-600">Măsurare automată densitate osoasă în HU</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
-                        <div>
-                          <h4 className="font-medium text-slate-800">Optimal Implant Positioning</h4>
-                          <p className="text-sm text-slate-600">AI sugerează cele mai bune poziții pentru implanturi</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
-                        <div>
-                          <h4 className="font-medium text-slate-800">Risk Assessment</h4>
-                          <p className="text-sm text-slate-600">Identificare factori de risc și complicații potențiale</p>
-                        </div>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-1" />
-                        <div>
-                          <h4 className="font-medium text-slate-800">Success Prediction</h4>
-                          <p className="text-sm text-slate-600">Predicție rata de succes bazată pe experiența MedicalCor</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <TabsContent value="cbct-analysis" className="space-y-6">
+            <CBCTAnalyzer onAnalysisComplete={(result) => {
+              toast({
+                title: "CBCT Analysis Complete",
+                description: `AI a analizat scanul cu succes - ${result.aiScore.confidence}% confidence`,
+              });
+            }} />
           </TabsContent>
 
-          <TabsContent value="outcomes">
+          <TabsContent value="live-surgery" className="space-y-6">
+            <RealTimeSurgicalMonitor 
+              patientName={selectedCase ? allOnXCases.find(c => c.id === selectedCase)?.patientName || "Current Patient" : "Current Patient"}
+              caseId={selectedCase || "AOX-LIVE-001"}
+              isActive={selectedCase !== null}
+              onAlert={(alert) => {
+                toast({
+                  title: "Surgical Alert",
+                  description: alert,
+                  variant: "destructive"
+                });
+              }}
+            />
+          </TabsContent>
+
+          <TabsContent value="voice-control" className="space-y-6">
+            <AdvancedVoiceCommands 
+              isActive={selectedCase !== null}
+              patientContext={selectedCase ? allOnXCases.find(c => c.id === selectedCase)?.patientName : undefined}
+              surgicalStep={selectedCase ? allOnXCases.find(c => c.id === selectedCase)?.stage : undefined}
+              onCommandExecuted={(command) => {
+                toast({
+                  title: "Voice Command",
+                  description: command.response,
+                  variant: command.executed ? "default" : "destructive"
+                });
+              }}
+            />
+          </TabsContent>
+
+          <TabsContent value="outcomes" className="space-y-6">
             <Card className="border-2 border-green-200">
               <CardHeader>
                 <CardTitle className="flex items-center space-x-2">

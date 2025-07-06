@@ -139,6 +139,15 @@ const Index = () => {
         {/* AI Modules Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           <ModuleCard
+            title="All-on-X Hub"
+            description="State-of-Art Full Arch Rehabilitation + AI Analysis"
+            status="LIVE"
+            progress={100}
+            icon={<Calendar className="w-6 h-6" />}
+            color="bg-indigo-500"
+            link="/allonx"
+          />
+          <ModuleCard
             title="GENIUS Hub"
             description="Scheduling 24/7 + Chatbot AI + Interfață Vocală"
             status="LIVE"

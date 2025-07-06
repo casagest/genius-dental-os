@@ -3,10 +3,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Globe, Zap, RefreshCw, CheckCircle, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Globe, Zap, RefreshCw, CheckCircle, AlertCircle, Key } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { IStomaScraper } from '@/components/integrations/IStomaScraper';
 import { ZapierIntegration } from '@/components/integrations/ZapierIntegration';
+import { ApiKeyManager } from '@/components/ui/ApiKeyManager';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
 
 const IStomaIntegration = () => {
@@ -120,7 +121,7 @@ const IStomaIntegration = () => {
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="scraper" className="w-full">
-              <TabsList className="grid w-full grid-cols-3">
+              <TabsList className="grid w-full grid-cols-4">
                 <TabsTrigger value="scraper" className="flex items-center gap-2">
                   <Globe className="w-4 h-4" />
                   Web Scraping
@@ -128,6 +129,10 @@ const IStomaIntegration = () => {
                 <TabsTrigger value="zapier" className="flex items-center gap-2">
                   <Zap className="w-4 h-4" />
                   Zapier
+                </TabsTrigger>
+                <TabsTrigger value="api-keys" className="flex items-center gap-2">
+                  <Key className="w-4 h-4" />
+                  API Keys
                 </TabsTrigger>
                 <TabsTrigger value="automation" className="flex items-center gap-2">
                   <RefreshCw className="w-4 h-4" />
@@ -143,8 +148,28 @@ const IStomaIntegration = () => {
                 <ZapierIntegration />
               </TabsContent>
 
+              <TabsContent value="api-keys" className="mt-6">
+                <ApiKeyManager />
+              </TabsContent>
+
               <TabsContent value="automation" className="mt-6">
                 <div className="space-y-6">
+                  {/* API Keys Management Section */}
+                  <Card className="border-l-4 border-l-green-500">
+                    <CardHeader>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Key className="w-5 h-5 text-green-600" />
+                        Gestionare Chei API
+                      </CardTitle>
+                      <CardDescription>
+                        Administrați securizat cheile API pentru serviciile externe
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ApiKeyManager />
+                    </CardContent>
+                  </Card>
+
                   <Card className="border-l-4 border-l-primary">
                     <CardHeader>
                       <CardTitle className="text-lg">Automatizare Completă</CardTitle>

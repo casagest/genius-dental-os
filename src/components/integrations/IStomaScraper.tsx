@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,15 +19,31 @@ interface ScrapedData {
 
 export const IStomaScraper = () => {
   const { toast } = useToast();
-  const [apiKey, setApiKey] = useState(FirecrawlService.getApiKey() || '');
-  const [isApiKeySet, setIsApiKeySet] = useState(!!FirecrawlService.getApiKey());
+  const [apiKey, setApiKey] = useState('');
+  const [isApiKeySet, setIsApiKeySet] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [scrapedData, setScrapedData] = useState<ScrapedData[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
   
   // Specific iStoma URLs
   const [iStomaUrl, setIStomaUrl] = useState('');
   const [selectedDataType, setSelectedDataType] = useState<'programari' | 'pacienti' | 'rapoarte' | 'facturi'>('programari');
+
+  // Initialize API key state
+  const initializeApiKey = async () => {
+    const existingKey = await FirecrawlService.getApiKey();
+    if (existingKey) {
+      setApiKey(existingKey);
+      setIsApiKeySet(true);
+    }
+    setIsInitialized(true);
+  };
+
+  // Initialize on component mount
+  useEffect(() => {
+    initializeApiKey();
+  }, []);
 
   const handleApiKeySave = async () => {
     if (!apiKey.trim()) {
@@ -43,12 +59,20 @@ export const IStomaScraper = () => {
     const isValid = await FirecrawlService.testApiKey(apiKey);
     
     if (isValid) {
-      FirecrawlService.saveApiKey(apiKey);
-      setIsApiKeySet(true);
-      toast({
-        title: "Succes",
-        description: "Cheia API a fost salvată și validată",
-      });
+      const success = await FirecrawlService.saveApiKey(apiKey);
+      if (success) {
+        setIsApiKeySet(true);
+        toast({
+          title: "Succes",
+          description: "Cheia API a fost salvată securizat în Supabase",
+        });
+      } else {
+        toast({
+          title: "Eroare",
+          description: "Nu s-a putut salva cheia API în Supabase",
+          variant: "destructive",
+        });
+      }
     } else {
       toast({
         title: "Eroare",
@@ -136,6 +160,19 @@ export const IStomaScraper = () => {
       default: return 'Extrage conținutul general';
     }
   };
+
+  if (!isInitialized) {
+    return (
+      <Card className="medical-card">
+        <CardContent className="p-8">
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+            <span className="ml-2">Se încarcă...</span>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
 
   if (!isApiKeySet) {
     return (

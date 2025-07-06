@@ -12,6 +12,7 @@ import {
   Activity, TrendingUp, Users, Calendar, DollarSign, Clock, 
   AlertTriangle, Heart, Stethoscope, Pill, RefreshCw
 } from 'lucide-react';
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Sample live data - în realitate ar veni de la API
 const generateLiveData = () => ({
@@ -52,6 +53,7 @@ const generateLiveData = () => ({
 const MedicalDashboard = () => {
   const [liveData, setLiveData] = useState(generateLiveData());
   const [lastUpdate, setLastUpdate] = useState(new Date());
+  const { t } = useLanguage();
 
   // Simulare actualizare live data
   useEffect(() => {
@@ -75,57 +77,57 @@ const MedicalDashboard = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent">
-              Dashboard Medical - Live KPIs
+              {t('medical.title')}
             </h1>
             <p className="text-slate-600 mt-2">
-              Monitorizare în timp real - ultimul update: {lastUpdate.toLocaleTimeString('ro-RO')}
+              {t('medical.subtitle')}: {lastUpdate.toLocaleTimeString('ro-RO')}
             </p>
           </div>
           <Button onClick={refreshData} className="space-x-2">
             <RefreshCw className="w-4 h-4" />
-            <span>Actualizează</span>
+            <span>{t('common.refresh')}</span>
           </Button>
         </div>
 
         {/* Live Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-8">
           <StatsCard
-            title="Pacienți Astăzi"
+            title={t('medical.patientsToday')}
             value={liveData.dailyStats.patientsToday}
             icon={<Users className="w-5 h-5" />}
             trend="+12%"
             color="text-blue-600 bg-blue-100"
           />
           <StatsCard
-            title="Programări Finalizate"
+            title={t('medical.appointmentsCompleted')}
             value={liveData.dailyStats.appointmentsCompleted}
             icon={<Calendar className="w-5 h-5" />}
             trend="+8%"
             color="text-green-600 bg-green-100"
           />
           <StatsCard
-            title="Venit Astăzi"
+            title={t('medical.todayRevenue')}
             value={`${liveData.dailyStats.revenue.toLocaleString()} RON`}
             icon={<DollarSign className="w-5 h-5" />}
             trend="+15%"
             color="text-emerald-600 bg-emerald-100"
           />
           <StatsCard
-            title="Timp Așteptare"
+            title={t('medical.waitTime')}
             value={`${liveData.dailyStats.avgWaitTime} min`}
             icon={<Clock className="w-5 h-5" />}
             trend="-5%"
             color="text-orange-600 bg-orange-100"
           />
           <StatsCard
-            title="Satisfacție"
+            title={t('medical.satisfaction')}
             value={`${liveData.dailyStats.patientSatisfaction}%`}
             icon={<Heart className="w-5 h-5" />}
             trend="+3%"
             color="text-pink-600 bg-pink-100"
           />
           <StatsCard
-            title="Urgențe"
+            title={t('medical.emergencies')}
             value={liveData.dailyStats.emergencyCases}
             icon={<AlertTriangle className="w-5 h-5" />}
             trend="0%"
@@ -136,10 +138,10 @@ const MedicalDashboard = () => {
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsList className="grid w-fit grid-cols-4 bg-white border-2">
-            <TabsTrigger value="overview">Vizualizare Generală</TabsTrigger>
-            <TabsTrigger value="patients">Pacienți</TabsTrigger>
-            <TabsTrigger value="treatments">Tratamente</TabsTrigger>
-            <TabsTrigger value="financial">Financiar</TabsTrigger>
+            <TabsTrigger value="overview">{t('medical.generalOverview')}</TabsTrigger>
+            <TabsTrigger value="patients">{t('medical.patients')}</TabsTrigger>
+            <TabsTrigger value="treatments">{t('medical.treatments')}</TabsTrigger>
+            <TabsTrigger value="financial">{t('medical.financial')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">

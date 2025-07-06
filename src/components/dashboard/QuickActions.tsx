@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,7 @@ const QuickActions = () => {
     } else {
       toast({
         title: actionTitle,
-        description: "Funcționalitatea va fi disponibilă în curând",
+        description: t('common.comingSoon') || "Funcționalitatea va fi disponibilă în curând",
       });
     }
   };

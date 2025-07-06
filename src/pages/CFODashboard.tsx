@@ -110,11 +110,11 @@ const CFODashboard = () => {
           <div className="flex space-x-3">
             <Button onClick={refreshData} variant="outline" className="space-x-2">
               <RefreshCw className="w-4 h-4" />
-              <span>Refresh</span>
+              <span>{t('cfo.refresh')}</span>
             </Button>
             <Button className="space-x-2 bg-emerald-600 hover:bg-emerald-700">
               <Download className="w-4 h-4" />
-              <span>Export Report</span>
+              <span>{t('cfo.export')}</span>
             </Button>
           </div>
         </div>
@@ -122,56 +122,56 @@ const CFODashboard = () => {
         {/* Real-time KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-4 mb-8">
           <FinancialKPI
-            title="Venit Lunar"
+            title={t('cfo.monthlyRevenue')}
             value={`${financialData.kpis.monthlyRevenue.toLocaleString()} RON`}
             icon={<DollarSign className="w-5 h-5" />}
             trend="+12.5%"
             color="text-emerald-600 bg-emerald-100"
           />
           <FinancialKPI
-            title="Cheltuieli"
+            title={t('cfo.expenses')}
             value={`${financialData.kpis.monthlyExpenses.toLocaleString()} RON`}
             icon={<CreditCard className="w-5 h-5" />}
             trend="+8.2%"
             color="text-red-600 bg-red-100"
           />
           <FinancialKPI
-            title="Profit Net"
+            title={t('cfo.netProfit')}
             value={`${financialData.kpis.profit.toLocaleString()} RON`}
             icon={<TrendingUp className="w-5 h-5" />}
             trend="+18.7%"
             color="text-green-600 bg-green-100"
           />
           <FinancialKPI
-            title="Marja Profit"
+            title={t('cfo.profitMargin')}
             value={`${profitMargin}%`}
             icon={<Target className="w-5 h-5" />}
             trend="+2.1%"
             color="text-blue-600 bg-blue-100"
           />
           <FinancialKPI
-            title="Valoare Medie"
+            title={t('cfo.avgValue')}
             value={`${financialData.kpis.avgTreatmentValue} RON`}
             icon={<Calculator className="w-5 h-5" />}
             trend="+15.3%"
             color="text-purple-600 bg-purple-100"
           />
           <FinancialKPI
-            title="Rata Colectare"
+            title={t('cfo.collectionRate')}
             value={`${financialData.kpis.collectionRate}%`}
             icon={<PiggyBank className="w-5 h-5" />}
             trend="+5.2%"
             color="text-orange-600 bg-orange-100"
           />
           <FinancialKPI
-            title="Cash Flow"
+            title={t('cfo.cashFlow')}
             value={`${financialData.kpis.cashFlow.toLocaleString()} RON`}
             icon={<Building className="w-5 h-5" />}
             trend="+22.1%"
             color="text-indigo-600 bg-indigo-100"
           />
           <FinancialKPI
-            title="Cresc. Pacienți"
+            title={t('cfo.patientGrowth')}
             value={`+${financialData.kpis.patientGrowth}%`}
             icon={<Users className="w-5 h-5" />}
             trend="+3.2%"
@@ -182,11 +182,11 @@ const CFODashboard = () => {
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
           <TabsList className="grid w-fit grid-cols-5 bg-white border-2">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="revenue">Revenue Analysis</TabsTrigger>
-            <TabsTrigger value="expenses">Expense Management</TabsTrigger>
-            <TabsTrigger value="predictions">AI Predictions</TabsTrigger>
-            <TabsTrigger value="reports">Financial Reports</TabsTrigger>
+            <TabsTrigger value="overview">{t('nav.overview')}</TabsTrigger>
+            <TabsTrigger value="revenue">{t('nav.revenue')}</TabsTrigger>
+            <TabsTrigger value="expenses">{t('nav.expenses')}</TabsTrigger>
+            <TabsTrigger value="predictions">{t('nav.predictions')}</TabsTrigger>
+            <TabsTrigger value="reports">{t('nav.reports')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
@@ -196,9 +196,9 @@ const CFODashboard = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <TrendingUp className="w-5 h-5 text-emerald-600" />
-                    <span>Tendințe Financiare</span>
+                    <span>{t('cfo.financialTrends')}</span>
                   </CardTitle>
-                  <CardDescription>Analiza performanței financiare lunare</CardDescription>
+                  <CardDescription>{t('medical.monthlyPerformance')}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <ResponsiveContainer width="100%" height={350}>
@@ -221,7 +221,7 @@ const CFODashboard = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
                     <Target className="w-5 h-5 text-blue-600" />
-                    <span>Evoluția Marjei de Profit</span>
+                    <span>{t('cfo.profitMarginEvolution')}</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>

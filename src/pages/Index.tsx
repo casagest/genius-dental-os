@@ -167,10 +167,11 @@ const Index = () => {
           <ModuleCard
             title="Clinical Agent"
             description="AI Diagnostics + Transcriere Vocală"
-            status="CONCEPT"
-            progress={10}
+            status="LIVE"
+            progress={100}
             icon={<MessageSquare className="w-6 h-6" />}
             color="bg-purple-500"
+            link="/clinical"
           />
           <ModuleCard
             title="AI Marketing"

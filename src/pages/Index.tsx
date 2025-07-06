@@ -158,10 +158,11 @@ const Index = () => {
           <ModuleCard
             title="InventoryBrain"
             description="Auto-reorder + QR Scan + Voice Control"
-            status="PLANNING"
-            progress={25}
+            status="LIVE"
+            progress={100}
             icon={<Search className="w-6 h-6" />}
             color="bg-orange-500"
+            link="/inventory"
           />
           <ModuleCard
             title="Clinical Agent"

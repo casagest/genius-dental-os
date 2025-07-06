@@ -40,15 +40,15 @@ const StatsGrid = () => {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
       {stats.map((stat, index) => (
-        <Card key={index} className="hover:shadow-lg transition-shadow duration-300 border-2 hover:border-blue-200">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className={`p-2 rounded-lg bg-slate-100 ${stat.color}`}>
+        <Card key={index} className="group hover:shadow-xl hover:shadow-blue-100/20 transition-all duration-300 hover:-translate-y-1 border-0 shadow-md bg-white/90 backdrop-blur-sm">
+          <CardContent className="p-4 sm:p-5 lg:p-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <div className={`p-2 sm:p-3 rounded-xl bg-slate-100 ${stat.color} group-hover:scale-110 transition-transform duration-300`}>
                 {stat.icon}
               </div>
-              <div className={`text-sm font-medium px-2 py-1 rounded-full ${
+              <div className={`text-xs sm:text-sm font-medium px-2 py-1 rounded-full ${
                 stat.changeType === 'positive' 
                   ? 'bg-green-100 text-green-700' 
                   : stat.changeType === 'negative'
@@ -58,9 +58,9 @@ const StatsGrid = () => {
                 {stat.change}
               </div>
             </div>
-            <div className="mt-4">
-              <div className="text-2xl font-bold text-slate-800">{stat.value}</div>
-              <div className="text-sm text-slate-600">{stat.label}</div>
+            <div>
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800 mb-1">{stat.value}</div>
+              <div className="text-xs sm:text-sm text-slate-600 line-clamp-2">{stat.label}</div>
             </div>
           </CardContent>
         </Card>

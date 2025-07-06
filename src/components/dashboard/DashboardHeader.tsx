@@ -36,44 +36,45 @@ const DashboardHeader = () => {
   };
 
   return (
-    <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50">
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+    <header className="bg-white/90 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 shadow-sm">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
+        <div className="flex items-center justify-between py-3 sm:py-4">
           {/* Logo & Title */}
-          <div className="flex items-center space-x-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">M</span>
+          <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1 sm:flex-none">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center flex-shrink-0">
+              <span className="text-white font-bold text-sm sm:text-lg">M</span>
             </div>
-            <div>
-              <h1 className="text-xl font-bold text-slate-800">{t('header.title')}</h1>
-              <p className="text-sm text-slate-600">{t('header.subtitle')}</p>
+            <div className="min-w-0">
+              <h1 className="text-base sm:text-xl font-bold text-slate-800 truncate">{t('header.title')}</h1>
+              <p className="text-xs sm:text-sm text-slate-600 truncate hidden sm:block">{t('header.subtitle')}</p>
             </div>
           </div>
 
           {/* Status & Actions */}
-          <div className="flex items-center space-x-4">
-            {/* Live Status */}
-            <div className="hidden md:flex items-center space-x-2">
+          <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-4 flex-shrink-0">
+            {/* Live Status - Hidden on mobile */}
+            <div className="hidden lg:flex items-center space-x-2">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-sm text-slate-600">{t('header.systemOnline')}</span>
-              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 text-xs">
                 {t('header.active24')}
               </Badge>
             </div>
 
-            
-            <LanguageSwitcher />
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
 
             {/* Action Buttons */}
             <Button 
               variant="outline" 
               size="sm" 
-              className="relative"
+              className="relative p-2 sm:px-3"
               onClick={handleNotifications}
             >
               <Bell className="w-4 h-4" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
-                3
+              <span className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
+                <span className="hidden sm:inline">3</span>
               </span>
             </Button>
             
@@ -81,28 +82,35 @@ const DashboardHeader = () => {
               variant="outline" 
               size="sm"
               onClick={handleChat}
+              className="hidden sm:flex"
             >
               <MessageSquare className="w-4 h-4 mr-2" />
-              {t('header.aiChat')}
+              <span className="hidden lg:inline">{t('header.aiChat')}</span>
             </Button>
 
             <Button 
               variant="outline" 
               size="sm"
               onClick={handleSettings}
+              className="p-2 sm:px-3"
             >
               <Settings className="w-4 h-4" />
             </Button>
 
             <Button 
               size="sm" 
-              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 p-2 sm:px-3"
               onClick={handleProfile}
             >
-              <User className="w-4 h-4 mr-2" />
-              {t('header.profile')}
+              <User className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">{t('header.profile')}</span>
             </Button>
           </div>
+        </div>
+        
+        {/* Mobile-only bottom section for language switcher */}
+        <div className="sm:hidden pb-3 border-t border-slate-200/50 pt-3 flex justify-center">
+          <LanguageSwitcher />
         </div>
       </div>
     </header>

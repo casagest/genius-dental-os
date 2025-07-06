@@ -35,33 +35,32 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-white">
       <DashboardHeader />
       
-      <main className="container mx-auto px-4 py-8 space-y-8">
+      <main className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 space-y-6 sm:space-y-8 lg:space-y-12">
         {/* Hero Section */}
-        <div className="text-center space-y-4 mb-12">
-          <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium mb-4">
+        <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12 lg:mb-16">
+          <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
             <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></div>
             {t('home.tagline')}
           </div>
-          <h1 className="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent leading-tight">
-            {t('home.title1')}
-            <br />
-            <span className="text-slate-800">{t('home.title2')}</span>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent leading-tight px-4">
+            <span className="block">{t('home.title1')}</span>
+            <span className="block text-slate-800">{t('home.title2')}</span>
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto px-4">
             {t('home.description')}
           </p>
           
           {/* Voice Interface Controls */}
-          <div className="flex justify-center space-x-4 mt-6">
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 px-4">
             <Button
               onClick={() => setShowVoiceSettings(true)}
               variant="outline"
-              className="bg-white/80 hover:bg-white"
+              className="bg-white/80 hover:bg-white w-full sm:w-auto"
             >
               <Settings className="w-4 h-4 mr-2" />
               {t('home.voiceConfig')}
             </Button>
-            <Badge variant="secondary" className="px-4 py-2">
+            <Badge variant="secondary" className="px-4 py-2 w-full sm:w-auto justify-center">
               <Mic className="w-4 h-4 mr-2" />
               {t('home.voiceActive')}
             </Badge>
@@ -235,35 +234,35 @@ const ModuleCard = ({ title, description, status, progress, icon, color, link }:
   };
 
   return (
-    <Card className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-2 hover:border-blue-200">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <div className={`p-2 rounded-lg ${color} text-white`}>
+    <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:bg-white">
+      <CardHeader className="pb-3 p-4 sm:p-6">
+        <div className="flex items-center justify-between mb-3">
+          <div className={`p-2 sm:p-3 rounded-xl ${color} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
             {icon}
           </div>
-          <Badge className={`text-xs font-medium border ${getStatusColor(status)}`}>
+          <Badge className={`text-xs font-medium border px-2 py-1 sm:px-3 sm:py-1.5 ${getStatusColor(status)}`}>
             {status}
           </Badge>
         </div>
-        <CardTitle className="text-lg font-bold text-slate-800">{title}</CardTitle>
-        <CardDescription className="text-sm text-slate-600">{description}</CardDescription>
+        <CardTitle className="text-base sm:text-lg font-bold text-slate-800 leading-tight">{title}</CardTitle>
+        <CardDescription className="text-xs sm:text-sm text-slate-600 line-clamp-2">{description}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm">
+      <CardContent className="p-4 sm:p-6 pt-0">
+        <div className="space-y-3 sm:space-y-4">
+          <div className="flex items-center justify-between text-xs sm:text-sm">
             <span className="text-slate-600">{t('status.progress')}</span>
             <span className="font-semibold text-slate-800">{progress}%</span>
           </div>
           <div className="w-full bg-slate-200 rounded-full h-2">
             <div 
-              className={`h-2 rounded-full transition-all duration-500 ${color}`}
+              className={`h-2 rounded-full transition-all duration-700 ${color} shadow-sm`}
               style={{ width: `${progress}%` }}
             ></div>
           </div>
           <Button 
             variant="outline" 
             size="sm" 
-            className="w-full group-hover:bg-blue-50 group-hover:border-blue-300 transition-colors"
+            className="w-full group-hover:bg-blue-50 group-hover:border-blue-300 transition-all duration-300 text-xs sm:text-sm py-2 sm:py-3"
             onClick={() => {
               if (link && progress === 100) {
                 window.location.href = link;

@@ -46,12 +46,12 @@ const CFODashboard = () => {
 
         {/* Main Dashboard Tabs */}
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-fit grid-cols-5 bg-white border-2">
-            <TabsTrigger value="overview">{t('nav.overview')}</TabsTrigger>
-            <TabsTrigger value="revenue">{t('nav.revenue')}</TabsTrigger>
-            <TabsTrigger value="expenses">{t('nav.expenses')}</TabsTrigger>
-            <TabsTrigger value="predictions">{t('nav.predictions')}</TabsTrigger>
-            <TabsTrigger value="reports">{t('nav.reports')}</TabsTrigger>
+          <TabsList className="grid w-fit grid-cols-5 bg-white border-2 text-xs">
+            <TabsTrigger value="overview" className="px-2 py-1">Overview</TabsTrigger>
+            <TabsTrigger value="revenue" className="px-2 py-1">Venituri</TabsTrigger>
+            <TabsTrigger value="expenses" className="px-2 py-1">Cheltuieli</TabsTrigger>
+            <TabsTrigger value="predictions" className="px-2 py-1">AI</TabsTrigger>
+            <TabsTrigger value="reports" className="px-2 py-1">Rapoarte</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">

@@ -1,6 +1,4 @@
 import FirecrawlApp from '@mendable/firecrawl-js';
-import { ApiKeysManager } from '@/lib/supabase';
-import { supabase } from '@/lib/supabase';
 
 interface ErrorResponse {
   success: false;
@@ -20,28 +18,17 @@ interface CrawlStatusResponse {
 type CrawlResponse = CrawlStatusResponse | ErrorResponse;
 
 export class FirecrawlService {
+  private static API_KEY_STORAGE_KEY = 'firecrawl_api_key';
   private static firecrawlApp: FirecrawlApp | null = null;
 
-  static async saveApiKey(apiKey: string): Promise<boolean> {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) {
-      console.error('User not authenticated');
-      return false;
-    }
-
-    const success = await ApiKeysManager.saveApiKey('firecrawl', apiKey, user.id);
-    if (success) {
-      this.firecrawlApp = new FirecrawlApp({ apiKey });
-      console.log('API key saved securely');
-    }
-    return success;
+  static saveApiKey(apiKey: string): void {
+    localStorage.setItem(this.API_KEY_STORAGE_KEY, apiKey);
+    this.firecrawlApp = new FirecrawlApp({ apiKey });
+    console.log('API key saved successfully');
   }
 
-  static async getApiKey(): Promise<string | null> {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return null;
-    
-    return await ApiKeysManager.getApiKey('firecrawl', user.id);
+  static getApiKey(): string | null {
+    return localStorage.getItem(this.API_KEY_STORAGE_KEY);
   }
 
   static async testApiKey(apiKey: string): Promise<boolean> {
@@ -58,9 +45,9 @@ export class FirecrawlService {
   }
 
   static async scrapeIStoma(url: string): Promise<{ success: boolean; error?: string; data?: any }> {
-    const apiKey = await this.getApiKey();
+    const apiKey = this.getApiKey();
     if (!apiKey) {
-      return { success: false, error: 'API key not found. Please configure your Firecrawl API key first.' };
+      return { success: false, error: 'API key not found' };
     }
 
     try {
@@ -99,9 +86,9 @@ export class FirecrawlService {
   }
 
   static async crawlIStoma(startUrl: string): Promise<{ success: boolean; error?: string; data?: any }> {
-    const apiKey = await this.getApiKey();
+    const apiKey = this.getApiKey();
     if (!apiKey) {
-      return { success: false, error: 'API key not found. Please configure your Firecrawl API key first.' };
+      return { success: false, error: 'API key not found' };
     }
 
     try {

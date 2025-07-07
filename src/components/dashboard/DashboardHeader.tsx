@@ -50,17 +50,25 @@ const DashboardHeader = () => {
   };
 
   return (
-    <header className="bg-white/90 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 shadow-sm">
-      <div className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8">
-        <div className="flex items-center justify-between py-3 sm:py-4">
-          {/* Logo & Title */}
-          <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1 sm:flex-none">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-bold text-sm sm:text-lg">M</span>
+    <header className="bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-slate-900/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 shadow-2xl">
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 animate-pulse-slow"></div>
+      <div className="relative container mx-auto px-6">
+        <div className="flex items-center justify-between py-4">
+          {/* Revolutionary Logo & Branding */}
+          <div className="flex items-center space-x-4">
+            <div className="relative group">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-400/70 transition-all duration-300 animate-heartbeat">
+                <span className="text-white font-black text-xl">M</span>
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
+              </div>
             </div>
-            <div className="min-w-0">
-              <h1 className="text-base sm:text-xl font-bold text-slate-800 truncate">{t('header.title')}</h1>
-              <p className="text-xs sm:text-sm text-slate-600 truncate hidden sm:block">{t('header.subtitle')}</p>
+            <div>
+              <h1 className="text-2xl font-black bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
+                MedicalCor GENIUS
+              </h1>
+              <p className="text-sm text-blue-200/80 font-medium">
+                Prima platformă AI dentară din România
+              </p>
             </div>
           </div>
 

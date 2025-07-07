@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/ui/language-switcher";
+import { Link } from "react-router-dom";
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
@@ -55,9 +56,9 @@ const DashboardHeader = () => {
       <div className="relative container mx-auto px-6">
         <div className="flex items-center justify-between py-4">
           {/* Revolutionary Logo & Branding */}
-          <div className="flex items-center space-x-4">
+          <Link to="/" className="flex items-center space-x-4 hover:opacity-80 transition-opacity duration-200">
             <div className="relative group">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-400/70 transition-all duration-300 animate-heartbeat">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-400/70 transition-all duration-300 animate-heartbeat cursor-pointer">
                 <span className="text-white font-black text-xl">M</span>
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
               </div>
@@ -70,7 +71,7 @@ const DashboardHeader = () => {
                 Prima platformă AI dentară din România
               </p>
             </div>
-          </div>
+          </Link>
 
           {/* Role Selector & Voice Interface */}
           <div className="hidden lg:flex items-center space-x-4">

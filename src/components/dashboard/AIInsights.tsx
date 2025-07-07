@@ -1,9 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageSquare, TrendingUp, AlertTriangle, Lightbulb, RefreshCw } from "lucide-react";
+import { MessageSquare, TrendingUp, AlertTriangle, Lightbulb, RefreshCw, Brain, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -19,15 +17,6 @@ const AIInsights = () => {
       case 'inventory_alert': return <AlertTriangle className="w-4 h-4" />;
       case 'patient_behavior': return <Lightbulb className="w-4 h-4" />;
       default: return <MessageSquare className="w-4 h-4" />;
-    }
-  };
-
-  const getColorForType = (type: string) => {
-    switch (type) {
-      case 'revenue_optimization': return "border-green-500 bg-green-50";
-      case 'inventory_alert': return "border-orange-500 bg-orange-50";
-      case 'patient_behavior': return "border-blue-500 bg-blue-50";
-      default: return "border-slate-500 bg-slate-50";
     }
   };
 
@@ -58,8 +47,7 @@ const AIInsights = () => {
       if (data.insights && data.insights.length > 0) {
         setInsights(data.insights.map(insight => ({
           ...insight,
-          icon: getIconForType(insight.type),
-          color: getColorForType(insight.type)
+          icon: getIconForType(insight.type)
         })));
         setAccuracy(Math.min(95, accuracy + Math.floor(Math.random() * 3)));
       }
@@ -85,8 +73,7 @@ const AIInsights = () => {
           message: "AI detectează că marți 10:00-12:00 ai rata de no-show scăzută (2%). Recomand să programezi cazuri complexe în acest slot.",
           confidence: 94,
           impact: "high",
-          icon: <TrendingUp className="w-4 h-4" />,
-          color: "border-green-500 bg-green-50"
+          icon: <TrendingUp className="w-4 h-4" />
         }
       ]);
     } finally {
@@ -100,94 +87,128 @@ const AIInsights = () => {
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
-      case 'high': return 'bg-green-100 text-green-800 border-green-200';
-      case 'medium': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'low': return 'bg-slate-100 text-slate-600 border-slate-200';
-      default: return 'bg-slate-100 text-slate-600 border-slate-200';
+      case 'high': return 'bg-success/10 text-success border-success/20';
+      case 'medium': return 'bg-warning/10 text-warning border-warning/20';
+      case 'low': return 'bg-muted/10 text-muted-foreground border-muted/20';
+      default: return 'bg-muted/10 text-muted-foreground border-muted/20';
     }
   };
 
   return (
-    <Card className="border-2 hover:border-blue-200 transition-colors">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="text-xl text-slate-800 flex items-center">
-              <div className="p-2 bg-purple-100 rounded-lg mr-3">
-                <MessageSquare className="w-5 h-5 text-purple-600" />
+    <div className="medical-card-revolutionary hover-lift animate-fade-in">
+      <div className="holographic-border">
+        <div className="holographic-content">
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center space-x-4">
+              <div className="ai-indicator">
+                <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-neural">
+                  <Brain className="w-6 h-6 text-white animate-neural-pulse" />
+                </div>
               </div>
-              AI Insights
-            </CardTitle>
-            <CardDescription>
-              Recomandări inteligente pentru optimizare
-            </CardDescription>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Badge className="bg-purple-100 text-purple-700 border-purple-200">
-              {insights.length} {isLoading ? 'Updating...' : 'New'}
-            </Badge>
-            <Button
-              onClick={generateAIInsights}
-              disabled={isLoading}
-              size="sm"
-              variant="outline"
-              className="h-8 w-8 p-0"
-            >
-              <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-            </Button>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {insights.map((insight, index) => (
-            <div key={index} className={`p-4 rounded-lg border-2 ${insight.color} hover:shadow-md transition-shadow`}>
-              <div className="flex items-start justify-between mb-3">
+              <div className="space-y-1">
+                <h3 className="text-xl font-bold text-holographic">🧠 AI Insights GENIUS</h3>
                 <div className="flex items-center space-x-2">
-                  <div className="text-slate-600">
-                    {insight.icon}
+                  <div className="w-2 h-2 bg-success rounded-full animate-vital-pulse"></div>
+                  <span className="text-neural text-sm">Recomandări inteligente pentru optimizare</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <div className="neural-pulse px-3 py-1.5 rounded-full">
+                <span className="text-xs font-bold text-white">
+                  {insights.length} {isLoading ? 'Updating...' : 'New'}
+                </span>
+              </div>
+              <button
+                onClick={generateAIInsights}
+                disabled={isLoading}
+                className="ai-indicator p-2 rounded-lg cursor-pointer hover:scale-110 transition-transform"
+              >
+                <RefreshCw className={`w-4 h-4 text-white ${isLoading ? 'animate-spin' : 'animate-neural-pulse'}`} />
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-4 mb-6">
+            {insights.map((insight, index) => (
+              <div 
+                key={index} 
+                className="glass-card hover-quantum animate-slide-in-left"
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <div className="p-5">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div className="ai-indicator">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-accent flex items-center justify-center">
+                          <div className="text-white animate-bounce-subtle">
+                            {insight.icon}
+                          </div>
+                        </div>
+                      </div>
+                      <span className="font-bold text-holographic">{insight.title}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Badge className={`text-xs border ${getImpactColor(insight.impact)}`}>
+                        {insight.impact?.toUpperCase()}
+                      </Badge>
+                      <div className="flex items-center space-x-1">
+                        <Zap className="w-3 h-3 text-quantum animate-pulse" />
+                        <span className="text-xs text-quantum font-bold">{insight.confidence}%</span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="font-semibold text-slate-800 text-sm">{insight.title}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Badge className={`text-xs ${getImpactColor(insight.impact)}`}>
-                    {insight.impact.toUpperCase()}
-                  </Badge>
-                  <span className="text-xs text-slate-500">{insight.confidence}% confidence</span>
+                  
+                  <p className="text-sm text-neural mb-4 leading-relaxed">
+                    {insight.message}
+                  </p>
+                  
+                  <div className="flex space-x-3">
+                    <div className="btn-neural text-xs px-4 py-2 rounded-full cursor-pointer">
+                      Apply Suggestion
+                    </div>
+                    <div className="glass-card px-4 py-2 text-xs cursor-pointer hover:bg-card/80 transition-colors rounded-full">
+                      Learn More
+                    </div>
+                  </div>
                 </div>
               </div>
-              <p className="text-sm text-slate-700 mb-3 leading-relaxed">
-                {insight.message}
-              </p>
-              <div className="flex space-x-2">
-                <Button size="sm" variant="outline" className="text-xs">
-                  Apply Suggestion
-                </Button>
-                <Button size="sm" variant="ghost" className="text-xs">
-                  Learn More
-                </Button>
+            ))}
+          </div>
+          
+          <div className="neuro-card p-5 animate-pulse-glow">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <div className="ai-indicator">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-secondary flex items-center justify-center">
+                    <Brain className="w-4 h-4 text-white animate-neural-pulse" />
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-bold text-holographic">🚀 AI Learning Progress</h4>
+                  <p className="text-xs text-neural">MedicalCor data analyzed: 2,847 appointments, 156 lab cases</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <div className="text-2xl font-black text-holographic-1">{accuracy}%</div>
+                <div className="text-xs text-quantum font-medium">Accuracy Score</div>
               </div>
             </div>
-          ))}
-        </div>
-        
-        <div className="mt-6 p-4 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="font-semibold text-slate-800">AI Learning Progress</h4>
-              <p className="text-sm text-slate-600">MedicalCor data analyzed: 2,847 appointments, 156 lab cases</p>
-            </div>
-            <div className="text-right">
-              <div className="text-lg font-bold text-blue-600">{accuracy}%</div>
-              <div className="text-xs text-slate-500">Accuracy Score</div>
+            
+            <div className="relative">
+              <div className="w-full bg-card/30 rounded-full h-3 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-primary rounded-full animate-neural-pulse shadow-neural" 
+                  style={{ width: `${accuracy}%` }}
+                ></div>
+              </div>
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-slide-shimmer"></div>
             </div>
           </div>
-          <div className="mt-3 w-full bg-slate-200 rounded-full h-2">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full" style={{ width: `${accuracy}%` }}></div>
-          </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

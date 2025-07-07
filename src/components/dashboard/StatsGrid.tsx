@@ -60,44 +60,57 @@ const StatsGrid = () => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
       {stats.map((stat, index) => (
-        <Card 
+        <div 
           key={index} 
-          className={`group hover:shadow-xl hover:shadow-blue-100/20 transition-all duration-300 hover:-translate-y-1 border-0 shadow-md bg-white/90 backdrop-blur-sm ${
-            stat.clickable ? 'cursor-pointer hover:shadow-lg' : ''
+          className={`group hover-quantum cursor-pointer animate-scale-in ${
+            index === 0 ? 'neuro-card' : 
+            index === 1 ? 'ai-card' : 
+            index === 2 ? 'glass-card' : 
+            'medical-card-revolutionary'
           }`}
+          style={{ animationDelay: `${index * 200}ms` }}
           onClick={() => stat.clickable && handleStatClick(stat)}
         >
-          <CardContent className="p-4 sm:p-5 lg:p-6">
-            <div className="flex items-center justify-between mb-3 sm:mb-4">
-              <div className={`p-2 sm:p-3 rounded-xl bg-slate-100 ${stat.color} group-hover:scale-110 transition-transform duration-300`}>
-                {stat.icon}
+          <div className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <div className="ai-indicator">
+                <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-neural group-hover:scale-110 transition-transform">
+                  <div className="text-white animate-neural-pulse">
+                    {stat.icon}
+                  </div>
+                </div>
               </div>
-              <div className={`text-xs sm:text-sm font-medium px-2 py-1 rounded-full ${
+              <div className={`text-xs font-bold px-3 py-1.5 rounded-full border ${
                 stat.changeType === 'positive' 
-                  ? 'bg-green-100 text-green-700' 
+                  ? 'bg-success/10 text-success border-success/20' 
                   : stat.changeType === 'negative'
-                  ? 'bg-red-100 text-red-700'
-                  : 'bg-blue-100 text-blue-700'
+                  ? 'bg-destructive/10 text-destructive border-destructive/20'
+                  : 'bg-quantum/10 text-quantum border-quantum/20'
               }`}>
                 {stat.change}
               </div>
             </div>
-            <div className="space-y-2">
-              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-slate-800">{stat.value}</div>
-              <div className="text-xs sm:text-sm text-slate-600 font-medium">{stat.label}</div>
-              <div className="text-xs text-slate-500">{stat.context}</div>
+            
+            <div className="space-y-3">
+              <div className="text-3xl font-black text-holographic group-hover:text-holographic-1 transition-colors">
+                {stat.value}
+              </div>
+              <div className="text-sm font-bold text-neural">{stat.label}</div>
+              <div className="text-xs text-muted-foreground">{stat.context}</div>
+              
               {stat.clickable && (
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                  <Button variant="ghost" size="sm" className="text-xs p-1 h-6 text-blue-600 hover:text-blue-700">
-                    {stat.actionText} →
-                  </Button>
+                <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                  <div className="btn-neural text-xs px-3 py-1.5 rounded-full inline-flex items-center space-x-2">
+                    <span>{stat.actionText}</span>
+                    <div className="w-1 h-1 bg-white rounded-full animate-bounce-subtle"></div>
+                  </div>
                 </div>
               )}
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ))}
     </div>
   );

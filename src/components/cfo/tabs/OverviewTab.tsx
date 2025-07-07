@@ -33,7 +33,7 @@ export const OverviewTab = ({ financialData }: OverviewTabProps) => {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip />
+                <Tooltip formatter={(value, name) => [value.toLocaleString(), name]} />
                 <Legend />
                 <Area type="monotone" dataKey="revenue" stackId="1" stroke="#10b981" fill="#10b981" fillOpacity={0.3} name="Venit (RON)" />
                 <Area type="monotone" dataKey="expenses" stackId="2" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} name="Cheltuieli (RON)" />

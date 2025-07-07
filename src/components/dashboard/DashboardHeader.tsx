@@ -1,8 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Settings, User, MessageSquare } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Bell, Settings, User, MessageSquare, Mic, MicOff, Stethoscope, Users, Calendar, BarChart3, Megaphone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -12,11 +13,24 @@ const DashboardHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useLanguage();
+  const [isVoiceActive, setIsVoiceActive] = useState(false);
+  const [userRole, setUserRole] = useState('medic');
+
+  const roles = {
+    'medic': { icon: <Stethoscope className="w-4 h-4" />, label: 'Medic Stomatolog', color: 'bg-blue-500' },
+    'asistent': { icon: <Users className="w-4 h-4" />, label: 'Asistent Medical', color: 'bg-green-500' },
+    'receptie': { icon: <Calendar className="w-4 h-4" />, label: 'Recepție', color: 'bg-purple-500' },
+    'tehnician': { icon: <Settings className="w-4 h-4" />, label: 'Tehnician Laborator', color: 'bg-orange-500' },
+    'ceo': { icon: <BarChart3 className="w-4 h-4" />, label: 'CEO/Manager', color: 'bg-red-500' },
+    'marketing': { icon: <Megaphone className="w-4 h-4" />, label: 'Marketing', color: 'bg-pink-500' }
+  };
+
+  const currentRole = roles[userRole];
 
   const handleNotifications = () => {
     toast({
-      title: t('common.notifications'),
-      description: "3 notificări noi disponibile",
+      title: "Notificări de sistem",
+      description: "3 noi: 2 programări confirmate, 1 rezultat laborator gata",
     });
   };
 
@@ -48,6 +62,55 @@ const DashboardHeader = () => {
               <h1 className="text-base sm:text-xl font-bold text-slate-800 truncate">{t('header.title')}</h1>
               <p className="text-xs sm:text-sm text-slate-600 truncate hidden sm:block">{t('header.subtitle')}</p>
             </div>
+          </div>
+
+          {/* Role Selector & Voice Interface */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <div className="flex items-center space-x-3 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200">
+              <div className={`w-3 h-3 rounded-full ${currentRole.color} animate-fade-in`}></div>
+              <Select value={userRole} onValueChange={setUserRole}>
+                <SelectTrigger className="w-48 border-0 bg-transparent shadow-none focus:ring-0 h-8">
+                  <div className="flex items-center space-x-2">
+                    {currentRole.icon}
+                    <SelectValue />
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(roles).map(([key, role]) => (
+                    <SelectItem key={key} value={key}>
+                      <div className="flex items-center space-x-2">
+                        {role.icon}
+                        <span>{role.label}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Voice Interface Toggle */}
+            <Button
+              onClick={() => setIsVoiceActive(!isVoiceActive)}
+              variant={isVoiceActive ? "default" : "outline"}
+              size="sm"
+              className={`transition-all duration-300 animate-scale-in ${
+                isVoiceActive 
+                  ? 'bg-green-600 hover:bg-green-700 shadow-lg shadow-green-200' 
+                  : 'hover:bg-green-50 hover:border-green-300'
+              }`}
+            >
+              {isVoiceActive ? (
+                <>
+                  <Mic className="w-4 h-4 mr-2 animate-pulse" />
+                  <span className="text-sm">Voce Activă</span>
+                </>
+              ) : (
+                <>
+                  <MicOff className="w-4 h-4 mr-2" />
+                  <span className="text-sm">Activează Voce</span>
+                </>
+              )}
+            </Button>
           </div>
 
           {/* Status & Actions */}

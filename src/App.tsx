@@ -15,6 +15,7 @@ import ClinicalAgent from "./pages/ClinicalAgent";
 import AIMarketing from "./pages/AIMarketing";
 import AllOnXHub from "./pages/AllOnXHub";
 import CFODashboard from "./pages/CFODashboard";
+import IStomaIntegration from "./pages/IStomaIntegration";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/marketing" element={<AIMarketing />} />
           <Route path="/allonx" element={<AllOnXHub />} />
           <Route path="/cfo" element={<CFODashboard />} />
+          <Route path="/istoma-integration" element={<IStomaIntegration />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -1,97 +1,118 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* MedicalCor GENIUS Design System */
+/* ============================================
+   MEDICALCOR GENIUS 2.0 - AI OPERATING SYSTEM
+   Revolutionary Design System - State of the Art
+   ============================================ */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 207 89% 42%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 207 89% 42%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Medical theme variables */
-    --medical-blue: 207 89% 42%;
-    --medical-success: 142 71% 45%;
-    --medical-warning: 38 92% 50%;
-    --medical-error: 0 84% 60%;
+    /* 🚀 REVOLUTIONARY COLOR PALETTE - Futuristic Medical AI */
+    --background: 240 15% 3%;
+    --foreground: 200 100% 98%;
+    --card: 240 15% 5%;
+    --card-foreground: 200 100% 95%;
+    --popover: 240 15% 7%;
+    --popover-foreground: 200 100% 95%;
+    
+    /* 🧠 AI NEURAL NETWORK COLORS */
+    --primary: 200 100% 50%;        /* Electric Blue */
+    --primary-glow: 200 100% 70%;   /* Bright Blue */
+    --primary-dark: 200 100% 30%;   /* Deep Blue */
+    --primary-foreground: 240 15% 5%;
+    
+    --secondary: 165 100% 45%;      /* Medical Green */
+    --secondary-glow: 165 100% 65%; /* Bright Green */
+    --secondary-foreground: 240 15% 5%;
+    
+    --accent: 280 100% 60%;         /* Innovation Purple */
+    --accent-glow: 280 100% 80%;    /* Bright Purple */
+    --accent-foreground: 240 15% 5%;
+    
+    /* 💫 HOLOGRAPHIC SPECTRUM */
+    --holographic-1: 200 100% 60%;  /* Cyan */
+    --holographic-2: 280 100% 70%;  /* Magenta */
+    --holographic-3: 165 100% 55%;  /* Green */
+    --holographic-4: 45 100% 65%;   /* Gold */
+    
+    /* 🎯 STATUS & INDICATORS */
+    --success: 140 100% 50%;
+    --success-glow: 140 100% 70%;
+    --warning: 45 100% 60%;
+    --warning-glow: 45 100% 80%;
+    --destructive: 0 100% 60%;
+    --destructive-glow: 0 100% 80%;
+    --destructive-foreground: 200 100% 98%;
+    
+    /* 🖼️ INTERFACE ELEMENTS */
+    --muted: 240 10% 15%;
+    --muted-foreground: 200 20% 70%;
+    --border: 240 20% 20%;
+    --input: 240 20% 12%;
+    --ring: 200 100% 50%;
+    
+    /* 🌈 REVOLUTIONARY GRADIENTS */
+    --gradient-primary: linear-gradient(135deg, hsl(200 100% 50%), hsl(200 100% 70%));
+    --gradient-secondary: linear-gradient(135deg, hsl(165 100% 45%), hsl(165 100% 65%));
+    --gradient-accent: linear-gradient(135deg, hsl(280 100% 60%), hsl(280 100% 80%));
+    --gradient-neural: linear-gradient(45deg, hsl(200 100% 50%), hsl(280 100% 60%), hsl(165 100% 45%));
+    --gradient-holographic: linear-gradient(90deg, 
+      hsl(200 100% 60%) 0%, 
+      hsl(280 100% 70%) 25%, 
+      hsl(165 100% 55%) 50%, 
+      hsl(45 100% 65%) 75%, 
+      hsl(200 100% 60%) 100%
+    );
+    --gradient-medical: linear-gradient(135deg, hsl(200 100% 50%), hsl(165 100% 45%));
+    --gradient-quantum: radial-gradient(ellipse at center, hsl(200 100% 50% / 0.3), hsl(280 100% 60% / 0.2), transparent);
+    
+    /* ✨ ADVANCED SHADOWS & EFFECTS */
+    --shadow-neural: 0 0 30px hsl(200 100% 50% / 0.3), 0 0 60px hsl(280 100% 60% / 0.2);
+    --shadow-glow: 0 0 20px hsl(var(--primary) / 0.5);
+    --shadow-holographic: 0 0 40px hsl(200 100% 50% / 0.4), 0 0 80px hsl(280 100% 60% / 0.3);
+    --shadow-quantum: 0 20px 40px hsl(240 15% 3% / 0.5), 0 0 60px hsl(var(--primary) / 0.2);
+    
+    /* 🔮 GLASS MORPHISM */
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-bg-light: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border-strong: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    --glass-shadow-strong: 0 16px 64px rgba(0, 0, 0, 0.4);
+    
+    /* ⚡ ANIMATIONS & TRANSITIONS */
+    --transition-neural: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-holographic: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-quantum: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+    
+    --radius: 1.2rem;
+    --radius-xl: 2rem;
+    --radius-2xl: 3rem;
+    
+    /* 📱 SIDEBAR FUTURISTIC */
+    --sidebar-background: 240 15% 4%;
+    --sidebar-foreground: 200 100% 95%;
+    --sidebar-primary: 200 100% 50%;
+    --sidebar-primary-foreground: 240 15% 5%;
+    --sidebar-accent: 240 15% 8%;
+    --sidebar-accent-foreground: 200 100% 90%;
+    --sidebar-border: 240 20% 15%;
+    --sidebar-ring: 200 100% 50%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 207 89% 54%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Enhanced Dark Mode - AI Medical Environment */
+    --background: 240 15% 2%;
+    --foreground: 200 100% 98%;
+    --card: 240 15% 4%;
+    --card-foreground: 200 100% 95%;
   }
 }
 
@@ -101,114 +122,681 @@
   }
 
   body {
-    @apply bg-background text-foreground font-medical;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    @apply bg-background text-foreground;
+    background: radial-gradient(ellipse at top, hsl(240 15% 5%) 0%, hsl(240 15% 2%) 100%);
+    font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: 'cv11', 'ss01', 'rlig' 1, 'calt' 1;
+    font-variation-settings: 'opsz' 32;
+    background-attachment: fixed;
+  }
+  
+  /* 🌌 REVOLUTIONARY TYPOGRAPHY */
+  .text-holographic {
+    background: var(--gradient-holographic);
+    background-size: 400% 400%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: holographic-text 3s ease-in-out infinite;
+  }
+  
+  .text-neural {
+    background: var(--gradient-neural);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .text-quantum {
+    background: var(--gradient-primary);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 10px hsl(var(--primary) / 0.5));
   }
 
-  /* Medical themed scrollbars */
+  /* 🎨 FUTURISTIC SCROLLBARS */
   ::-webkit-scrollbar {
-    @apply w-2 h-2;
+    @apply w-3 h-3;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-slate-100 rounded-full;
+    background: var(--glass-bg);
+    border-radius: 1rem;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-blue-300 rounded-full hover:bg-blue-400;
+    background: var(--gradient-primary);
+    border-radius: 1rem;
+    border: 1px solid var(--glass-border);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gradient-neural);
+    box-shadow: var(--shadow-glow);
   }
 }
 
 @layer components {
-  .medical-gradient {
-    @apply bg-gradient-to-br from-blue-50 via-slate-50 to-white;
+  /* 🔮 REVOLUTIONARY GLASS MORPHISM COMPONENTS */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    border-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
   }
-
-  .medical-card {
-    @apply bg-white/80 backdrop-blur-sm border-2 border-slate-200/50 rounded-xl shadow-medical hover:shadow-medical-lg transition-all duration-300;
+  
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient-holographic);
+    opacity: 0.5;
   }
-
-  .medical-button {
-    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium rounded-lg transition-all duration-200 shadow-md hover:shadow-lg;
+  
+  .neuro-card {
+    background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
+    backdrop-filter: blur(25px) saturate(200%) brightness(120%);
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 
+      var(--shadow-quantum),
+      inset 0 1px 0 rgba(255,255,255,0.1),
+      0 0 30px hsl(var(--primary) / 0.1);
+    border-radius: calc(var(--radius) * 1.5);
+    position: relative;
+    overflow: hidden;
   }
-
-  .medical-text-primary {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-900 via-blue-700 to-blue-600;
+  
+  .neuro-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--gradient-quantum);
+    opacity: 0.1;
+    animation: quantum-rotate 20s linear infinite;
+    pointer-events: none;
   }
-
-  .medical-status-live {
-    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200;
+  
+  /* 🌈 HOLOGRAPHIC EFFECTS */
+  .holographic-border {
+    position: relative;
+    background: var(--gradient-holographic);
+    padding: 2px;
+    border-radius: var(--radius);
+    background-size: 400% 400%;
+    animation: holographic-border 4s ease-in-out infinite;
   }
-
-  .medical-status-pending {
-    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-orange-100 text-orange-800 border border-orange-200;
+  
+  .holographic-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-holographic);
+    border-radius: var(--radius);
+    filter: blur(20px);
+    opacity: 0.3;
+    z-index: -1;
   }
-
-  .medical-status-error {
-    @apply inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200;
+  
+  .holographic-content {
+    background: var(--background);
+    border-radius: calc(var(--radius) - 2px);
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* 🧠 NEURAL NETWORK ANIMATIONS */
+  .neural-pulse {
+    animation: neural-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  .quantum-glow {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.4),
+      0 0 40px hsl(var(--accent) / 0.3),
+      0 0 60px hsl(var(--secondary) / 0.2);
+    animation: quantum-glow 3s ease-in-out infinite alternate;
+  }
+  
+  /* 🚀 AI POWERED COMPONENTS */
+  .ai-card {
+    background: linear-gradient(135deg, var(--glass-bg-light), var(--glass-bg));
+    backdrop-filter: blur(30px) saturate(200%);
+    border: 1px solid var(--glass-border-strong);
+    box-shadow: var(--shadow-holographic);
+    border-radius: var(--radius-xl);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .ai-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-neural);
+    opacity: 0.05;
+    pointer-events: none;
+  }
+  
+  .medical-card-revolutionary {
+    background: var(--glass-bg-light);
+    backdrop-filter: blur(25px) saturate(180%) brightness(110%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-quantum);
+    border-radius: var(--radius);
+    transition: var(--transition-holographic);
+    position: relative;
+  }
+  
+  .medical-card-revolutionary:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-holographic);
+    border-color: var(--glass-border-strong);
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* 🎯 REVOLUTIONARY BUTTON STYLES */
+  .btn-neural {
+    background: var(--gradient-neural);
+    background-size: 300% 300%;
+    box-shadow: var(--shadow-neural);
+    transition: var(--transition-neural);
+    position: relative;
+    overflow: hidden;
+    border: none;
+    color: white;
+    font-weight: 600;
+    border-radius: var(--radius);
   }
-
-  .glass {
-    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  
+  .btn-neural::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
   }
-
-  .medical-hover {
-    @apply hover:-translate-y-1 hover:shadow-xl transition-all duration-300;
+  
+  .btn-neural:hover::before {
+    left: 100%;
   }
-
-  .hover-scale {
-    @apply transition-transform duration-200 hover:scale-105;
+  
+  .btn-neural:hover {
+    background-position: 100% 0;
+    box-shadow: var(--shadow-holographic);
+    transform: translateY(-2px) scale(1.02);
+  }
+  
+  .btn-holographic {
+    background: var(--gradient-holographic);
+    background-size: 400% 400%;
+    animation: holographic-bg 3s ease-in-out infinite;
+    box-shadow: var(--shadow-holographic);
+    border: none;
+    color: black;
+    font-weight: 700;
+    border-radius: var(--radius);
+    transition: var(--transition-holographic);
+  }
+  
+  .btn-holographic:hover {
+    transform: translateY(-4px) scale(1.05);
+    animation-duration: 1s;
+  }
+  
+  .btn-quantum {
+    background: linear-gradient(45deg, transparent, var(--glass-bg-light), transparent);
+    backdrop-filter: blur(20px);
+    border: 2px solid var(--glass-border-strong);
+    color: var(--foreground);
+    font-weight: 600;
+    border-radius: var(--radius);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-quantum);
+  }
+  
+  .btn-quantum::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .btn-quantum:hover::before {
+    opacity: 0.1;
+  }
+  
+  .btn-quantum:hover {
+    border-color: hsl(var(--primary));
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+  }
+  
+  /* 🎨 AI POWERED INDICATORS */
+  .ai-indicator {
+    position: relative;
+  }
+  
+  .ai-indicator::after {
+    content: '🧠 AI';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: var(--gradient-accent);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px hsl(var(--accent) / 0.5);
+    animation: ai-pulse 2s infinite;
+  }
+  
+  /* 💫 FLOATING ELEMENTS */
+  .float-element {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .rotate-slow {
+    animation: rotate-slow 20s linear infinite;
+  }
+  
+  /* 🌟 TEXT EFFECTS */
+  .text-glow {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.5);
+  }
+  
+  .text-shadow-neural {
+    text-shadow: 
+      0 0 10px hsl(var(--primary) / 0.3),
+      0 0 20px hsl(var(--accent) / 0.2),
+      0 0 30px hsl(var(--secondary) / 0.1);
+  }
+  
+  /* 🔥 HOVER EFFECTS */
+  .hover-lift {
+    transition: var(--transition-neural);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-holographic);
+  }
+  
+  .hover-glow {
+    transition: var(--transition-neural);
+  }
+  
+  .hover-glow:hover {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .hover-quantum {
+    transition: var(--transition-quantum);
+  }
+  
+  .hover-quantum:hover {
+    backdrop-filter: blur(30px) saturate(200%);
+    border-color: var(--glass-border-strong);
   }
 }
 
-/* Custom animations for medical interface */
+/* ============================================
+   🚀 REVOLUTIONARY KEYFRAME ANIMATIONS
+   State-of-the-Art Animation System
+   ============================================ */
+
+/* 🌈 HOLOGRAPHIC ANIMATIONS */
+@keyframes holographic-text {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes holographic-border {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes holographic-bg {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* 🧠 NEURAL NETWORK ANIMATIONS */
+@keyframes neural-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.3);
+  }
+  50% {
+    box-shadow: 
+      0 0 30px hsl(var(--primary) / 0.6),
+      0 0 50px hsl(var(--accent) / 0.4);
+  }
+}
+
+@keyframes quantum-glow {
+  0% {
+    box-shadow: 
+      0 0 20px hsl(var(--primary) / 0.4),
+      0 0 40px hsl(var(--accent) / 0.3),
+      0 0 60px hsl(var(--secondary) / 0.2);
+  }
+  100% {
+    box-shadow: 
+      0 0 30px hsl(var(--primary) / 0.6),
+      0 0 60px hsl(var(--accent) / 0.5),
+      0 0 90px hsl(var(--secondary) / 0.4);
+  }
+}
+
+@keyframes quantum-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 🎯 AI POWERED ANIMATIONS */
+@keyframes ai-pulse {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
 @keyframes heartbeat {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.05); }
 }
 
-@keyframes fadeSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* 💫 ENTRANCE ANIMATIONS */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* 🌊 FLOATING & MOVEMENT */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-10px) rotate(1deg); }
+  50% { transform: translateY(-5px) rotate(0deg); }
+  75% { transform: translateY(-15px) rotate(-1deg); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ⚡ PERFORMANCE OPTIMIZED ANIMATIONS */
+@keyframes glow-pulse {
+  0%, 100% { filter: brightness(1) drop-shadow(0 0 5px hsl(var(--primary) / 0.3)); }
+  50% { filter: brightness(1.2) drop-shadow(0 0 20px hsl(var(--primary) / 0.6)); }
+}
+
+@keyframes data-flow {
+  0% { transform: translateX(-100%) scaleX(0); }
+  50% { transform: translateX(0%) scaleX(1); }
+  100% { transform: translateX(100%) scaleX(0); }
+}
+
+/* 🌟 MEDICAL SPECIFIC ANIMATIONS */
+@keyframes vital-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 0 0 0 hsl(var(--success) / 0.4);
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  50% { 
+    transform: scale(1.02);
+    box-shadow: 0 0 0 10px hsl(var(--success) / 0);
   }
 }
 
-.animate-heartbeat {
-  animation: heartbeat 2s ease-in-out infinite;
+@keyframes diagnostic-scan {
+  0% { transform: translateX(-100%) skewX(45deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(200%) skewX(45deg); opacity: 0; }
 }
 
-.animate-fade-slide-up {
-  animation: fadeSlideUp 0.6s ease-out forwards;
+/* ============================================
+   🎨 ANIMATION UTILITY CLASSES
+   ============================================ */
+
+.animate-holographic-text { animation: holographic-text 3s ease-in-out infinite; }
+.animate-holographic-border { animation: holographic-border 4s ease-in-out infinite; }
+.animate-holographic-bg { animation: holographic-bg 3s ease-in-out infinite; }
+
+.animate-neural-pulse { animation: neural-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+.animate-quantum-glow { animation: quantum-glow 3s ease-in-out infinite alternate; }
+.animate-quantum-rotate { animation: quantum-rotate 20s linear infinite; }
+
+.animate-ai-pulse { animation: ai-pulse 2s infinite; }
+.animate-heartbeat { animation: heartbeat 2s ease-in-out infinite; }
+.animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+
+.animate-fade-in { animation: fade-in 0.6s ease-out forwards; }
+.animate-scale-in { animation: scale-in 0.4s ease-out forwards; }
+.animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
+.animate-slide-in-right { animation: slide-in-right 0.5s ease-out forwards; }
+.animate-slide-in-left { animation: slide-in-left 0.5s ease-out forwards; }
+
+.animate-float { animation: float 6s ease-in-out infinite; }
+.animate-rotate-slow { animation: rotate-slow 20s linear infinite; }
+.animate-bounce-subtle { animation: bounce-subtle 2s ease-in-out infinite; }
+
+.animate-glow-pulse { animation: glow-pulse 2s ease-in-out infinite; }
+.animate-data-flow { animation: data-flow 2s ease-in-out infinite; }
+
+.animate-vital-pulse { animation: vital-pulse 1.5s ease-in-out infinite; }
+.animate-diagnostic-scan { animation: diagnostic-scan 3s linear infinite; }
+
+/* 🌟 DELAYED ANIMATIONS */
+.animate-delay-100 { animation-delay: 0.1s; }
+.animate-delay-200 { animation-delay: 0.2s; }
+.animate-delay-300 { animation-delay: 0.3s; }
+.animate-delay-500 { animation-delay: 0.5s; }
+.animate-delay-700 { animation-delay: 0.7s; }
+.animate-delay-1000 { animation-delay: 1s; }
+
+/* ============================================
+   📱 RESPONSIVE OPTIMIZATIONS
+   ============================================ */
+
+@media (max-width: 768px) {
+  .glass-card {
+    backdrop-filter: blur(15px) saturate(150%);
+  }
+  
+  .neuro-card {
+    backdrop-filter: blur(20px) saturate(180%) brightness(110%);
+  }
+  
+  .ai-card {
+    backdrop-filter: blur(25px) saturate(180%);
+  }
 }
 
-/* Medical typography improvements */
-.medical-text {
-  @apply leading-relaxed text-slate-700;
-  font-variant-numeric: tabular-nums;
+@media (max-width: 480px) {
+  :root {
+    --radius: 0.8rem;
+    --radius-xl: 1.2rem;
+    --radius-2xl: 1.8rem;
+  }
 }
 
-.medical-code {
-  @apply font-mono bg-slate-100 px-2 py-1 rounded text-sm;
+/* ============================================
+   ⚡ HIGH PERFORMANCE MODE
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .animate-holographic-text,
+  .animate-holographic-border,
+  .animate-holographic-bg,
+  .animate-neural-pulse,
+  .animate-quantum-glow,
+  .animate-quantum-rotate,
+  .animate-float,
+  .animate-rotate-slow {
+    animation: none !important;
+  }
 }
 
-/* Responsive medical grid */
-.medical-grid {
-  @apply grid gap-6;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* ============================================
+   🎯 ACCESSIBILITY ENHANCEMENTS
+   ============================================ */
+
+@media (prefers-contrast: high) {
+  :root {
+    --glass-border: rgba(255, 255, 255, 0.3);
+    --glass-border-strong: rgba(255, 255, 255, 0.5);
+  }
 }
 
-/* Enhanced focus states for accessibility */
-.medical-focus {
-  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
+/* 🌙 Dark mode specific overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: 240 15% 2%;
+    --foreground: 200 100% 98%;
+  }
+}
+
+/* ============================================
+   🔮 REVOLUTIONARY MEDICAL AI COMPONENTS
+   ============================================ */
+
+/* AI Status Indicators */
+.ai-status-active {
+  @apply relative;
+}
+
+.ai-status-active::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: var(--gradient-secondary);
+  border-radius: 50%;
+  animation: vital-pulse 1.5s ease-in-out infinite;
+}
+
+/* Neural Network Connections */
+.neural-connection {
+  position: relative;
+  overflow: hidden;
+}
+
+.neural-connection::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--gradient-primary);
+  transform: translateY(-50%) scaleX(0);
+  animation: data-flow 3s ease-in-out infinite;
+}
+
+/* Diagnostic Scanner Effect */
+.diagnostic-scanner {
+  position: relative;
+  overflow: hidden;
+}
+
+.diagnostic-scanner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--gradient-holographic);
+  animation: diagnostic-scan 3s linear infinite;
+}
+
+/* ============================================
+   💎 FINAL POLISH & OPTIMIZATIONS
+   ============================================ */
+
+/* Smooth font rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Hardware acceleration for animations */
+.animate-holographic-text,
+.animate-neural-pulse,
+.animate-quantum-glow,
+.glass-card,
+.neuro-card,
+.ai-card {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Selection styling */
+::selection {
+  background: hsl(var(--primary) / 0.3);
+  color: var(--foreground);
+}
+
+::-moz-selection {
+  background: hsl(var(--primary) / 0.3);
+  color: var(--foreground);
 }

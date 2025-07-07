@@ -32,38 +32,51 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-white">
+    <div className="min-h-screen bg-background relative overflow-hidden">
+      {/* 🌌 Quantum Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background"></div>
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-primary rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-accent rounded-full blur-3xl animate-float animate-delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-secondary rounded-full blur-3xl animate-rotate-slow"></div>
+      </div>
+
       <DashboardHeader />
       
-      <main className="container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 space-y-6 sm:space-y-8 lg:space-y-12">
-        {/* Hero Section */}
-        <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12 lg:mb-16">
-          <div className="inline-flex items-center px-3 sm:px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-xs sm:text-sm font-medium">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mr-2 animate-pulse"></div>
-            {t('home.tagline')}
+      <main className="relative container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 space-y-6 sm:space-y-8 lg:space-y-12">
+        {/* 🚀 Revolutionary Hero Section */}
+        <div className="text-center space-y-4 sm:space-y-6 mb-8 sm:mb-12 lg:mb-16 animate-fade-in">
+          <div className="holographic-border inline-block">
+            <div className="holographic-content">
+              <div className="inline-flex items-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium ai-indicator">
+                <div className="w-2 h-2 bg-success rounded-full mr-2 animate-vital-pulse"></div>
+                {t('home.tagline')}
+              </div>
+            </div>
           </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent leading-tight px-4">
-            <span className="block">{t('home.title1')}</span>
-            <span className="block text-slate-800">{t('home.title2')}</span>
+          
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-holographic leading-tight px-4 animate-scale-in animate-delay-200">
+            <span className="block">MedicalCor GENIUS 2.0</span>
+            <span className="block text-neural">AI Operating System</span>
           </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto px-4">
-            {t('home.description')}
+          
+          <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-3xl mx-auto px-4 animate-slide-up animate-delay-300">
+            Cel mai avansat sistem de operare AI pentru clinici stomatologice din lume
           </p>
           
-          {/* Voice Interface Controls */}
-          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 px-4">
-            <Button
+          {/* 🎯 Voice Interface Controls */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-3 sm:gap-4 px-4 animate-slide-up animate-delay-500">
+            <button
               onClick={() => setShowVoiceSettings(true)}
-              variant="outline"
-              className="bg-white/80 hover:bg-white w-full sm:w-auto"
+              className="btn-neural px-6 py-3 w-full sm:w-auto ai-indicator"
             >
               <Settings className="w-4 h-4 mr-2" />
               {t('home.voiceConfig')}
-            </Button>
-            <Badge variant="secondary" className="px-4 py-2 w-full sm:w-auto justify-center">
-              <Mic className="w-4 h-4 mr-2" />
-              {t('home.voiceActive')}
-            </Badge>
+            </button>
+            <div className="neuro-card px-4 py-2 w-full sm:w-auto justify-center flex items-center">
+              <Mic className="w-4 h-4 mr-2 animate-neural-pulse" />
+              <span className="text-quantum font-medium">{t('home.voiceActive')}</span>
+            </div>
           </div>
         </div>
 

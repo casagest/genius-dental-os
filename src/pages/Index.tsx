@@ -116,12 +116,6 @@ const Index = () => {
                   <span>{t('home.integrations')}</span>
                 </Button>
               </Link>
-              <Link to="/istoma-integration">
-                <Button className="space-x-2 bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800">
-                  <MessageSquare className="w-4 h-4" />
-                  <span>iStoma Integration</span>
-                </Button>
-              </Link>
             </div>
           </div>
             <RecentActivity />

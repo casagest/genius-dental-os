@@ -331,15 +331,10 @@ const translations = {
 };
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('ro');
-
-  useEffect(() => {
-    // Only access localStorage after component mounts
+  const [language, setLanguage] = useState<Language>(() => {
     const savedLang = localStorage.getItem('app-language') as Language;
-    if (savedLang && (savedLang === 'ro' || savedLang === 'en')) {
-      setLanguage(savedLang);
-    }
-  }, []);
+    return savedLang || 'ro';
+  });
 
   useEffect(() => {
     localStorage.setItem('app-language', language);

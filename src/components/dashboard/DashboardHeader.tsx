@@ -2,18 +2,16 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Settings, User, MessageSquare, LogOut } from "lucide-react";
+import { Bell, Settings, User, MessageSquare } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useAuth } from "@/components/auth/AuthProvider";
 import LanguageSwitcher from "@/components/ui/language-switcher";
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useLanguage();
-  const { user, signOut } = useAuth();
 
   const handleNotifications = () => {
     toast({
@@ -33,16 +31,8 @@ const DashboardHeader = () => {
   const handleProfile = () => {
     toast({
       title: t('common.profile'),
-      description: user?.email ? `Conectat ca: ${user.email}` : "Profil utilizator",
+      description: "Dr. Marin - Configurări profil disponibile în curând",
     });
-  };
-
-  const handleLogout = async () => {
-    try {
-      await signOut();
-    } catch (error) {
-      console.error('Error signing out:', error);
-    }
   };
 
   return (
@@ -113,17 +103,7 @@ const DashboardHeader = () => {
               onClick={handleProfile}
             >
               <User className="w-4 h-4 sm:mr-2" />
-              <span className="hidden sm:inline">{user?.email ? user.email.split('@')[0] : t('header.profile')}</span>
-            </Button>
-
-            <Button 
-              variant="outline"
-              size="sm" 
-              className="p-2 sm:px-3 text-red-600 hover:text-red-700 hover:bg-red-50"
-              onClick={handleLogout}
-              title="Deconectare"
-            >
-              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">{t('header.profile')}</span>
             </Button>
           </div>
         </div>

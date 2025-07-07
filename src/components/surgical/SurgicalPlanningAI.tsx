@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { 
   Brain, 
   Target, 
@@ -95,111 +96,53 @@ const SurgicalPlanningAI: React.FC<SurgicalPlanningAIProps> = ({
     setIsPlanning(true);
     setPlanningProgress(0);
 
-    // Simulate AI planning process
-    for (let i = 0; i < planningSteps.length; i++) {
-      setPlanningStep(planningSteps[i]);
-      setPlanningProgress((i + 1) * 10);
-      await new Promise(resolve => setTimeout(resolve, 1200));
-    }
-
-    // Generate mock surgical plan based on MedicalCor expertise
-    const mockPlan: SurgicalPlan = {
-      caseId,
-      patientName: "Current Patient",
-      implantPositions: [
-        {
-          tooth: "13",
-          coordinates: { x: -15.2, y: 8.7, z: -3.4 },
-          angle: 12,
-          depth: 11.5,
-          diameter: 4.3,
-          length: 10,
-          riskLevel: 'low',
-          proximityAlerts: []
-        },
-        {
-          tooth: "11",
-          coordinates: { x: -3.1, y: 12.4, z: -2.8 },
-          angle: 0,
-          depth: 13.0,
-          diameter: 4.3,
-          length: 12,
-          riskLevel: 'low',
-          proximityAlerts: []
-        },
-        {
-          tooth: "21",
-          coordinates: { x: 3.1, y: 12.4, z: -2.9 },
-          angle: -2,
-          depth: 12.8,
-          diameter: 4.3,
-          length: 12,
-          riskLevel: 'low',
-          proximityAlerts: []
-        },
-        {
-          tooth: "23",
-          coordinates: { x: 15.2, y: 8.7, z: -3.2 },
-          angle: -15,
-          depth: 10.5,
-          diameter: 4.3,
-          length: 10,
-          riskLevel: 'moderate',
-          proximityAlerts: ['Sinus proximity - 2.1mm']
-        }
-      ],
-      surgicalGuide: {
-        type: 'Fully Guided',
-        accuracy: 98.2,
-        materialType: 'NextDent Surgical Guide',
-        printTime: 4.5
-      },
-      aiAnalysis: {
-        boneQuality: 'D2 - Good cortical, Good trabecular',
-        primaryStability: 87.3,
-        successPrediction: 96.8,
-        complicationRisk: 4.2,
-        alternativeOptions: [
-          'Consider shorter implants at pos 13, 23',
-          'Sinus lift option available if needed',
-          'Immediate loading possible'
-        ]
-      },
-      workflow: {
-        surgicalSteps: [
-          'Local anesthesia - Articaine 4% 1:100,000',
-          'Tissue reflection - Full thickness flap',
-          'Guided drilling sequence - 2.0mm pilot',
-          'Sequential drilling to final diameter',
-          'Implant placement with guided surgery',
-          'Torque verification (>35 Ncm)',
-          'Abutment placement',
-          'Tissue closure with sutures'
-        ],
-        estimatedTime: 85,
-        criticalPoints: [
-          'Monitor drilling depth at position 23',
-          'Verify primary stability >35 Ncm',
-          'Check parallelism with surgical guide'
-        ],
-        emergencyProtocols: [
-          'Sinus perforation protocol ready',
-          'Immediate implant removal kit available',
-          'Bleeding control measures prepared'
-        ]
+    try {
+      // Simulate AI planning process with visual feedback
+      for (let i = 0; i < planningSteps.length; i++) {
+        setPlanningStep(planningSteps[i]);
+        setPlanningProgress((i + 1) * 10);
+        await new Promise(resolve => setTimeout(resolve, 800));
       }
-    };
 
-    setSurgicalPlan(mockPlan);
-    setIsPlanning(false);
-    setPlanningStep('');
+      // Call real AI surgical planning
+      const { data, error } = await supabase.functions.invoke('ai-surgical-planning', {
+        body: {
+          caseId,
+          cbctData: cbctData || 'Standard CBCT analysis data',
+          patientInfo: {
+            age: 45,
+            medicalHistory: 'No significant medical history',
+            boneQuality: 'Good',
+            previousTreatments: 'None'
+          }
+        }
+      });
 
-    toast({
-      title: "AI Surgical Plan Generated",
-      description: `Plan complet generat cu ${mockPlan.aiAnalysis.successPrediction}% success rate`,
-    });
+      if (error) throw error;
 
-    onPlanComplete(mockPlan);
+      const aiPlan = data.surgicalPlan;
+      setSurgicalPlan(aiPlan);
+      setIsPlanning(false);
+      setPlanningStep('');
+
+      toast({
+        title: "AI Surgical Plan Generated",
+        description: `Plan complet generat cu ${aiPlan.aiAnalysis.successPrediction}% success rate`,
+      });
+
+      onPlanComplete(aiPlan);
+
+    } catch (error) {
+      console.error('Error generating surgical plan:', error);
+      setIsPlanning(false);
+      setPlanningStep('');
+      
+      toast({
+        title: "Error",
+        description: "Failed to generate AI plan. Please check API configuration.",
+        variant: "destructive",
+      });
+    }
   };
 
   const start3DSimulation = () => {

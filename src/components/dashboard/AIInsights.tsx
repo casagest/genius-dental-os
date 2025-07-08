@@ -95,117 +95,105 @@ const AIInsights = () => {
   };
 
   return (
-    <div className="medical-card-revolutionary hover-lift animate-fade-in">
-      <div className="holographic-border">
-        <div className="holographic-content">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center space-x-4">
-              <div className="ai-indicator">
-                <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-neural">
-                  <Brain className="w-6 h-6 text-white animate-neural-pulse" />
-                </div>
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-xl font-bold text-holographic">🧠 AI Insights GENIUS</h3>
-                <div className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-success rounded-full animate-vital-pulse"></div>
-                  <span className="text-neural text-sm">Recomandări inteligente pentru optimizare</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-3">
-              <div className="neural-pulse px-3 py-1.5 rounded-full">
-                <span className="text-xs font-bold text-white">
-                  {insights.length} {isLoading ? 'Updating...' : 'New'}
-                </span>
-              </div>
-              <button
-                onClick={generateAIInsights}
-                disabled={isLoading}
-                className="ai-indicator p-2 rounded-lg cursor-pointer hover:scale-110 transition-transform"
-              >
-                <RefreshCw className={`w-4 h-4 text-white ${isLoading ? 'animate-spin' : 'animate-neural-pulse'}`} />
-              </button>
-            </div>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 bg-medical-gradient rounded-lg flex items-center justify-center">
+            <Brain className="w-5 h-5 text-white" />
           </div>
+          <div>
+            <h3 className="font-bold text-foreground">💡 Recomandări Inteligente</h3>
+            <p className="text-sm text-muted-foreground">Sugestii AI pentru optimizare</p>
+          </div>
+        </div>
+        
+        <div className="flex items-center space-x-3">
+          <div className="status-indicator status-online">
+            <div className="activity-dot"></div>
+            <span className="text-sm">{insights.length} Sugestii</span>
+          </div>
+          <button
+            onClick={generateAIInsights}
+            disabled={isLoading}
+            className="btn-outline p-2 touch-target"
+          >
+            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
+      </div>
 
-          <div className="space-y-4 mb-6">
-            {insights.map((insight, index) => (
-              <div 
-                key={index} 
-                className="glass-card hover-quantum animate-slide-in-left"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="p-5">
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="ai-indicator">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-accent flex items-center justify-center">
-                          <div className="text-white animate-bounce-subtle">
-                            {insight.icon}
-                          </div>
-                        </div>
-                      </div>
-                      <span className="font-bold text-holographic">{insight.title}</span>
-                    </div>
+      <div className="space-y-4">
+        {insights.length > 0 ? (
+          insights.map((insight, index) => (
+            <div key={index} className="medical-card p-4 animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+              <div className="flex items-start space-x-4">
+                <div className="w-8 h-8 bg-success-gradient rounded-lg flex items-center justify-center flex-shrink-0">
+                  {insight.icon}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-semibold text-foreground">{insight.title}</h4>
                     <div className="flex items-center space-x-2">
-                      <Badge className={`text-xs border ${getImpactColor(insight.impact)}`}>
-                        {insight.impact?.toUpperCase()}
-                      </Badge>
-                      <div className="flex items-center space-x-1">
-                        <Zap className="w-3 h-3 text-quantum animate-pulse" />
-                        <span className="text-xs text-quantum font-bold">{insight.confidence}%</span>
+                      <div className="status-indicator" style={{ 
+                        backgroundColor: insight.impact === 'high' ? 'hsl(var(--success) / 0.1)' : 
+                                        insight.impact === 'medium' ? 'hsl(var(--warning) / 0.1)' : 'hsl(var(--muted) / 0.1)',
+                        color: insight.impact === 'high' ? 'hsl(var(--success))' : 
+                               insight.impact === 'medium' ? 'hsl(var(--warning))' : 'hsl(var(--muted-foreground))'
+                      }}>
+                        <span className="text-xs font-medium">{insight.confidence}% Siguranță</span>
                       </div>
                     </div>
                   </div>
-                  
-                  <p className="text-sm text-neural mb-4 leading-relaxed">
+                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
                     {insight.message}
                   </p>
-                  
-                  <div className="flex space-x-3">
-                    <div className="btn-neural text-xs px-4 py-2 rounded-full cursor-pointer">
-                      Apply Suggestion
-                    </div>
-                    <div className="glass-card px-4 py-2 text-xs cursor-pointer hover:bg-card/80 transition-colors rounded-full">
-                      Learn More
-                    </div>
+                  <div className="flex space-x-2">
+                    <button className="btn-primary text-xs px-4 py-2">
+                      ✅ Aplică Sugestia
+                    </button>
+                    <button className="btn-outline text-xs px-4 py-2">
+                      📖 Află Mai Multe
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-          
-          <div className="neuro-card p-5 animate-pulse-glow">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-3">
-                <div className="ai-indicator">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-secondary flex items-center justify-center">
-                    <Brain className="w-4 h-4 text-white animate-neural-pulse" />
-                  </div>
-                </div>
-                <div>
-                  <h4 className="font-bold text-holographic">🚀 AI Learning Progress</h4>
-                  <p className="text-xs text-neural">MedicalCor data analyzed: 2,847 appointments, 156 lab cases</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <div className="text-2xl font-black text-holographic-1">{accuracy}%</div>
-                <div className="text-xs text-quantum font-medium">Accuracy Score</div>
-              </div>
             </div>
-            
-            <div className="relative">
-              <div className="w-full bg-card/30 rounded-full h-3 overflow-hidden">
-                <div 
-                  className="h-full bg-gradient-primary rounded-full animate-neural-pulse shadow-neural" 
-                  style={{ width: `${accuracy}%` }}
-                ></div>
-              </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/20 to-transparent animate-slide-shimmer"></div>
+          ))
+        ) : (
+          <div className="medical-card p-6 text-center">
+            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+              <Brain className="w-8 h-8 text-muted-foreground" />
+            </div>
+            <h4 className="font-semibold text-foreground mb-2">Se generează recomandări...</h4>
+            <p className="text-sm text-muted-foreground">
+              AI analizează datele pentru a genera sugestii personalizate
+            </p>
+          </div>
+        )}
+      </div>
+      
+      <div className="medical-card p-4">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-gradient-accent rounded-lg flex items-center justify-center">
+              <Zap className="w-4 h-4 text-white" />
+            </div>
+            <div>
+              <h4 className="font-semibold text-foreground">📈 Progres AI</h4>
+              <p className="text-xs text-muted-foreground">Date analizate: 2,847 programări</p>
             </div>
           </div>
+          <div className="text-right">
+            <div className="text-2xl font-bold text-success">{accuracy}%</div>
+            <div className="text-xs text-muted-foreground">Acuratețe</div>
+          </div>
+        </div>
+        
+        <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
+          <div 
+            className="h-full bg-success-gradient rounded-full transition-all duration-700"
+            style={{ width: `${accuracy}%` }}
+          ></div>
         </div>
       </div>
     </div>

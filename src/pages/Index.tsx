@@ -28,19 +28,40 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-      {/* 🌌 Quantum Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-card to-background"></div>
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-gradient-primary rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-accent rounded-full blur-3xl animate-float animate-delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-secondary rounded-full blur-3xl animate-rotate-slow"></div>
-      </div>
-
+    <div className="min-h-screen bg-background">
       <DashboardHeader />
       
-      <main className="relative container mx-auto px-3 sm:px-4 lg:px-6 xl:px-8 py-4 sm:py-6 lg:py-8 space-y-6 sm:space-y-8 lg:space-y-12">
-        <HeroSection onVoiceSettingsClick={() => setShowVoiceSettings(true)} />
+      <main className="container mx-auto px-4 py-6 space-y-8">
+        {/* 👋 WELCOME SECTION - Simple & Clear */}
+        <div className="medical-card p-8 text-center animate-fade-in">
+          <div className="max-w-4xl mx-auto">
+            <div className="status-indicator status-online mb-6 justify-center">
+              <div className="activity-dot"></div>
+              <span>Sistem MedicalCor ACTIV</span>
+            </div>
+            
+            <h1 className="heading-primary text-4xl md:text-5xl mb-4">
+              🏥 MedicalCor GENIUS 2.0
+            </h1>
+            <p className="text-large text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Sistemul de management pentru clinici stomatologice - simplu, intuitiv și puternic
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => setShowVoiceSettings(true)}
+                className="btn-primary touch-target text-lg"
+              >
+                🎤 Configurează Vocea AI
+              </button>
+              
+              <div className="status-indicator status-online text-lg">
+                <div className="activity-dot"></div>
+                <span>🧠 AI Pregătit</span>
+              </div>
+            </div>
+          </div>
+        </div>
         
         <VoiceSettingsModal 
           isOpen={showVoiceSettings}
@@ -48,36 +69,67 @@ const Index = () => {
           onSettingsSave={handleVoiceSettingsSave}
         />
 
-        {/* Stats Overview */}
-        <StatsGrid />
+        {/* 📊 STATISTICS - Visual & Easy */}
+        <div className="animate-slide-up animate-delay-200">
+          <StatsGrid />
+        </div>
 
-        {/* Main Dashboard Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <NavigationSection />
-            <RecentActivity />
+        {/* 🚀 MAIN DASHBOARD */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 animate-slide-up animate-delay-300">
+          <div className="xl:col-span-2 space-y-8">
+            {/* Navigation Cards */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6 text-center">🧭 Navigare Rapidă</h2>
+              <NavigationSection />
+            </div>
+            
+            {/* Recent Activity */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">📋 Activitate Recentă</h2>
+              <RecentActivity />
+            </div>
           </div>
 
-          {/* Right Column - Quick Actions, AI Insights & Voice Assistant */}
-          <div className="space-y-6">
-            <QuickActions />
+          {/* 🤖 AI ASSISTANTS COLUMN */}
+          <div className="space-y-8">
+            {/* Quick Actions */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">⚡ Acțiuni Rapide</h2>
+              <QuickActions />
+            </div>
             
-            {/* Voice Assistant Widget */}
-            <VoiceChatBot
-              elevenLabsApiKey={voiceSettings.elevenLabsApiKey}
-              openAIApiKey={voiceSettings.openAIApiKey}
-              language={voiceSettings.language}
-              autoSpeak={true}
-            />
+            {/* Voice Assistant */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">🎤 Asistent Vocal</h2>
+              <VoiceChatBot
+                elevenLabsApiKey={voiceSettings.elevenLabsApiKey}
+                openAIApiKey={voiceSettings.openAIApiKey}
+                language={voiceSettings.language}
+                autoSpeak={true}
+              />
+            </div>
             
-            <AIInsights />
+            {/* AI Insights */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">🧠 Sugestii AI</h2>
+              <AIInsights />
+            </div>
           </div>
         </div>
 
-        <AIModulesGrid />
+        {/* 🎯 ALL MODULES - Clear Grid */}
+        <div className="animate-slide-up animate-delay-500">
+          <div className="text-center mb-8">
+            <h2 className="heading-primary">🔧 Module MedicalCor</h2>
+            <p className="text-large text-muted-foreground">
+              Toate funcțiile principale într-un singur loc
+            </p>
+          </div>
+          <AIModulesGrid />
+        </div>
       </main>
 
-      {/* Chat Widget - Available globally with voice */}
+      {/* 💬 Global Chat Widget */}
       <ChatWidget />
     </div>
   );

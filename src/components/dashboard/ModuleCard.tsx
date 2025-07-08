@@ -27,47 +27,61 @@ const ModuleCard = ({ title, description, status, progress, icon, color, link }:
     }
   };
 
+  const handleModuleClick = () => {
+    if (link && progress === 100) {
+      window.location.href = link;
+    }
+  };
+
   return (
-    <Card className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-sm hover:bg-white">
-      <CardHeader className="pb-3 p-4 sm:p-6">
-        <div className="flex items-center justify-between mb-3">
-          <div className={`p-2 sm:p-3 rounded-xl ${color} text-white shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-            {icon}
+    <div className="medical-card hover-lift cursor-pointer group" onClick={handleModuleClick}>
+      <div className="p-6">
+        <div className="flex items-center justify-between mb-4">
+          <div className="w-16 h-16 bg-medical-gradient rounded-xl flex items-center justify-center shadow-card group-hover:scale-105 transition-transform">
+            <div className="text-white text-2xl">
+              {icon}
+            </div>
           </div>
-          <Badge className={`text-xs font-medium border px-2 py-1 sm:px-3 sm:py-1.5 ${getStatusColor(status)}`}>
-            {status}
-          </Badge>
+          <div className="status-indicator status-online">
+            <div className="activity-dot"></div>
+            <span className="text-sm font-medium">{status}</span>
+          </div>
         </div>
-        <CardTitle className="text-base sm:text-lg font-bold text-slate-800 leading-tight">{title}</CardTitle>
-        <CardDescription className="text-xs sm:text-sm text-slate-600 line-clamp-2">{description}</CardDescription>
-      </CardHeader>
-      <CardContent className="p-4 sm:p-6 pt-0">
-        <div className="space-y-3 sm:space-y-4">
-          <div className="flex items-center justify-between text-xs sm:text-sm">
-            <span className="text-slate-600">{t('status.progress')}</span>
-            <span className="font-semibold text-slate-800">{progress}%</span>
+        
+        <h3 className="font-bold text-lg text-foreground mb-2 group-hover:text-primary transition-colors">
+          {title}
+        </h3>
+        <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+          {description}
+        </p>
+        
+        <div className="space-y-3">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">Progres</span>
+            <span className="font-semibold text-success">{progress}%</span>
           </div>
-          <div className="w-full bg-slate-200 rounded-full h-2">
+          
+          <div className="w-full bg-muted rounded-full h-3 overflow-hidden">
             <div 
-              className={`h-2 rounded-full transition-all duration-700 ${color} shadow-sm`}
+              className="h-full bg-success-gradient rounded-full transition-all duration-700 shadow-sm"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
-          <Button 
-            variant="outline" 
-            size="sm" 
-            className="w-full group-hover:bg-blue-50 group-hover:border-blue-300 transition-all duration-300 text-xs sm:text-sm py-2 sm:py-3"
-            onClick={() => {
-              if (link && progress === 100) {
-                window.location.href = link;
-              }
-            }}
-          >
-            {progress === 100 ? t('status.accessModule') : progress > 0 ? t('status.viewProgress') : t('status.learnMore')}
-          </Button>
+          
+          <div className="pt-2">
+            {progress === 100 ? (
+              <div className="btn-primary w-full text-center py-3 text-sm font-semibold">
+                🚀 Accesează Modulul
+              </div>
+            ) : (
+              <div className="btn-outline w-full text-center py-3 text-sm font-semibold">
+                📋 Vezi Progresul
+              </div>
+            )}
+          </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

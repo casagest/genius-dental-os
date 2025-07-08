@@ -65,15 +65,31 @@ const AIInsights = () => {
         variant: "destructive",
       });
       
-      // Fallback to sample insights
+      // Fallback to sample insights if API fails
       setInsights([
         {
           type: "revenue_optimization",
-          title: "Optimizare Venituri",
-          message: "AI detectează că marți 10:00-12:00 ai rata de no-show scăzută (2%). Recomand să programezi cazuri complexe în acest slot.",
+          title: "💰 Optimizare Venituri",
+          message: "AI detectează că marți 10:00-12:00 ai rata de no-show scăzută (2%). Recomand să programezi cazuri complexe în acest slot pentru maximizarea veniturilor.",
           confidence: 94,
           impact: "high",
           icon: <TrendingUp className="w-4 h-4" />
+        },
+        {
+          type: "inventory_alert", 
+          title: "📦 Alertă Stoc",
+          message: "Implanturile Nobel 4.3x10mm sunt pe sfârșite. Comandă în următoarele 3 zile pentru a evita întârzierile în tratamente.",
+          confidence: 89,
+          impact: "medium",
+          icon: <AlertTriangle className="w-4 h-4" />
+        },
+        {
+          type: "patient_behavior",
+          title: "👥 Comportament Pacienți", 
+          message: "Pacienții cu vârsta 45-60 ani au cea mai mare rată de acceptare pentru tratamente costisitoare. Concentrează marketingul pe această grupă.",
+          confidence: 91,
+          impact: "high",
+          icon: <Lightbulb className="w-4 h-4" />
         }
       ]);
     } finally {

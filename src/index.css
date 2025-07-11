@@ -38,8 +38,10 @@
     /* 🎯 STATUS COLORS - Clear & Intuitive */
     --success: 142 76% 50%;              /* Green for success */
     --success-glow: 142 76% 65%;
+    --success-foreground: 0 0% 100%;
     --warning: 45 93% 58%;               /* Orange for warnings */
     --warning-glow: 45 93% 75%;
+    --warning-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;            /* Red for errors */
     --destructive-glow: 0 84% 75%;
     --destructive-foreground: 0 0% 100%;
@@ -315,6 +317,177 @@
   
   .bg-gentle {
     background: var(--gradient-gentle);
+  }
+
+  /* 🎯 QUANTUM & NEURAL DESIGN SYSTEM */
+  .hover-quantum {
+    transition: var(--transition-smooth);
+  }
+  
+  .hover-quantum:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-float);
+  }
+
+  .neuro-card {
+    background: var(--gradient-primary);
+    border: 1px solid hsl(var(--primary) / 0.3);
+    box-shadow: 0 8px 32px hsl(var(--primary) / 0.15);
+  }
+
+  .ai-card {
+    background: var(--gradient-secondary);
+    border: 1px solid hsl(var(--secondary) / 0.3);
+    box-shadow: 0 8px 32px hsl(var(--secondary) / 0.15);
+  }
+
+  .glass-card {
+    background: var(--gradient-accent);
+    border: 1px solid hsl(var(--accent) / 0.3);
+    box-shadow: 0 8px 32px hsl(var(--accent) / 0.15);
+  }
+
+  .medical-card-revolutionary {
+    background: var(--gradient-gentle);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+  }
+
+  .text-holographic {
+    color: hsl(var(--primary));
+    font-weight: 700;
+  }
+
+  .text-holographic-1 {
+    color: hsl(var(--primary-glow));
+  }
+
+  .text-neural {
+    color: hsl(var(--foreground));
+    font-weight: 600;
+  }
+
+  .text-quantum {
+    color: hsl(var(--muted-foreground));
+  }
+
+  .bg-quantum\/10 {
+    background: hsl(var(--muted) / 0.1);
+  }
+
+  .border-quantum\/20 {
+    border-color: hsl(var(--border) / 0.2);
+  }
+
+  .ai-indicator .shadow-neural {
+    box-shadow: 0 4px 16px hsl(var(--primary) / 0.25);
+  }
+
+  .animate-neural-pulse {
+    animation: pulse-gentle 2s infinite;
+  }
+
+  .btn-neural {
+    background: var(--gradient-primary);
+    color: hsl(var(--primary-foreground));
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 500;
+    transition: var(--transition-smooth);
+  }
+
+  .animate-bounce-subtle {
+    animation: bounce-subtle 1.5s infinite;
+  }
+
+  @keyframes bounce-subtle {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2px); }
+  }
+
+  /* ⚡ ADVANCED ANIMATION SYSTEM */
+  .animate-vital-pulse {
+    animation: vital-pulse 1.8s infinite;
+  }
+
+  .animate-slide-in-left {
+    animation: slide-in-left 0.5s ease-out;
+  }
+
+  .animate-slide-in-right {
+    animation: slide-in-right 0.5s ease-out;
+  }
+
+  .animate-heartbeat {
+    animation: heartbeat 2s infinite;
+  }
+
+  .holographic-border {
+    position: relative;
+    border: 1px solid hsl(var(--primary) / 0.3);
+    border-radius: var(--radius);
+    background: var(--gradient-gentle);
+  }
+
+  .holographic-content {
+    padding: 1.5rem;
+  }
+
+  .quantum-glow {
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.2);
+  }
+
+  .neural-pulse {
+    background: var(--gradient-primary);
+    animation: pulse-gentle 2s infinite;
+  }
+
+  .border-quantum {
+    border-color: hsl(var(--border));
+  }
+
+  .bg-quantum {
+    color: hsl(var(--muted-foreground));
+  }
+
+  @keyframes vital-pulse {
+    0%, 100% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% { 
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes slide-in-left {
+    0% { 
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+    100% { 
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-in-right {
+    0% { 
+      transform: translateX(20px);
+      opacity: 0;
+    }
+    100% { 
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: scale(1); }
+    75% { transform: scale(1.02); }
   }
   
   /* ✨ INTERACTIVE UTILITIES */

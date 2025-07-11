@@ -71,6 +71,12 @@ const AIInsights = () => {
       // Fallback to role-specific insights if API fails
       const roleInsights = getRoleInsights();
       setInsights(roleInsights);
+      
+      // Show a helpful message for non-technical users
+      toast({
+        title: "📊 Date demonstrative încărcate",
+        description: "Aplicația funcționează cu date demonstrative până la configurarea completă.",
+      });
     } finally {
       setIsLoading(false);
     }

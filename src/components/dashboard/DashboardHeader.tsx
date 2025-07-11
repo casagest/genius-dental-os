@@ -60,7 +60,7 @@ const DashboardHeader = () => {
           {/* Revolutionary Logo & Branding */}
           <Link to="/" className="flex items-center space-x-4 hover:opacity-80 transition-opacity duration-200">
             <div className="relative group">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-400/70 transition-all duration-300 animate-heartbeat cursor-pointer">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-400/70 transition-all duration-300 animate-pulse-gentle cursor-pointer">
                 <span className="text-white font-black text-xl">M</span>
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
               </div>

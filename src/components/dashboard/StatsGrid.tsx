@@ -10,7 +10,7 @@ const StatsGrid = () => {
   const stats = getRoleStats();
   const roleConfig = getRoleConfig();
 
-  const handleStatClick = (stat) => {
+  const handleStatClick = (stat: any) => {
     // Here you could navigate to detailed views or show drill-down data
     console.log(`Clicked on ${stat.label}`);
   };

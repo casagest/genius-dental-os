@@ -7,6 +7,7 @@ import { Bell, Settings, User, MessageSquare, Mic, MicOff, Stethoscope, Users, C
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useRole } from "@/contexts/RoleContext";
 import LanguageSwitcher from "@/components/ui/language-switcher";
 import { Link } from "react-router-dom";
 
@@ -14,8 +15,8 @@ const DashboardHeader = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useLanguage();
+  const { currentRole, setCurrentRole, getRoleConfig } = useRole();
   const [isVoiceActive, setIsVoiceActive] = useState(false);
-  const [userRole, setUserRole] = useState('medic');
 
   const roles = {
     'medic': { icon: <Stethoscope className="w-4 h-4" />, label: 'Medic Stomatolog', color: 'bg-blue-500' },
@@ -26,7 +27,8 @@ const DashboardHeader = () => {
     'marketing': { icon: <Megaphone className="w-4 h-4" />, label: 'Marketing', color: 'bg-pink-500' }
   };
 
-  const currentRole = roles[userRole];
+  const roleInfo = roles[currentRole];
+  const roleConfig = getRoleConfig();
 
   const handleNotifications = () => {
     toast({
@@ -68,7 +70,7 @@ const DashboardHeader = () => {
                 MedicalCor GENIUS
               </h1>
               <p className="text-sm text-blue-200/80 font-medium">
-                Prima platformă AI dentară din România
+                {roleConfig.description}
               </p>
             </div>
           </Link>
@@ -76,12 +78,12 @@ const DashboardHeader = () => {
           {/* Role Selector & Voice Interface */}
           <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-3 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200">
-              <div className={`w-3 h-3 rounded-full ${currentRole.color} animate-fade-in`}></div>
-              <Select value={userRole} onValueChange={setUserRole}>
+              <div className={`w-3 h-3 rounded-full ${roleInfo.color} animate-fade-in`}></div>
+              <Select value={currentRole} onValueChange={setCurrentRole}>
                 <SelectTrigger className="w-48 border-0 bg-transparent shadow-none focus:ring-0 h-8">
                   <div className="flex items-center space-x-2">
-                    {currentRole.icon}
-                    <SelectValue />
+                    {roleInfo.icon}
+                    <span className="text-sm font-medium">{roleConfig.name}</span>
                   </div>
                 </SelectTrigger>
                 <SelectContent>

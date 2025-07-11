@@ -1,58 +1,14 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
-import { Calendar, Clock, Plus, Search, TrendingUp, Users, Wrench, Target } from "lucide-react";
+import { useRole } from "@/contexts/RoleContext";
 import { Button } from "@/components/ui/button";
 
 const StatsGrid = () => {
   const [selectedPeriod, setSelectedPeriod] = useState('today');
-
-  const stats = [
-    {
-      label: "Programări Astăzi",
-      value: "24",
-      change: "+12% vs ieri",
-      changeType: "positive",
-      icon: <Calendar className="w-5 h-5" />,
-      color: "text-blue-600",
-      context: "8:30-18:00",
-      clickable: true,
-      actionText: "Vezi programul"
-    },
-    {
-      label: "Pacienți Noi",
-      value: "8",
-      change: "+45% vs săpt. trecută",
-      changeType: "positive", 
-      icon: <Users className="w-5 h-5" />,
-      color: "text-green-600",
-      context: "Prima consultație",
-      clickable: true,
-      actionText: "Vezi detalii"
-    },
-    {
-      label: "Lucrări Laborator",
-      value: "15",
-      change: "92% livrate la timp",
-      changeType: "neutral",
-      icon: <Wrench className="w-5 h-5" />,
-      color: "text-orange-600",
-      context: "5 coroani, 3 punți, 7 diverse",
-      clickable: true,
-      actionText: "Status lab"
-    },
-    {
-      label: "Conversie Consultații",
-      value: "38%",
-      change: "+15% această lună",
-      changeType: "positive",
-      icon: <Target className="w-5 h-5" />,
-      color: "text-purple-600",
-      context: "Consultație → Plan tratament",
-      clickable: true,
-      actionText: "Analiză conversie"
-    }
-  ];
+  const { getRoleStats, getRoleConfig } = useRole();
+  const stats = getRoleStats();
+  const roleConfig = getRoleConfig();
 
   const handleStatClick = (stat) => {
     // Here you could navigate to detailed views or show drill-down data

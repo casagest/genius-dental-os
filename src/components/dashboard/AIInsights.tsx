@@ -4,12 +4,15 @@ import { Button } from "@/components/ui/button";
 import { MessageSquare, TrendingUp, AlertTriangle, Lightbulb, RefreshCw, Brain, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useRole } from "@/contexts/RoleContext";
 
 const AIInsights = () => {
   const [insights, setInsights] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [accuracy, setAccuracy] = useState(87);
   const { toast } = useToast();
+  const { getRoleInsights, currentRole, getRoleConfig } = useRole();
+  const roleConfig = getRoleConfig();
 
   const getIconForType = (type: string) => {
     switch (type) {
@@ -65,33 +68,9 @@ const AIInsights = () => {
         variant: "destructive",
       });
       
-      // Fallback to sample insights if API fails
-      setInsights([
-        {
-          type: "revenue_optimization",
-          title: "💰 Optimizare Venituri",
-          message: "AI detectează că marți 10:00-12:00 ai rata de no-show scăzută (2%). Recomand să programezi cazuri complexe în acest slot pentru maximizarea veniturilor.",
-          confidence: 94,
-          impact: "high",
-          icon: <TrendingUp className="w-4 h-4" />
-        },
-        {
-          type: "inventory_alert", 
-          title: "📦 Alertă Stoc",
-          message: "Implanturile Nobel 4.3x10mm sunt pe sfârșite. Comandă în următoarele 3 zile pentru a evita întârzierile în tratamente.",
-          confidence: 89,
-          impact: "medium",
-          icon: <AlertTriangle className="w-4 h-4" />
-        },
-        {
-          type: "patient_behavior",
-          title: "👥 Comportament Pacienți", 
-          message: "Pacienții cu vârsta 45-60 ani au cea mai mare rată de acceptare pentru tratamente costisitoare. Concentrează marketingul pe această grupă.",
-          confidence: 91,
-          impact: "high",
-          icon: <Lightbulb className="w-4 h-4" />
-        }
-      ]);
+      // Fallback to role-specific insights if API fails
+      const roleInsights = getRoleInsights();
+      setInsights(roleInsights);
     } finally {
       setIsLoading(false);
     }
@@ -99,7 +78,7 @@ const AIInsights = () => {
 
   useEffect(() => {
     generateAIInsights();
-  }, []);
+  }, [currentRole]);
 
   const getImpactColor = (impact: string) => {
     switch (impact) {
@@ -114,12 +93,12 @@ const AIInsights = () => {
     <div className="space-y-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-medical-gradient rounded-lg flex items-center justify-center">
+          <div className={`w-10 h-10 bg-gradient-to-br ${roleConfig.gradientFrom} ${roleConfig.gradientTo} rounded-lg flex items-center justify-center`}>
             <Brain className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h3 className="font-bold text-foreground">💡 Recomandări Inteligente</h3>
-            <p className="text-sm text-muted-foreground">Sugestii AI pentru optimizare</p>
+            <h3 className="font-bold text-foreground">💡 Recomandări {roleConfig.name}</h3>
+            <p className="text-sm text-muted-foreground">Sugestii AI pentru {roleConfig.description.toLowerCase()}</p>
           </div>
         </div>
         

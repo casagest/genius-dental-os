@@ -1,83 +1,32 @@
 import React from 'react';
-import { Calendar, MessageSquare, Clock, Search, Mic, DollarSign } from "lucide-react";
 import ModuleCard from "./ModuleCard";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useRole } from "@/contexts/RoleContext";
 
 const AIModulesGrid = () => {
-  const { t } = useLanguage();
-
-  const modules = [
-    {
-      title: t('modules.allonx'),
-      description: t('modules.allonxDesc'),
-      status: t('status.live'),
-      progress: 100,
-      icon: <Calendar className="w-6 h-6" />,
-      color: "bg-indigo-500",
-      link: "/allonx"
-    },
-    {
-      title: t('modules.genius'),
-      description: t('modules.geniusDesc'),
-      status: t('status.live'),
-      progress: 100,
-      icon: <Mic className="w-6 h-6" />,
-      color: "bg-green-500"
-    },
-    {
-      title: t('modules.labsync'),
-      description: t('modules.labsyncDesc'),
-      status: t('status.live'),
-      progress: 100,
-      icon: <Clock className="w-6 h-6" />,
-      color: "bg-blue-500",
-      link: "/labsync"
-    },
-    {
-      title: t('modules.inventory'),
-      description: t('modules.inventoryDesc'),
-      status: t('status.live'),
-      progress: 100,
-      icon: <Search className="w-6 h-6" />,
-      color: "bg-orange-500",
-      link: "/inventory"
-    },
-    {
-      title: t('modules.clinical'),
-      description: t('modules.clinicalDesc'),
-      status: t('status.live'),
-      progress: 100,
-      icon: <MessageSquare className="w-6 h-6" />,
-      color: "bg-purple-500",
-      link: "/clinical"
-    },
-    {
-      title: t('modules.marketing'),
-      description: t('modules.marketingDesc'),
-      status: t('status.live'),
-      progress: 100,
-      icon: <MessageSquare className="w-6 h-6" />,
-      color: "bg-indigo-500",
-      link: "/marketing"
-    },
-    {
-      title: t('modules.cfo'),
-      description: t('modules.cfoDesc'),
-      status: t('status.live'),
-      progress: 100,
-      icon: <DollarSign className="w-6 h-6" />,
-      color: "bg-emerald-500",
-      link: "/cfo"
-    }
-  ];
+  const { getRoleModules, currentRole, getRoleConfig } = useRole();
+  const modules = getRoleModules();
+  const roleConfig = getRoleConfig();
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {modules.map((module, index) => (
-        <div key={index} className="animate-scale-in" style={{ animationDelay: `${index * 100}ms` }}>
-          <ModuleCard {...module} />
+    <div className="space-y-6">
+      {/* Role-specific header */}
+      <div className="text-center">
+        <div className={`inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r ${roleConfig.gradientFrom} ${roleConfig.gradientTo} text-white font-semibold text-sm shadow-lg`}>
+          🎯 Module pentru {roleConfig.name}
         </div>
-      ))}
+        <p className="text-muted-foreground mt-2 text-sm">
+          {roleConfig.description}
+        </p>
+      </div>
+
+      {/* Modules grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {modules.map((module, index) => (
+          <div key={index} className="animate-scale-in" style={{ animationDelay: `${index * 100}ms` }}>
+            <ModuleCard {...module} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

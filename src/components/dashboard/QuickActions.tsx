@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React from 'react';
 import { Calendar, MessageSquare, Plus, Search, Clock, FileText, Stethoscope, Users, Wrench, BarChart3, Megaphone, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useRole } from "@/contexts/RoleContext";
 
 const QuickActions = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { t } = useLanguage();
-  const [selectedRole, setSelectedRole] = useState('medic');
+  const { currentRole } = useRole();
 
   const handleAction = (actionTitle: string, route?: string) => {
     if (route) {
@@ -22,7 +20,15 @@ const QuickActions = () => {
     }
   };
 
-  const roleActions = {
+  interface QuickAction {
+    title: string;
+    description: string;
+    icon: React.ReactNode;
+    shortcut: string;
+    route?: string;
+  }
+
+  const roleActions: Record<string, QuickAction[]> = {
     medic: [
       {
         title: "Consultație Nouă",
@@ -190,79 +196,38 @@ const QuickActions = () => {
     ]
   };
 
-  const currentActions = roleActions[selectedRole] || roleActions.medic;
+  const currentActions = roleActions[currentRole] || roleActions.medic;
 
   return (
-    <div className="ai-card quantum-glow animate-fade-in">
-      <div className="holographic-border">
-        <div className="holographic-content">
-          <div className="flex items-center justify-between mb-6">
-            <div className="space-y-2">
-              <h3 className="text-xl font-bold text-holographic">🚀 Acțiuni Rapide AI</h3>
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-success rounded-full animate-vital-pulse"></div>
-                <span className="text-neural text-sm">Funcții personalizate pentru rolul tău</span>
-              </div>
-            </div>
-            <div className="neuro-card">
-              <Select value={selectedRole} onValueChange={setSelectedRole}>
-                <SelectTrigger className="w-40 border-quantum bg-card/50 backdrop-blur-sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-card/95 backdrop-blur-md border-quantum">
-                  <SelectItem value="medic">🔬 Medic</SelectItem>
-                  <SelectItem value="asistent">👨‍⚕️ Asistent</SelectItem>
-                  <SelectItem value="receptie">📞 Recepție</SelectItem>
-                  <SelectItem value="tehnician">🛠️ Tehnician</SelectItem>
-                  <SelectItem value="ceo">💼 CEO/Manager</SelectItem>
-                  <SelectItem value="marketing">📢 Marketing</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+    <div className="space-y-4">
+      <div className="flex items-center space-x-2 mb-4">
+        <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+        <span className="text-sm text-muted-foreground">Acțiuni pentru rolul tău</span>
+      </div>
 
-          <div className="grid grid-cols-1 gap-4">
-            {currentActions.map((action, index) => (
-              <div
-                key={index}
-                onClick={() => handleAction(action.title, action.route)}
-                className="glass-card hover-quantum cursor-pointer animate-slide-in-right"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className="flex items-center space-x-4 p-4">
-                  <div className="ai-indicator flex-shrink-0">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center shadow-neural">
-                      <div className="text-white animate-neural-pulse">
-                        {action.icon}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <h4 className="font-bold text-holographic">{action.title}</h4>
-                      <div className="w-1 h-1 bg-quantum rounded-full animate-pulse"></div>
-                    </div>
-                    <p className="text-sm text-neural mb-2">{action.description}</p>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-xs text-muted-foreground font-mono bg-card/50 px-2 py-1 rounded">
-                        {action.shortcut}
-                      </span>
-                      <div className="flex items-center space-x-1">
-                        <div className="w-1 h-1 bg-success rounded-full animate-bounce-subtle"></div>
-                        <span className="text-xs text-success font-medium">AI Assisté</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="neural-pulse w-8 h-8 rounded-full bg-gradient-accent flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full animate-vital-pulse"></div>
-                  </div>
-                </div>
+      <div className="grid grid-cols-1 gap-3">
+        {currentActions.slice(0, 4).map((action, index) => (
+          <div
+            key={index}
+            onClick={() => handleAction(action.title, action.route)}
+            className="flex items-center space-x-3 p-3 rounded-lg bg-card/50 hover:bg-card/80 cursor-pointer border border-border/50 hover:border-primary/30 transition-all duration-200"
+          >
+            <div className="w-8 h-8 rounded-lg bg-gradient-primary flex items-center justify-center flex-shrink-0">
+              <div className="text-white text-sm">
+                {action.icon}
               </div>
-            ))}
+            </div>
+            
+            <div className="flex-1 min-w-0">
+              <h4 className="font-semibold text-sm text-foreground">{action.title}</h4>
+              <p className="text-xs text-muted-foreground truncate">{action.description}</p>
+            </div>
+            
+            <div className="text-xs text-muted-foreground font-mono px-2 py-1 bg-muted/50 rounded">
+              {action.shortcut}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );

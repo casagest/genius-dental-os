@@ -1,85 +1,89 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ============================================
-   USER-FRIENDLY MEDICAL INTERFACE - Easy for Everyone
-   Simple, Clear, Professional Design
+   🚀 REVOLUTIONARY MEDICAL INTERFACE - PROFESSIONAL GRADE
+   Modern, Sophisticated, Business-Focused Design
    ============================================ */
 
 @layer base {
   :root {
-    /* 🎨 FRIENDLY COLOR PALETTE - Warm & Approachable */
-    --background: 210 25% 98%;           /* Very light blue-gray */
-    --foreground: 215 25% 15%;           /* Dark blue-gray for readability */
-    --card: 0 0% 100%;                   /* Pure white cards */
-    --card-foreground: 215 25% 15%;      /* Dark text on cards */
-    --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
+    /* 🎨 REVOLUTIONARY COLOR SYSTEM - Professional & Modern */
+    --background: 223 47% 11%;              /* Deep slate background */
+    --foreground: 213 31% 91%;              /* Pure white text */
+    --card: 224 44% 13%;                    /* Darker card background */
+    --card-foreground: 213 31% 91%;         /* White text on cards */
+    --popover: 224 44% 13%;
+    --popover-foreground: 213 31% 91%;
     
-    /* 💙 MEDICAL BLUE THEME - Trust & Professionalism */
-    --primary: 210 85% 58%;              /* Medical blue */
-    --primary-glow: 210 85% 75%;         /* Light blue */
-    --primary-dark: 210 85% 45%;         /* Dark blue */
-    --primary-foreground: 0 0% 100%;     /* White text on blue */
+    /* 💎 PREMIUM BRAND COLORS - Luxury & Trust */
+    --primary: 221 83% 53%;                 /* Premium blue */
+    --primary-glow: 221 83% 65%;            /* Light blue glow */
+    --primary-dark: 221 83% 40%;            /* Dark blue */
+    --primary-foreground: 0 0% 100%;        /* White text */
     
-    --secondary: 142 76% 50%;            /* Medical green */
-    --secondary-glow: 142 76% 65%;       /* Light green */
-    --secondary-foreground: 0 0% 100%;   /* White text on green */
+    --secondary: 142 76% 55%;               /* Success green */
+    --secondary-glow: 142 76% 70%;          /* Light green */
+    --secondary-foreground: 0 0% 100%;      /* White text */
     
-    --accent: 45 93% 58%;                /* Warm orange for highlights */
-    --accent-glow: 45 93% 75%;           /* Light orange */
-    --accent-foreground: 0 0% 100%;      /* White text on orange */
+    --accent: 269 78% 62%;                  /* Premium purple */
+    --accent-glow: 269 78% 75%;             /* Light purple */
+    --accent-foreground: 0 0% 100%;         /* White text */
     
-    /* 🎯 STATUS COLORS - Clear & Intuitive */
-    --success: 142 76% 50%;              /* Green for success */
-    --success-glow: 142 76% 65%;
+    /* 🎯 STATUS SYSTEM - Clear & Intuitive */
+    --success: 142 76% 55%;                 /* Success green */
+    --success-glow: 142 76% 70%;
     --success-foreground: 0 0% 100%;
-    --warning: 45 93% 58%;               /* Orange for warnings */
-    --warning-glow: 45 93% 75%;
+    --warning: 38 92% 58%;                  /* Warning orange */
+    --warning-glow: 38 92% 75%;
     --warning-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;            /* Red for errors */
+    --destructive: 0 84% 60%;               /* Error red */
     --destructive-glow: 0 84% 75%;
     --destructive-foreground: 0 0% 100%;
     
-    /* 🖼️ INTERFACE ELEMENTS - Soft & Clean */
-    --muted: 210 25% 95%;                /* Very light background */
-    --muted-foreground: 215 25% 55%;     /* Medium gray text */
-    --border: 210 25% 88%;               /* Light borders */
-    --input: 210 25% 96%;                /* Light input backgrounds */
-    --ring: 210 85% 58%;                 /* Focus ring color */
+    /* 🖼️ INTERFACE ELEMENTS - Premium & Polished */
+    --muted: 215 28% 17%;                   /* Muted background */
+    --muted-foreground: 217 19% 60%;        /* Muted text */
+    --border: 215 28% 20%;                  /* Subtle borders */
+    --input: 215 28% 16%;                   /* Input backgrounds */
+    --ring: 221 83% 53%;                    /* Focus ring */
     
-    /* 🌈 FRIENDLY GRADIENTS - Gentle & Welcoming */
-    --gradient-primary: linear-gradient(135deg, hsl(210 85% 58%), hsl(210 85% 75%));
-    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 50%), hsl(142 76% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(45 93% 58%), hsl(45 93% 75%));
-    --gradient-gentle: linear-gradient(135deg, hsl(210 25% 98%), hsl(210 25% 95%));
+    /* 🌈 PREMIUM GRADIENTS - Luxury & Sophisticated */
+    --gradient-primary: linear-gradient(135deg, hsl(221 83% 53%), hsl(269 78% 62%));
+    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 55%), hsl(158 76% 60%));
+    --gradient-accent: linear-gradient(135deg, hsl(269 78% 62%), hsl(281 78% 67%));
+    --gradient-dark: linear-gradient(135deg, hsl(223 47% 11%), hsl(224 44% 13%));
+    --gradient-glass: linear-gradient(135deg, hsl(221 83% 53% / 0.1), hsl(269 78% 62% / 0.1));
     
-    /* ✨ SOFT SHADOWS - Elegant & Subtle */
-    --shadow-gentle: 0 2px 8px hsl(215 25% 15% / 0.08);
-    --shadow-card: 0 4px 16px hsl(215 25% 15% / 0.12);
-    --shadow-button: 0 2px 4px hsl(215 25% 15% / 0.15);
-    --shadow-float: 0 8px 24px hsl(210 85% 58% / 0.15);
+    /* ✨ PREMIUM SHADOWS - Depth & Sophistication */
+    --shadow-subtle: 0 1px 3px hsl(0 0% 0% / 0.2);
+    --shadow-card: 0 4px 24px hsl(0 0% 0% / 0.25);
+    --shadow-button: 0 2px 8px hsl(0 0% 0% / 0.3);
+    --shadow-float: 0 8px 32px hsl(221 83% 53% / 0.3);
+    --shadow-glow: 0 0 40px hsl(221 83% 53% / 0.4);
     
-    /* 🎨 DESIGN TOKENS */
-    --radius: 12px;
-    --radius-large: 16px;
-    --radius-xl: 20px;
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 🎨 DESIGN TOKENS - Modern & Consistent */
+    --radius: 16px;
+    --radius-large: 24px;
+    --radius-xl: 32px;
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
     /* 📱 SIDEBAR COLORS */
-    --sidebar-background: 210 25% 97%;
-    --sidebar-foreground: 215 25% 15%;
-    --sidebar-primary: 210 85% 58%;
+    --sidebar-background: 223 47% 9%;
+    --sidebar-foreground: 213 31% 91%;
+    --sidebar-primary: 221 83% 53%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 25% 94%;
-    --sidebar-accent-foreground: 215 25% 15%;
-    --sidebar-border: 210 25% 88%;
-    --sidebar-ring: 210 85% 58%;
+    --sidebar-accent: 215 28% 15%;
+    --sidebar-accent-foreground: 213 31% 91%;
+    --sidebar-border: 215 28% 18%;
+    --sidebar-ring: 221 83% 53%;
   }
 
   .dark {
@@ -120,9 +124,10 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
     font-feature-settings: 'cv11', 'ss01', 'rlig' 1, 'calt' 1;
     line-height: 1.6;
+    overflow-x: hidden;
   }
   
   /* 🎨 CLEAN SCROLLBARS */
@@ -147,19 +152,37 @@
 }
 
 @layer components {
-  /* 🏥 MEDICAL CARD COMPONENTS - Clean & Professional */
+  /* 🚀 REVOLUTIONARY CARD SYSTEM - Premium & Interactive */
   .medical-card {
     background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
     box-shadow: var(--shadow-card);
     border-radius: var(--radius);
     transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .medical-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+  
+  .medical-card:hover::before {
+    transform: scaleX(1);
   }
   
   .medical-card:hover {
     box-shadow: var(--shadow-float);
-    border-color: hsl(var(--primary) / 0.3);
-    transform: translateY(-2px);
+    border-color: hsl(var(--primary) / 0.4);
+    transform: translateY(-4px) scale(1.02);
   }
   
   .status-card {
@@ -496,8 +519,83 @@
   }
   
   .hover-lift:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.02);
     box-shadow: var(--shadow-float);
+  }
+
+  /* 🎨 GLASS MORPHISM */
+  .glass-card {
+    backdrop-filter: blur(20px);
+    border: 1px solid hsla(0, 0%, 100%, 0.1);
+    background: linear-gradient(135deg, 
+      hsla(221, 83%, 53%, 0.05) 0%, 
+      hsla(269, 78%, 62%, 0.05) 50%, 
+      hsla(142, 76%, 55%, 0.05) 100%);
+    box-shadow: 0 8px 32px hsla(0, 0%, 0%, 0.3);
+    transition: var(--transition-smooth);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px hsla(0, 0%, 0%, 0.4);
+  }
+
+  /* 🎯 MODERN HEADINGS */
+  .heading-primary {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, 
+      hsl(var(--primary)), 
+      hsl(var(--accent)), 
+      hsl(var(--secondary)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .heading-secondary {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: hsl(var(--foreground));
+    line-height: 1.3;
+  }
+
+  /* 🌟 ADVANCED ANIMATIONS */
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+    to { box-shadow: 0 0 30px hsl(var(--primary) / 0.6); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* 🎨 MODERN BUTTON VARIANTS */
+  .btn-premium {
+    background: var(--gradient-primary);
+    color: white;
+    border: none;
+    border-radius: var(--radius-large);
+    padding: 1rem 2rem;
+    font-weight: 600;
+    transition: var(--transition-bounce);
+    box-shadow: var(--shadow-glow);
+  }
+
+  .btn-premium:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: var(--shadow-float);
+  }
   }
   
   .clickable {

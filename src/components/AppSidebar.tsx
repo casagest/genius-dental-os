@@ -18,7 +18,8 @@ import {
   Brain,
   Scan,
   Shield,
-  Star
+  Star,
+  Smartphone
 } from "lucide-react";
 
 import {
@@ -95,6 +96,7 @@ const AppSidebar = () => {
     { title: "Integrari", url: "/integrations", icon: Settings, badge: null },
     { title: "iStoma Hub", url: "/istoma", icon: Globe, badge: "NEW" },
     { title: "All-on-X", url: "/allon", icon: Star, badge: "PRO" },
+    { title: "Mobile Native", url: "/native-features", icon: Smartphone, badge: "📱" },
   ];
 
   const navigationItems = getNavigationItems();

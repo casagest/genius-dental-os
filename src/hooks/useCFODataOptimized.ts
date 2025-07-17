@@ -7,16 +7,28 @@ const CALCULATION_PRECISION = 2;
 // Use Map for faster lookups and better memory management
 const createDataCache = () => new Map<string, { data: any; timestamp: number }>();
 
+// Define KPI type for consistent typing
+type KPIData = {
+  monthlyRevenue: number;
+  monthlyExpenses: number;
+  profit: number;
+  patientGrowth: number;
+  avgTreatmentValue: number;
+  collectionRate: number;
+  operatingMargin: number;
+  cashFlow: number;
+};
+
 // Memoized calculation functions for better performance
 const calculateKPIs = (() => {
-  // Cache for expensive calculations
-  const cache = new Map<string, number>();
+  // Cache for expensive calculations with proper typing
+  const cache = new Map<string, KPIData>();
   
-  return () => {
+  return (): KPIData => {
     const cacheKey = 'kpis';
     
     if (cache.has(cacheKey)) {
-      return cache.get(cacheKey);
+      return cache.get(cacheKey)!;
     }
     
     const result = {

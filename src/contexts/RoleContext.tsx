@@ -169,8 +169,8 @@ const roleModules = {
     {
       title: "Sterilizare AI",
       description: "Urmărire și validare procese sterilizare",
-      status: "BETA",
-      progress: 85,
+      status: "LIVE",
+      progress: 100,
       icon: <Shield className="w-6 h-6" />,
       color: "bg-purple-500",
       priority: 3
@@ -199,8 +199,8 @@ const roleModules = {
     {
       title: "Gestionare Plăți",
       description: "Facturare și urmărire încasări",
-      status: "BETA",
-      progress: 75,
+      status: "LIVE",
+      progress: 100,
       icon: <DollarSign className="w-6 h-6" />,
       color: "bg-green-500",
       priority: 3
@@ -229,8 +229,8 @@ const roleModules = {
     {
       title: "Urmărire Materiale",
       description: "Stoc materie primă și consum",
-      status: "BETA",
-      progress: 80,
+      status: "LIVE",
+      progress: 100,
       icon: <Database className="w-6 h-6" />,
       color: "bg-blue-500",
       priority: 3
@@ -250,8 +250,8 @@ const roleModules = {
     {
       title: "Management Personal",
       description: "Performanță echipă și planificare resurse",
-      status: "BETA",
-      progress: 90,
+      status: "LIVE",
+      progress: 100,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
       priority: 2
@@ -259,8 +259,8 @@ const roleModules = {
     {
       title: "Business Intelligence",
       description: "Analize predictive și optimizare procese",
-      status: "BETA",
-      progress: 70,
+      status: "LIVE",
+      progress: 100,
       icon: <Database className="w-6 h-6" />,
       color: "bg-purple-500",
       priority: 3
@@ -280,8 +280,8 @@ const roleModules = {
     {
       title: "Achiziție Pacienți",
       description: "Lead generation și conversie online",
-      status: "BETA",
-      progress: 85,
+      status: "LIVE",
+      progress: 100,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
       priority: 2
@@ -289,8 +289,8 @@ const roleModules = {
     {
       title: "Social Media AI",
       description: "Automatizare postări și engagement",
-      status: "BETA",
-      progress: 75,
+      status: "LIVE",
+      progress: 100,
       icon: <Palette className="w-6 h-6" />,
       color: "bg-purple-500",
       priority: 3

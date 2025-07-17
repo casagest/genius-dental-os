@@ -18,6 +18,13 @@ import AllOnXHub from "./pages/AllOnXHub";
 import CFODashboard from "./pages/CFODashboard";
 import IStomaIntegration from "./pages/IStomaIntegration";
 import NativeFeatures from "./pages/NativeFeatures";
+import SterilizationAI from "./pages/SterilizationAI";
+import PaymentManagement from "./pages/PaymentManagement";
+import MaterialTracking from "./pages/MaterialTracking";
+import StaffManagement from "./pages/StaffManagement";
+import BusinessIntelligence from "./pages/BusinessIntelligence";
+import PatientAcquisition from "./pages/PatientAcquisition";
+import SocialMediaAI from "./pages/SocialMediaAI";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +49,13 @@ const App = () => (
           <Route path="/cfo" element={<CFODashboard />} />
           <Route path="/istoma-integration" element={<IStomaIntegration />} />
           <Route path="/native-features" element={<NativeFeatures />} />
+          <Route path="/sterilization" element={<SterilizationAI />} />
+          <Route path="/payments" element={<PaymentManagement />} />
+          <Route path="/materials" element={<MaterialTracking />} />
+          <Route path="/staff" element={<StaffManagement />} />
+          <Route path="/business-intelligence" element={<BusinessIntelligence />} />
+          <Route path="/patient-acquisition" element={<PatientAcquisition />} />
+          <Route path="/social-media" element={<SocialMediaAI />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
           </Routes>

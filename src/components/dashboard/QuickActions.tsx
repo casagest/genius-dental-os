@@ -65,12 +65,14 @@ const QuickActions = () => {
         description: "SMS/WhatsApp reminder pacienți",
         icon: <Phone className="w-5 h-5" />,
         shortcut: "Ctrl+C",
+        route: "/appointments"
       },
       {
         title: "Gestionare Sterilizare",
         description: "Urmărire instrumente și cicli",
         icon: <Clock className="w-5 h-5" />,
         shortcut: "Ctrl+S",
+        route: "/sterilization"
       },
       {
         title: "Stoc Materiale",
@@ -100,18 +102,21 @@ const QuickActions = () => {
         description: "Urmărire telefoane și conversii",
         icon: <Users className="w-5 h-5" />,
         shortcut: "Ctrl+L",
+        route: "/patient-acquisition"
       },
       {
         title: "Facturare & Plăți",
         description: "Emisie facturi și încasări",
         icon: <FileText className="w-5 h-5" />,
         shortcut: "Ctrl+F",
+        route: "/payments"
       },
       {
         title: "Reminder Pacienți",
         description: "Apeluri confirmare și follow-up",
         icon: <Phone className="w-5 h-5" />,
         shortcut: "Ctrl+R",
+        route: "/appointments"
       }
     ],
     tehnician: [
@@ -127,18 +132,21 @@ const QuickActions = () => {
         description: "Fotografii și status lucrare",
         icon: <FileText className="w-5 h-5" />,
         shortcut: "Ctrl+U",
+        route: "/labsync"
       },
       {
         title: "CAD/CAM Design",
         description: "Design digital și simulare",
         icon: <Wrench className="w-5 h-5" />,
         shortcut: "Ctrl+D",
+        route: "/materials"
       },
       {
         title: "Notificare Finalizare",
         description: "Anunță medicul când e gata",
         icon: <MessageSquare className="w-5 h-5" />,
         shortcut: "Ctrl+F",
+        route: "/labsync"
       }
     ],
     ceo: [
@@ -154,18 +162,21 @@ const QuickActions = () => {
         description: "Medici, conversii, eficiență",
         icon: <Search className="w-5 h-5" />,
         shortcut: "Ctrl+A",
+        route: "/business-intelligence"
       },
       {
         title: "Marketing ROI",
         description: "Campanii și lead sources",
         icon: <Megaphone className="w-5 h-5" />,
         shortcut: "Ctrl+M",
+        route: "/marketing"
       },
       {
         title: "Rapoarte Executive",
         description: "Export Excel și prezentări",
         icon: <FileText className="w-5 h-5" />,
         shortcut: "Ctrl+R",
+        route: "/staff"
       }
     ],
     marketing: [
@@ -174,24 +185,28 @@ const QuickActions = () => {
         description: "Facebook Ads / Google Ads",
         icon: <Megaphone className="w-5 h-5" />,
         shortcut: "Ctrl+C",
+        route: "/marketing"
       },
       {
         title: "Lead Tracking",
         description: "Urmărire surse și conversii",
         icon: <Search className="w-5 h-5" />,
         shortcut: "Ctrl+T",
+        route: "/patient-acquisition"
       },
       {
         title: "Content Creator",
         description: "Postări social media",
         icon: <Plus className="w-5 h-5" />,
         shortcut: "Ctrl+P",
+        route: "/social-media"
       },
       {
         title: "Analytics Report",
         description: "Performance și ROI campanii",
         icon: <BarChart3 className="w-5 h-5" />,
         shortcut: "Ctrl+A",
+        route: "/business-intelligence"
       }
     ]
   };

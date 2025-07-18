@@ -2,7 +2,8 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/contexts/LanguageContext";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 interface ModuleCardProps {
   title: string;
@@ -15,19 +16,34 @@ interface ModuleCardProps {
 }
 
 const ModuleCard = ({ title, description, status, progress, icon, color, link }: ModuleCardProps) => {
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'LIVE': return 'bg-green-100 text-green-800 border-green-200';
-      case 'BETA': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'DEVELOPMENT': return 'bg-orange-100 text-orange-800 border-orange-200';
-      case 'PLANNING': return 'bg-purple-100 text-purple-800 border-purple-200';
-      default: return 'bg-slate-100 text-slate-600 border-slate-200';
+      case 'LIVE': return 'bg-success/10 text-success border-success/20';
+      case 'BETA': return 'bg-primary/10 text-primary border-primary/20';
+      case 'DEVELOPMENT': return 'bg-warning/10 text-warning border-warning/20';
+      case 'PLANNING': return 'bg-secondary/10 text-secondary border-secondary/20';
+      default: return 'bg-muted/50 text-muted-foreground border-border';
     }
   };
 
   const handleModuleClick = () => {
     if (link && progress === 100) {
-      window.location.href = link;
+      navigate(link);
+    } else if (progress < 100) {
+      toast({
+        title: "Modul în dezvoltare",
+        description: `${title} este ${progress}% complet. Va fi disponibil în curând!`,
+        variant: "default",
+      });
+    } else {
+      toast({
+        title: "Rută indisponibilă",
+        description: "Această funcționalitate va fi disponibilă în curând.",
+        variant: "default",
+      });
     }
   };
 

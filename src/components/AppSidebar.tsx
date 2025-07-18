@@ -19,7 +19,13 @@ import {
   Scan,
   Shield,
   Star,
-  Smartphone
+  Smartphone,
+  DollarSign,
+  Package,
+  UserCheck,
+  TrendingUp,
+  Target,
+  Share2
 } from "lucide-react";
 
 import {
@@ -57,35 +63,34 @@ const AppSidebar = () => {
 
     const roleSpecificItems = {
       medic: [
-        { title: "CBCT Scanner", url: "/cbct", icon: Scan, badge: "3D" },
-        { title: "Planificare AI", url: "/surgical", icon: Microscope, badge: "AI" },
-        { title: "Pacienți", url: "/patients", icon: Users, badge: null },
+        { title: "AllOnX Hub", url: "/allonx", icon: Star, badge: "PRO" },
+        { title: "LabSync", url: "/labsync", icon: Microscope, badge: null },
+        { title: "Planificare", url: "/surgical", icon: Brain, badge: "AI" },
       ],
       asistent: [
         { title: "Inventar", url: "/inventory", icon: Database, badge: null },
-        { title: "Laborator", url: "/lab", icon: Microscope, badge: null },
-        { title: "Programări", url: "/appointments", icon: Clock, badge: null },
+        { title: "Sterilizare", url: "/sterilization", icon: Shield, badge: "AI" },
+        { title: "Urmărire", url: "/tracking", icon: Clock, badge: null },
       ],
       receptie: [
-        { title: "Check-in", url: "/checkin", icon: Users, badge: null },
-        { title: "Plăți", url: "/payments", icon: CreditCard, badge: null },
-        { title: "Programări", url: "/appointments", icon: Calendar, badge: null },
+        { title: "Plăți", url: "/payments", icon: DollarSign, badge: null },
+        { title: "Check-in", url: "/checkin", icon: UserCheck, badge: null },
+        { title: "Comunicare", url: "/communication", icon: Share2, badge: null },
       ],
       tehnician: [
-        { title: "Laborator", url: "/lab", icon: Microscope, badge: null },
-        { title: "Inventar", url: "/inventory", icon: Database, badge: null },
-        { title: "Comenzi", url: "/orders", icon: Zap, badge: null },
+        { title: "LabSync PRO", url: "/labsync", icon: Microscope, badge: "PRO" },
+        { title: "Materiale", url: "/materials", icon: Package, badge: null },
+        { title: "Control", url: "/quality", icon: Shield, badge: null },
       ],
       ceo: [
         { title: "Dashboard CFO", url: "/cfo", icon: BarChart3, badge: "€" },
-        { title: "Analytics", url: "/analytics", icon: BarChart3, badge: null },
-        { title: "Marketing", url: "/marketing", icon: Megaphone, badge: "AI" },
-        { title: "Rapoarte", url: "/reports", icon: Database, badge: null },
+        { title: "Personal", url: "/staff", icon: Users, badge: null },
+        { title: "Business Intel", url: "/business-intelligence", icon: TrendingUp, badge: "AI" },
       ],
       marketing: [
         { title: "AI Marketing", url: "/marketing", icon: Megaphone, badge: "AI" },
-        { title: "Campanii", url: "/campaigns", icon: Globe, badge: null },
-        { title: "Analytics", url: "/analytics", icon: BarChart3, badge: null },
+        { title: "Achiziție", url: "/patient-acquisition", icon: Target, badge: null },
+        { title: "Social Media", url: "/social-media", icon: Share2, badge: "AI" },
       ],
     };
 
@@ -94,8 +99,7 @@ const AppSidebar = () => {
 
   const integrationItems = [
     { title: "Integrari", url: "/integrations", icon: Settings, badge: null },
-    { title: "iStoma Hub", url: "/istoma", icon: Globe, badge: "NEW" },
-    { title: "All-on-X", url: "/allon", icon: Star, badge: "PRO" },
+    { title: "iStoma Hub", url: "/istoma-integration", icon: Globe, badge: "NEW" },
     { title: "Mobile Native", url: "/native-features", icon: Smartphone, badge: "📱" },
   ];
 

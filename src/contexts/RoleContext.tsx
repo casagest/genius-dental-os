@@ -173,6 +173,7 @@ const roleModules = {
       progress: 100,
       icon: <Shield className="w-6 h-6" />,
       color: "bg-purple-500",
+      link: "/sterilization",
       priority: 3
     }
   ],
@@ -203,6 +204,7 @@ const roleModules = {
       progress: 100,
       icon: <DollarSign className="w-6 h-6" />,
       color: "bg-green-500",
+      link: "/payments",
       priority: 3
     }
   ],
@@ -233,6 +235,7 @@ const roleModules = {
       progress: 100,
       icon: <Database className="w-6 h-6" />,
       color: "bg-blue-500",
+      link: "/materials",
       priority: 3
     }
   ],
@@ -254,6 +257,7 @@ const roleModules = {
       progress: 100,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
+      link: "/staff",
       priority: 2
     },
     {
@@ -263,6 +267,7 @@ const roleModules = {
       progress: 100,
       icon: <Database className="w-6 h-6" />,
       color: "bg-purple-500",
+      link: "/business-intelligence",
       priority: 3
     }
   ],
@@ -284,6 +289,7 @@ const roleModules = {
       progress: 100,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
+      link: "/patient-acquisition",
       priority: 2
     },
     {
@@ -293,6 +299,7 @@ const roleModules = {
       progress: 100,
       icon: <Palette className="w-6 h-6" />,
       color: "bg-purple-500",
+      link: "/social-media",
       priority: 3
     }
   ]

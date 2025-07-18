@@ -8,7 +8,11 @@ import AIInsights from "@/components/dashboard/AIInsights";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import QuickActions from "@/components/dashboard/QuickActions";
 import ChatWidget from "@/components/chat/ChatWidget";
+import BreadcrumbNav from "@/components/ui/breadcrumb-nav";
 import { useRole } from "@/contexts/RoleContext";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Settings, Bell, HelpCircle } from "lucide-react";
 
 const Index = () => {
   const { currentRole, getRoleConfig } = useRole();
@@ -36,6 +40,25 @@ const Index = () => {
               <DashboardHeader />
             </div>
           </div>
+          
+          {/* Breadcrumb Navigation */}
+          <BreadcrumbNav 
+            title="Dashboard Inteligent" 
+            showBackButton={false}
+            customActions={
+              <div className="flex items-center space-x-2">
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  <HelpCircle className="w-4 h-4" />
+                </Button>
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  <Bell className="w-4 h-4" />
+                </Button>
+                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
+                  <Settings className="w-4 h-4" />
+                </Button>
+              </div>
+            }
+          />
           
           {/* Main Content */}
           <main className="relative z-10 p-4 md:p-6 lg:p-8 space-y-6 md:space-y-8">

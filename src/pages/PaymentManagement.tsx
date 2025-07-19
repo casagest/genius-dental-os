@@ -185,7 +185,12 @@ const PaymentManagement = () => {
                           <div className="text-lg font-bold">€{invoice.amount}</div>
                           <div className="text-sm text-muted-foreground">{invoice.days} zile</div>
                         </div>
-                        <Button variant="outline" size="sm">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => console.log(`Send invoice ${invoice.id}`)}
+                          className="hover:scale-105 transition-transform"
+                        >
                           <Receipt className="w-4 h-4 mr-2" />
                           Trimite
                         </Button>
@@ -266,19 +271,34 @@ const PaymentManagement = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <Button className="h-20 flex flex-col items-center justify-center">
+                  <Button 
+                    className="h-20 flex flex-col items-center justify-center hover:scale-105 transition-transform"
+                    onClick={() => console.log('Generate daily report')}
+                  >
                     <Receipt className="w-6 h-6 mb-2" />
                     Raport Zilnic
                   </Button>
-                  <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex flex-col items-center justify-center hover:scale-105 transition-transform"
+                    onClick={() => console.log('Generate monthly report')}
+                  >
                     <TrendingUp className="w-6 h-6 mb-2" />
                     Raport Lunar
                   </Button>
-                  <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex flex-col items-center justify-center hover:scale-105 transition-transform"
+                    onClick={() => console.log('Generate annual report')}
+                  >
                     <CheckCircle className="w-6 h-6 mb-2" />
                     Raport Anual
                   </Button>
-                  <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+                  <Button 
+                    variant="outline" 
+                    className="h-20 flex flex-col items-center justify-center hover:scale-105 transition-transform"
+                    onClick={() => console.log('Generate overdue invoices report')}
+                  >
                     <AlertCircle className="w-6 h-6 mb-2" />
                     Facturi Restante
                   </Button>

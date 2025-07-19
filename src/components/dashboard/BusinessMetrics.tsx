@@ -77,7 +77,14 @@ const BusinessMetrics = () => {
       {metrics.map((metric, index) => {
         const IconComponent = metric.icon;
         return (
-          <Card key={index} className="medical-card hover-lift cursor-pointer">
+          <Card 
+            key={index} 
+            className="medical-card hover-lift cursor-pointer transition-all duration-300 hover:shadow-lg"
+            onClick={() => {
+              // Add navigation or detailed view functionality here
+              console.log(`Clicked metric: ${metric.title}`);
+            }}
+          >
             <CardContent className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <div className={`w-12 h-12 rounded-xl bg-gradient-primary flex items-center justify-center`}>

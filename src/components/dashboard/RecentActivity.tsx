@@ -45,7 +45,10 @@ const RecentActivity = () => {
       {activities.map((activity, index) => (
         <div 
           key={index} 
-          className="flex items-center space-x-3 p-3 rounded-lg bg-card/30 hover:bg-card/50 border border-border/30 transition-all duration-200"
+          className="flex items-center space-x-3 p-3 rounded-lg bg-card/30 hover:bg-card/60 border border-border/30 transition-all duration-300 hover:shadow-md cursor-pointer hover-lift"
+          onClick={() => {
+            console.log(`Clicked activity: ${activity.title}`);
+          }}
         >
           <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${
             activity.priority === 'high' ? 'bg-red-100 text-red-600' : 'bg-blue-100 text-blue-600'

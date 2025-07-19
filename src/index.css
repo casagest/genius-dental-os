@@ -345,11 +345,30 @@
   /* 🎯 QUANTUM & NEURAL DESIGN SYSTEM */
   .hover-quantum {
     transition: var(--transition-smooth);
+    cursor: pointer;
   }
   
   .hover-quantum:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: var(--shadow-float);
+  }
+
+  .hover-lift {
+    transition: var(--transition-smooth);
+    cursor: pointer;
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .neuro-card {

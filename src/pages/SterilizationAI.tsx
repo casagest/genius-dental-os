@@ -116,7 +116,11 @@ const SterilizationAI = () => {
                       <Clock className="w-4 h-4 mr-2" />
                       În progres
                     </Badge>
-                    <Button className="w-full" variant="outline">
+                    <Button 
+                      className="w-full hover:scale-105 transition-transform" 
+                      variant="outline"
+                      onClick={() => console.log('View charts clicked')}
+                    >
                       <BarChart3 className="w-4 h-4 mr-2" />
                       Vezi Grafice
                     </Button>
@@ -196,7 +200,14 @@ const SterilizationAI = () => {
                           {instrument.status === 'sterilized' ? 'Sterilizat' : 
                            instrument.status === 'in-progress' ? 'În progres' : 'În așteptare'}
                         </Badge>
-                        <Button variant="outline" size="sm">Detalii</Button>
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => console.log(`View details for ${instrument.name}`)}
+                          className="hover:scale-105 transition-transform"
+                        >
+                          Detalii
+                        </Button>
                       </div>
                     </div>
                   ))}

@@ -26,6 +26,7 @@ import BusinessIntelligence from "./pages/BusinessIntelligence";
 import PatientAcquisition from "./pages/PatientAcquisition";
 import SocialMediaAI from "./pages/SocialMediaAI";
 import PatientPortal from "./pages/PatientPortal";
+import MedicalOSDashboard from "./pages/MedicalOSDashboard";
 
 const queryClient = new QueryClient();
 
@@ -38,7 +39,8 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<MedicalOSDashboard />} />
+          <Route path="/index" element={<Index />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/dashboard" element={<MedicalDashboard />} />

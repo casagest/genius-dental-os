@@ -25,6 +25,7 @@ import StaffManagement from "./pages/StaffManagement";
 import BusinessIntelligence from "./pages/BusinessIntelligence";
 import PatientAcquisition from "./pages/PatientAcquisition";
 import SocialMediaAI from "./pages/SocialMediaAI";
+import PatientPortal from "./pages/PatientPortal";
 
 const queryClient = new QueryClient();
 
@@ -55,9 +56,10 @@ const App = () => (
           <Route path="/staff" element={<StaffManagement />} />
           <Route path="/business-intelligence" element={<BusinessIntelligence />} />
           <Route path="/patient-acquisition" element={<PatientAcquisition />} />
-          <Route path="/social-media" element={<SocialMediaAI />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+           <Route path="/social-media" element={<SocialMediaAI />} />
+           <Route path="/patient-portal" element={<PatientPortal />} />
+           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+           <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         </TooltipProvider>

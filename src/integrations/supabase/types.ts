@@ -14,6 +14,107 @@ export type Database = {
   }
   public: {
     Tables: {
+      patient_appointments: {
+        Row: {
+          appointment_date: string
+          appointment_type: string
+          cost: number | null
+          created_at: string
+          duration_minutes: number | null
+          id: string
+          notes: string | null
+          patient_id: string
+          status: string | null
+          treatment_plan: string | null
+          updated_at: string
+        }
+        Insert: {
+          appointment_date: string
+          appointment_type: string
+          cost?: number | null
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          notes?: string | null
+          patient_id: string
+          status?: string | null
+          treatment_plan?: string | null
+          updated_at?: string
+        }
+        Update: {
+          appointment_date?: string
+          appointment_type?: string
+          cost?: number | null
+          created_at?: string
+          duration_minutes?: number | null
+          id?: string
+          notes?: string | null
+          patient_id?: string
+          status?: string | null
+          treatment_plan?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "patient_appointments_patient_id_fkey"
+            columns: ["patient_id"]
+            isOneToOne: false
+            referencedRelation: "patients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      patients: {
+        Row: {
+          created_at: string
+          date_of_birth: string | null
+          email: string
+          emergency_contact_name: string | null
+          emergency_contact_phone: string | null
+          first_name: string
+          id: string
+          insurance_id: string | null
+          insurance_provider: string | null
+          last_name: string
+          medical_record_number: string | null
+          phone: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          date_of_birth?: string | null
+          email: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          first_name: string
+          id?: string
+          insurance_id?: string | null
+          insurance_provider?: string | null
+          last_name: string
+          medical_record_number?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          date_of_birth?: string | null
+          email?: string
+          emergency_contact_name?: string | null
+          emergency_contact_phone?: string | null
+          first_name?: string
+          id?: string
+          insurance_id?: string | null
+          insurance_provider?: string | null
+          last_name?: string
+          medical_record_number?: string | null
+          phone?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

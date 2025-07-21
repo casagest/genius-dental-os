@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock, User, Phone, Mail, CreditCard, FileText, Bell } from 'lucide-react';
+import { Calendar, Clock, User, Phone, Mail, CreditCard, FileText, Bell, MessageSquare, Heart, Brain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import PageLayout from '@/components/layout/PageLayout';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { PatientAuth } from '@/components/patients/PatientAuth';
 import { AppointmentScheduler } from '@/components/patients/AppointmentScheduler';
 import { PatientProfile } from '@/components/patients/PatientProfile';
+import { TreatmentPortal } from '@/components/patients/TreatmentPortal';
+import { CommunicationSystem } from '@/components/patients/CommunicationSystem';
+import { PaymentPortal } from '@/components/patients/PaymentPortal';
 
 interface Patient {
   id: string;
@@ -123,11 +127,11 @@ export default function PatientPortal() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-foreground">
+            <h1 className="text-3xl font-bold medical-gradient">
               Welcome back, {patient?.first_name}
             </h1>
             <p className="text-muted-foreground">
-              Manage your dental care journey
+              Your complete dental care management system
             </p>
           </div>
           <Button 
@@ -144,7 +148,7 @@ export default function PatientPortal() {
 
         {/* Quick Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="hover-lift">
+          <Card className="medical-card hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center space-x-2">
                 <Calendar className="h-8 w-8 text-primary" />
@@ -158,130 +162,178 @@ export default function PatientPortal() {
             </CardContent>
           </Card>
 
-          <Card className="hover-lift">
+          <Card className="medical-card hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center space-x-2">
-                <FileText className="h-8 w-8 text-primary" />
+                <Heart className="h-8 w-8 text-primary" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Visits</p>
-                  <p className="text-lg font-semibold">
-                    {appointments.filter(a => a.status === 'completed').length}
-                  </p>
+                  <p className="text-sm text-muted-foreground">Treatment Progress</p>
+                  <p className="text-lg font-semibold">65%</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="hover-lift">
+          <Card className="medical-card hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center space-x-2">
-                <Bell className="h-8 w-8 text-primary" />
+                <MessageSquare className="h-8 w-8 text-primary" />
                 <div>
-                  <p className="text-sm text-muted-foreground">Reminders</p>
-                  <p className="text-lg font-semibold">2</p>
+                  <p className="text-sm text-muted-foreground">Unread Messages</p>
+                  <p className="text-lg font-semibold">3</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="hover-lift">
+          <Card className="medical-card hover-lift">
             <CardContent className="p-6">
               <div className="flex items-center space-x-2">
                 <CreditCard className="h-8 w-8 text-primary" />
                 <div>
                   <p className="text-sm text-muted-foreground">Outstanding</p>
-                  <p className="text-lg font-semibold">$0.00</p>
+                  <p className="text-lg font-semibold">$1,350.00</p>
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Upcoming Appointments */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Calendar className="h-5 w-5" />
-                  Upcoming Appointments
-                </CardTitle>
-                <CardDescription>
-                  Your scheduled dental appointments
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                {appointments.length > 0 ? (
-                  <div className="space-y-3">
-                    {appointments.map((appointment) => (
-                      <div key={appointment.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors">
-                        <div className="flex items-center space-x-4">
-                          <Clock className="h-5 w-5 text-muted-foreground" />
-                          <div>
-                            <p className="font-medium">{appointment.appointment_type}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {new Date(appointment.appointment_date).toLocaleDateString()} at{' '}
-                              {new Date(appointment.appointment_date).toLocaleTimeString([], { 
-                                hour: '2-digit', 
-                                minute: '2-digit' 
-                              })}
-                            </p>
+        {/* Main Navigation Tabs */}
+        <Tabs defaultValue="dashboard" className="w-full">
+          <TabsList className="grid w-full grid-cols-5">
+            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
+            <TabsTrigger value="treatments">Treatment Portal</TabsTrigger>
+            <TabsTrigger value="communication">Communications</TabsTrigger>
+            <TabsTrigger value="payments">Payment Portal</TabsTrigger>
+            <TabsTrigger value="profile">Profile</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="dashboard" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="lg:col-span-2 space-y-6">
+                {/* Upcoming Appointments */}
+                <Card className="medical-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Calendar className="h-5 w-5" />
+                      Upcoming Appointments
+                    </CardTitle>
+                    <CardDescription>
+                      Your scheduled dental appointments
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {appointments.length > 0 ? (
+                      <div className="space-y-3">
+                        {appointments.map((appointment) => (
+                          <div key={appointment.id} className="flex items-center justify-between p-4 border border-border/50 rounded-lg hover:bg-muted/50 transition-colors">
+                            <div className="flex items-center space-x-4">
+                              <Clock className="h-5 w-5 text-muted-foreground" />
+                              <div>
+                                <p className="font-medium">{appointment.appointment_type}</p>
+                                <p className="text-sm text-muted-foreground">
+                                  {new Date(appointment.appointment_date).toLocaleDateString()} at{' '}
+                                  {new Date(appointment.appointment_date).toLocaleTimeString([], { 
+                                    hour: '2-digit', 
+                                    minute: '2-digit' 
+                                  })}
+                                </p>
+                              </div>
+                            </div>
+                            <Badge className={getStatusColor(appointment.status)}>
+                              {appointment.status}
+                            </Badge>
                           </div>
-                        </div>
-                        <Badge className={getStatusColor(appointment.status)}>
-                          {appointment.status}
-                        </Badge>
+                        ))}
                       </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-8">
-                    <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                    <p className="text-muted-foreground">No upcoming appointments</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                    ) : (
+                      <div className="text-center py-8">
+                        <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                        <p className="text-muted-foreground">No upcoming appointments</p>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
 
-            {/* Schedule New Appointment */}
-            <AppointmentScheduler 
-              patientId={patient?.id} 
-              onAppointmentScheduled={() => checkAuth()} 
-            />
-          </div>
+                {/* Schedule New Appointment */}
+                <AppointmentScheduler 
+                  patientId={patient?.id} 
+                  onAppointmentScheduled={() => checkAuth()} 
+                />
+              </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Patient Profile */}
+              {/* Sidebar */}
+              <div className="space-y-6">
+                {/* Quick Actions */}
+                <Card className="medical-card">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Brain className="h-5 w-5" />
+                      AI-Powered Actions
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <Button className="w-full justify-start neural-pulse">
+                      <FileText className="mr-2 h-4 w-4" />
+                      AI Treatment Insights
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <MessageSquare className="mr-2 h-4 w-4" />
+                      Smart Communication
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <CreditCard className="mr-2 h-4 w-4" />
+                      Payment Intelligence
+                    </Button>
+                    <Button className="w-full justify-start" variant="outline">
+                      <Phone className="mr-2 h-4 w-4" />
+                      Emergency Contact
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* Health Summary */}
+                <Card className="medical-card">
+                  <CardHeader>
+                    <CardTitle>Health Summary</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Oral Health Score</span>
+                      <span className="text-sm text-primary font-medium">85/100</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Treatment Compliance</span>
+                      <span className="text-sm text-green-600 font-medium">Excellent</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm">Next Cleaning Due</span>
+                      <span className="text-sm text-orange-600 font-medium">2 months</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="treatments">
+            <TreatmentPortal />
+          </TabsContent>
+
+          <TabsContent value="communication">
+            <CommunicationSystem />
+          </TabsContent>
+
+          <TabsContent value="payments">
+            <PaymentPortal />
+          </TabsContent>
+
+          <TabsContent value="profile">
             <PatientProfile patient={patient} onUpdate={() => checkAuth()} />
-
-            {/* Quick Actions */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button className="w-full justify-start" variant="outline">
-                  <FileText className="mr-2 h-4 w-4" />
-                  View Treatment History
-                </Button>
-                <Button className="w-full justify-start" variant="outline">
-                  <CreditCard className="mr-2 h-4 w-4" />
-                  Payment Portal
-                </Button>
-                <Button className="w-full justify-start" variant="outline">
-                  <Mail className="mr-2 h-4 w-4" />
-                  Message Doctor
-                </Button>
-                <Button className="w-full justify-start" variant="outline">
-                  <Phone className="mr-2 h-4 w-4" />
-                  Contact Support
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </PageLayout>
   );

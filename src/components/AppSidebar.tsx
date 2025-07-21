@@ -1,172 +1,173 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState } from "react";
 import { 
+  Home, 
   Calendar, 
-  Stethoscope, 
   Users, 
-  Settings, 
+  Brain, 
+  Activity, 
+  Stethoscope, 
   BarChart3, 
-  Megaphone, 
-  Bot,
-  Zap,
-  Database,
-  Microscope,
-  Clock,
-  CreditCard,
-  Globe,
-  Home,
-  Brain,
-  Scan,
+  DollarSign, 
+  Settings,
+  Scissors,
+  Heart,
+  MessageSquare,
   Shield,
-  Star,
-  Smartphone,
-  DollarSign,
   Package,
-  UserCheck,
+  Zap,
   TrendingUp,
-  Target,
-  Share2
+  FileText,
+  Plus
 } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useRole } from "@/contexts/RoleContext";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
-const AppSidebar = () => {
-  const location = useLocation();
-  const { currentRole, getRoleConfig } = useRole();
+const menuItems = [
+  {
+    title: "Dashboard",
+    url: "/",
+    icon: Home,
+    description: "Medical OS Dashboard"
+  },
+  {
+    title: "Patient Portal", 
+    url: "/patient-portal",
+    icon: Heart,
+    description: "Patient Management"
+  },
+  {
+    title: "Appointments",
+    url: "/appointments", 
+    icon: Calendar,
+    description: "Schedule Management"
+  },
+  {
+    title: "Surgical Planning AI",
+    url: "/surgical",
+    icon: Scissors,
+    description: "AI-Powered Surgery"
+  },
+  {
+    title: "Clinical Agent",
+    url: "/clinical",
+    icon: Stethoscope,
+    description: "AI Clinical Assistant"
+  },
+  {
+    title: "CFO Dashboard",
+    url: "/cfo",
+    icon: DollarSign,
+    description: "Financial Intelligence"
+  },
+  {
+    title: "Inventory Brain",
+    url: "/inventory",
+    icon: Package,
+    description: "Smart Inventory"
+  },
+  {
+    title: "Lab Sync",
+    url: "/labsync",
+    icon: Activity,
+    description: "Laboratory Integration"
+  },
+  {
+    title: "AI Marketing",
+    url: "/marketing",
+    icon: TrendingUp,
+    description: "Marketing Intelligence"
+  },
+  {
+    title: "Business Intelligence",
+    url: "/business-intelligence",
+    icon: BarChart3,
+    description: "Analytics & Reports"
+  }
+];
+
+const integrationItems = [
+  {
+    title: "Integrations",
+    url: "/integrations",
+    icon: Zap,
+    description: "System Integrations"
+  },
+  {
+    title: "Native Features",
+    url: "/native-features", 
+    icon: Shield,
+    description: "Native App Features"
+  },
+  {
+    title: "Staff Management",
+    url: "/staff",
+    icon: Users,
+    description: "Team Management"
+  }
+];
+
+export function AppSidebar() {
   const { state } = useSidebar();
-  const isCollapsed = state === "collapsed";
-  const roleConfig = getRoleConfig();
-
-  // Navigation items based on role
-  const getNavigationItems = () => {
-    const baseItems = [
-      { title: "Dashboard", url: "/", icon: Home, badge: null },
-      { title: "AI Clinical", url: "/clinical", icon: Brain, badge: "AI" },
-      { title: "Programări", url: "/appointments", icon: Calendar, badge: null },
-    ];
-
-    const roleSpecificItems = {
-      medic: [
-        { title: "AllOnX Hub", url: "/allonx", icon: Star, badge: "PRO" },
-        { title: "LabSync", url: "/labsync", icon: Microscope, badge: null },
-        { title: "Planificare", url: "/surgical", icon: Brain, badge: "AI" },
-      ],
-      asistent: [
-        { title: "Inventar", url: "/inventory", icon: Database, badge: null },
-        { title: "Sterilizare", url: "/sterilization", icon: Shield, badge: "AI" },
-        { title: "Urmărire", url: "/tracking", icon: Clock, badge: null },
-      ],
-      receptie: [
-        { title: "Plăți", url: "/payments", icon: DollarSign, badge: null },
-        { title: "Check-in", url: "/checkin", icon: UserCheck, badge: null },
-        { title: "Comunicare", url: "/communication", icon: Share2, badge: null },
-      ],
-      tehnician: [
-        { title: "LabSync PRO", url: "/labsync", icon: Microscope, badge: "PRO" },
-        { title: "Materiale", url: "/materials", icon: Package, badge: null },
-        { title: "Control", url: "/quality", icon: Shield, badge: null },
-      ],
-      ceo: [
-        { title: "Dashboard CFO", url: "/cfo", icon: BarChart3, badge: "€" },
-        { title: "Personal", url: "/staff", icon: Users, badge: null },
-        { title: "Business Intel", url: "/business-intelligence", icon: TrendingUp, badge: "AI" },
-      ],
-      marketing: [
-        { title: "AI Marketing", url: "/marketing", icon: Megaphone, badge: "AI" },
-        { title: "Achiziție", url: "/patient-acquisition", icon: Target, badge: null },
-        { title: "Social Media", url: "/social-media", icon: Share2, badge: "AI" },
-      ],
-    };
-
-    return [...baseItems, ...(roleSpecificItems[currentRole] || [])];
-  };
-
-  const integrationItems = [
-    { title: "Integrari", url: "/integrations", icon: Settings, badge: null },
-    { title: "iStoma Hub", url: "/istoma-integration", icon: Globe, badge: "NEW" },
-    { title: "Mobile Native", url: "/native-features", icon: Smartphone, badge: "📱" },
-  ];
-
-  const navigationItems = getNavigationItems();
-
-  const isActiveRoute = (url: string) => {
-    if (url === "/") return location.pathname === "/";
-    return location.pathname.startsWith(url);
-  };
-
+  const collapsed = state === "collapsed";
+  
   return (
-    <Sidebar collapsible="icon" className="border-r border-primary/20 bg-gradient-to-b from-card to-background">
-      <SidebarRail />
-      
-      <SidebarHeader className="p-4">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary via-accent to-secondary rounded-2xl flex items-center justify-center shadow-lg">
-            <span className="text-white font-bold text-xl">M</span>
-          </div>
-          {!isCollapsed && (
-            <div className="flex-1 min-w-0">
-              <h2 className="font-bold text-lg truncate bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                MedicalCor
-              </h2>
-              <p className="text-xs text-muted-foreground truncate">
-                {roleConfig.name}
-              </p>
+    <Sidebar className={collapsed ? "w-16" : "w-80"} collapsible="icon">
+      <SidebarContent className="bg-gradient-to-b from-background via-background to-accent/5">
+        {/* Header */}
+        <div className="p-4 border-b border-border/50">
+          <div className="flex items-center gap-3">
+            <div className="p-2 rounded-lg bg-gradient-to-br from-primary to-primary/80">
+              <Brain className="h-6 w-6 text-primary-foreground" />
             </div>
-          )}
+            {!collapsed && (
+              <div>
+                <h2 className="text-lg font-bold medical-gradient">MedicalCor</h2>
+                <p className="text-xs text-muted-foreground">Genius OS</p>
+              </div>
+            )}
+          </div>
         </div>
-      </SidebarHeader>
 
-      <SidebarContent className="px-2">
         {/* Main Navigation */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground">
-            {isCollapsed ? "•" : "Navigation"}
+        <SidebarGroup className="px-4">
+          <SidebarGroupLabel className="text-xs uppercase tracking-wider text-muted-foreground/70">
+            Core Modules
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navigationItems.map((item) => (
-                <SidebarMenuItem key={item.url}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={isActiveRoute(item.url)}
-                    className="w-full"
-                  >
-                    <Link 
-                      to={item.url}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${
-                        isActiveRoute(item.url)
-                          ? 'bg-gradient-to-r from-primary/20 to-accent/20 text-primary border border-primary/30'
-                          : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground'
-                      }`}
+              {menuItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild className="hover:bg-primary/5">
+                    <NavLink 
+                      to={item.url} 
+                      end
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 ${
+                          isActive 
+                            ? 'bg-primary/10 text-primary border-l-4 border-primary shadow-sm' 
+                            : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground'
+                        }`
+                      }
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!isCollapsed && (
-                        <>
-                          <span className="flex-1 truncate font-medium">{item.title}</span>
-                          {item.badge && (
-                            <Badge variant="secondary" className="ml-auto text-xs">
-                              {item.badge}
-                            </Badge>
-                          )}
-                        </>
+                      <item.icon className="h-5 w-5 flex-shrink-0" />
+                      {!collapsed && (
+                        <div className="flex-1">
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                        </div>
                       )}
-                    </Link>
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
@@ -174,63 +175,60 @@ const AppSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
 
-        {/* Integration Tools */}
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground">
-            {isCollapsed ? "•" : "Integrari"}
+        {/* Integrations */}
+        <SidebarGroup className="px-4">
+          <SidebarGroupLabel className="text-xs uppercase tracking-wider text-muted-foreground/70">
+            System & Integrations
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {integrationItems.map((item) => (
-                <SidebarMenuItem key={item.url}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={isActiveRoute(item.url)}
-                    className="w-full"
-                  >
-                    <Link 
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild className="hover:bg-primary/5">
+                    <NavLink 
                       to={item.url}
-                      className={`flex items-center gap-3 px-3 py-2 rounded-xl transition-all duration-200 ${
-                        isActiveRoute(item.url)
-                          ? 'bg-gradient-to-r from-secondary/20 to-accent/20 text-secondary border border-secondary/30'
-                          : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground'
-                      }`}
+                      className={({ isActive }) =>
+                        `flex items-center gap-3 px-3 py-3 rounded-lg transition-all duration-200 ${
+                          isActive 
+                            ? 'bg-primary/10 text-primary border-l-4 border-primary shadow-sm' 
+                            : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground'
+                        }`
+                      }
                     >
-                      <item.icon className="w-5 h-5 flex-shrink-0" />
-                      {!isCollapsed && (
-                        <>
-                          <span className="flex-1 truncate font-medium">{item.title}</span>
-                          {item.badge && (
-                            <Badge variant="outline" className="ml-auto text-xs">
-                              {item.badge}
-                            </Badge>
-                          )}
-                        </>
+                      <item.icon className="h-5 w-5 flex-shrink-0" />
+                      {!collapsed && (
+                        <div className="flex-1">
+                          <div className="font-medium">{item.title}</div>
+                          <div className="text-xs text-muted-foreground">{item.description}</div>
+                        </div>
                       )}
-                    </Link>
+                    </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-      </SidebarContent>
 
-      <SidebarFooter className="p-4">
-        {!isCollapsed && (
-          <div className="glass-card p-3 rounded-xl border border-primary/20">
-            <div className="flex items-center gap-2 mb-2">
-              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span className="text-sm font-medium">Sistema Online</span>
+        {/* AI Features */}
+        {!collapsed && (
+          <div className="p-4 mt-auto">
+            <div className="p-4 rounded-lg bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
+              <div className="flex items-center gap-2 mb-2">
+                <Brain className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium text-primary">AI Powered</span>
+              </div>
+              <p className="text-xs text-muted-foreground mb-3">
+                Experience the future of dental practice management with our AI-driven modules.
+              </p>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                <span className="text-xs text-green-600">All systems operational</span>
+              </div>
             </div>
-            <p className="text-xs text-muted-foreground">
-              Toate modulele AI sunt active
-            </p>
           </div>
         )}
-      </SidebarFooter>
+      </SidebarContent>
     </Sidebar>
   );
-};
-
-export default AppSidebar;
+}

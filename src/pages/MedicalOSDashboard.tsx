@@ -5,6 +5,8 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import PageLayout from '@/components/layout/PageLayout';
+import { AppSidebar } from "@/components/AppSidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { RevenueDashboard } from '@/components/analytics/RevenueDashboard';
 import { SystemHealthMonitor } from '@/components/medical/SystemHealthMonitor';
 
@@ -87,7 +89,17 @@ export default function MedicalOSDashboard() {
   };
 
   return (
-    <PageLayout title="MedicalCor Genius OS" className="space-y-8">
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar />
+        <div className="flex-1">
+          <header className="h-12 flex items-center border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <SidebarTrigger className="ml-4" />
+            <div className="flex-1 px-4">
+              <h1 className="text-lg font-semibold medical-gradient">MedicalCor Genius OS</h1>
+            </div>
+          </header>
+          <main className="p-6 space-y-8">
       {/* Header Section */}
       <div className="flex items-center justify-between">
         <div>
@@ -361,39 +373,39 @@ export default function MedicalOSDashboard() {
         </CardContent>
       </Card>
 
-      {/* Practice Management */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Card className="medical-card hover-lift">
-          <CardContent className="p-6 text-center">
-            <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Today's Schedule</h3>
-            <p className="text-3xl font-bold text-primary">18/20</p>
-            <p className="text-sm text-muted-foreground">Appointments filled</p>
-          </CardContent>
-        </Card>
+        {/* Practice Management */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <Card className="medical-card hover-lift cursor-pointer" onClick={() => window.location.href = '/appointments'}>
+            <CardContent className="p-6 text-center">
+              <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h3 className="font-semibold mb-2">Today's Schedule</h3>
+              <p className="text-3xl font-bold text-primary">18/20</p>
+              <p className="text-sm text-muted-foreground">Appointments filled</p>
+            </CardContent>
+          </Card>
 
-        <Card className="medical-card hover-lift">
-          <CardContent className="p-6 text-center">
-            <BarChart3 className="h-12 w-12 text-green-400 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Inventory Status</h3>
-            <p className="text-3xl font-bold text-green-400">92%</p>
-            <p className="text-sm text-muted-foreground">Stock levels optimal</p>
-          </CardContent>
-        </Card>
+          <Card className="medical-card hover-lift cursor-pointer" onClick={() => window.location.href = '/inventory'}>
+            <CardContent className="p-6 text-center">
+              <BarChart3 className="h-12 w-12 text-green-400 mx-auto mb-4" />
+              <h3 className="font-semibold mb-2">Inventory Status</h3>
+              <p className="text-3xl font-bold text-green-400">92%</p>
+              <p className="text-sm text-muted-foreground">Stock levels optimal</p>
+            </CardContent>
+          </Card>
 
-        <Card className="medical-card hover-lift">
-          <CardContent className="p-6 text-center">
-            <Heart className="h-12 w-12 text-red-400 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Patient Satisfaction</h3>
-            <p className="text-3xl font-bold text-red-400">4.8/5</p>
-            <p className="text-sm text-muted-foreground">Based on 157 reviews</p>
-          </CardContent>
-        </Card>
+          <Card className="medical-card hover-lift cursor-pointer" onClick={() => window.location.href = '/patient-portal'}>
+            <CardContent className="p-6 text-center">
+              <Heart className="h-12 w-12 text-red-400 mx-auto mb-4" />
+              <h3 className="font-semibold mb-2">Patient Satisfaction</h3>
+              <p className="text-3xl font-bold text-red-400">4.8/5</p>
+              <p className="text-sm text-muted-foreground">Based on 157 reviews</p>
+            </CardContent>
+          </Card>
 
-        <Card className="medical-card hover-lift">
-          <CardContent className="p-6 text-center">
-            <Shield className="h-12 w-12 text-blue-400 mx-auto mb-4" />
-            <h3 className="font-semibold mb-2">Treatment Acceptance</h3>
+          <Card className="medical-card hover-lift cursor-pointer" onClick={() => window.location.href = '/surgical'}>
+            <CardContent className="p-6 text-center">
+              <Shield className="h-12 w-12 text-blue-400 mx-auto mb-4" />
+              <h3 className="font-semibold mb-2">Surgical Planning AI</h3>
             <p className="text-3xl font-bold text-blue-400">78%</p>
             <p className="text-sm text-muted-foreground">Above industry average</p>
           </CardContent>
@@ -470,6 +482,9 @@ export default function MedicalOSDashboard() {
 
       {/* Analytics & Performance */}
       <RevenueDashboard />
-    </PageLayout>
+          </main>
+        </div>
+      </div>
+    </SidebarProvider>
   );
 }

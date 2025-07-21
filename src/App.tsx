@@ -27,6 +27,7 @@ import PatientAcquisition from "./pages/PatientAcquisition";
 import SocialMediaAI from "./pages/SocialMediaAI";
 import PatientPortal from "./pages/PatientPortal";
 import MedicalOSDashboard from "./pages/MedicalOSDashboard";
+import SurgicalPlanningAI from "./pages/SurgicalPlanningAI";
 
 const queryClient = new QueryClient();
 
@@ -57,10 +58,11 @@ const App = () => (
           <Route path="/materials" element={<MaterialTracking />} />
           <Route path="/staff" element={<StaffManagement />} />
           <Route path="/business-intelligence" element={<BusinessIntelligence />} />
-          <Route path="/patient-acquisition" element={<PatientAcquisition />} />
-           <Route path="/social-media" element={<SocialMediaAI />} />
-           <Route path="/patient-portal" element={<PatientPortal />} />
-           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+           <Route path="/patient-acquisition" element={<PatientAcquisition />} />
+            <Route path="/social-media" element={<SocialMediaAI />} />
+            <Route path="/patient-portal" element={<PatientPortal />} />
+            <Route path="/surgical" element={<SurgicalPlanningAI />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

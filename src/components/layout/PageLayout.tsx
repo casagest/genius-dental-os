@@ -1,6 +1,6 @@
 import React from 'react';
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import AppSidebar from "@/components/AppSidebar";
+import { AppSidebar } from "@/components/AppSidebar";
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import BreadcrumbNav from "@/components/ui/breadcrumb-nav";
 import ChatWidget from "@/components/chat/ChatWidget";

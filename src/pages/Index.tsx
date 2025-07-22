@@ -1,151 +1,137 @@
-import React from 'react';
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
+import React, { useState } from 'react';
 import DashboardHeader from "@/components/dashboard/DashboardHeader";
-import BusinessMetrics from "@/components/dashboard/BusinessMetrics";
-import AIModulesGrid from "@/components/dashboard/AIModulesGrid";
-import AIInsights from "@/components/dashboard/AIInsights";
+import StatsGrid from "@/components/dashboard/StatsGrid";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import QuickActions from "@/components/dashboard/QuickActions";
+import AIInsights from "@/components/dashboard/AIInsights";
 import ChatWidget from "@/components/chat/ChatWidget";
-import BreadcrumbNav from "@/components/ui/breadcrumb-nav";
-import { useRole } from "@/contexts/RoleContext";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Settings, Bell, HelpCircle } from "lucide-react";
+import VoiceChatBot from "@/components/voice/VoiceChatBot";
+import HeroSection from "@/components/dashboard/HeroSection";
+import VoiceSettingsModal from "@/components/dashboard/VoiceSettingsModal";
+import NavigationSection from "@/components/dashboard/NavigationSection";
+import AIModulesGrid from "@/components/dashboard/AIModulesGrid";
 
 const Index = () => {
-  const { currentRole, getRoleConfig } = useRole();
-  const roleConfig = getRoleConfig();
+  const [showVoiceSettings, setShowVoiceSettings] = useState(false);
+  const [voiceSettings, setVoiceSettings] = useState({
+    elevenLabsApiKey: '',
+    openAIApiKey: '',
+    voiceId: 'pNInz6obpgDQGcFmaJgB',
+    language: 'ro' as const,
+    hotwordEnabled: true,
+    micSensitivity: 0.7
+  });
+
+  const handleVoiceSettingsSave = (settings: any) => {
+    setVoiceSettings(settings);
+    setShowVoiceSettings(false);
+  };
 
   return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-gradient-to-br from-background via-background to-slate-900">
-        {/* Ambient Background Effects */}
-        <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" />
-        </div>
-
-        {/* Sidebar */}
-        <AppSidebar />
-
-        {/* Main Content */}
-        <SidebarInset className="flex-1">
-          {/* Header with Sidebar Toggle */}
-          <div className="flex items-center gap-2 px-4 py-2 border-b border-primary/20 bg-gradient-to-r from-background/95 to-card/95 backdrop-blur-xl">
-            <SidebarTrigger className="md:hidden" />
-            <div className="flex-1">
-              <DashboardHeader />
+    <div className="min-h-screen bg-background">
+      <DashboardHeader />
+      
+      <main className="container mx-auto px-4 py-6 space-y-8">
+        {/* 👋 WELCOME SECTION - Simple & Clear */}
+        <div className="medical-card p-8 text-center animate-fade-in">
+          <div className="max-w-4xl mx-auto">
+            <div className="status-indicator status-online mb-6 justify-center">
+              <div className="activity-dot"></div>
+              <span>Sistem MedicalCor ACTIV</span>
+            </div>
+            
+            <h1 className="heading-primary text-4xl md:text-5xl mb-4">
+              🏥 MedicalCor GENIUS 2.0
+            </h1>
+            <p className="text-large text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Sistemul de management pentru clinici stomatologice - simplu, intuitiv și puternic
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => setShowVoiceSettings(true)}
+                className="btn-primary touch-target text-lg"
+              >
+                🎤 Configurează Vocea AI
+              </button>
+              
+              <div className="status-indicator status-online text-lg">
+                <div className="activity-dot"></div>
+                <span>🧠 AI Pregătit</span>
+              </div>
             </div>
           </div>
-          
-          {/* Breadcrumb Navigation */}
-          <BreadcrumbNav 
-            title="Dashboard Inteligent" 
-            showBackButton={false}
-            customActions={
-              <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                  <HelpCircle className="w-4 h-4" />
-                </Button>
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                  <Bell className="w-4 h-4" />
-                </Button>
-                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
-                  <Settings className="w-4 h-4" />
-                </Button>
-              </div>
-            }
-          />
-          
-          {/* Main Content */}
-          <main className="relative z-10 p-4 md:p-6 lg:p-8 space-y-6 md:space-y-8">
-            {/* 🎯 CEO BUSINESS METRICS */}
-            <section className="animate-fade-in">
-              <div className="mb-6">
-                <h2 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent mb-2">
-                  Dashboard Executive
-                </h2>
-                <p className="text-muted-foreground">
-                  Performanță în timp real pentru {roleConfig.name}
-                </p>
-              </div>
-              <BusinessMetrics />
-            </section>
+        </div>
+        
+        <VoiceSettingsModal 
+          isOpen={showVoiceSettings}
+          onClose={() => setShowVoiceSettings(false)}
+          onSettingsSave={handleVoiceSettingsSave}
+        />
 
-            {/* 🚀 MAIN WORKSPACE */}
-            <section className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-              {/* AI MODULES - Primary Focus */}
-              <div className="lg:col-span-2">
-                <div className="glass-card p-6 md:p-8 rounded-2xl border border-primary/20 bg-gradient-to-br from-card/50 to-card/30 backdrop-blur-xl">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 md:mb-8 gap-4">
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-xl md:text-2xl font-bold text-foreground mb-2">
-                        🎯 Module AI Active
-                      </h3>
-                      <p className="text-muted-foreground text-sm md:text-base">
-                        Funcții specializate pentru {roleConfig.name}
-                      </p>
-                    </div>
-                    <div className="px-4 py-2 rounded-full bg-gradient-to-r from-primary to-accent text-white font-semibold text-sm whitespace-nowrap">
-                      {currentRole.toUpperCase()}
-                    </div>
-                  </div>
-                  <AIModulesGrid />
-                </div>
-              </div>
+        {/* 📊 STATISTICS - Visual & Easy */}
+        <div className="animate-slide-up animate-delay-200">
+          <StatsGrid />
+        </div>
 
-              {/* INTELLIGENT SIDEBAR */}
-              <div className="space-y-6">
-                {/* AI INSIGHTS */}
-                <div className="glass-card p-4 md:p-6 rounded-2xl border border-accent/20 bg-gradient-to-br from-accent/5 to-accent/10 backdrop-blur-xl">
-                  <div className="flex items-center gap-3 mb-4 md:mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center">
-                      <span className="text-white font-bold">AI</span>
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold text-foreground">
-                      Insights Inteligente
-                    </h3>
-                  </div>
-                  <AIInsights />
-                </div>
-                
-                {/* RECENT ACTIVITY */}
-                <div className="glass-card p-4 md:p-6 rounded-2xl border border-secondary/20 bg-gradient-to-br from-secondary/5 to-secondary/10 backdrop-blur-xl">
-                  <div className="flex items-center gap-3 mb-4 md:mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-secondary to-accent flex items-center justify-center">
-                      <span className="text-white font-bold">📊</span>
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold text-foreground">
-                      Activitate Live
-                    </h3>
-                  </div>
-                  <RecentActivity />
-                </div>
+        {/* 🚀 MAIN DASHBOARD */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8 animate-slide-up animate-delay-300">
+          <div className="xl:col-span-2 space-y-8">
+            {/* Navigation Cards */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6 text-center">🧭 Navigare Rapidă</h2>
+              <NavigationSection />
+            </div>
+            
+            {/* Recent Activity */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">📋 Activitate Recentă</h2>
+              <RecentActivity />
+            </div>
+          </div>
 
-                {/* QUICK ACTIONS */}
-                <div className="glass-card p-4 md:p-6 rounded-2xl border border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10 backdrop-blur-xl">
-                  <div className="flex items-center gap-3 mb-4 md:mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                      <span className="text-white font-bold">⚡</span>
-                    </div>
-                    <h3 className="text-lg md:text-xl font-bold text-foreground">
-                      Acțiuni Rapide
-                    </h3>
-                  </div>
-                  <QuickActions />
-                </div>
-              </div>
-            </section>
-          </main>
-        </SidebarInset>
-      </div>
+          {/* 🤖 AI ASSISTANTS COLUMN */}
+          <div className="space-y-8">
+            {/* Quick Actions */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">⚡ Acțiuni Rapide</h2>
+              <QuickActions />
+            </div>
+            
+            {/* Voice Assistant */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">🎤 Asistent Vocal</h2>
+              <VoiceChatBot
+                elevenLabsApiKey={voiceSettings.elevenLabsApiKey}
+                openAIApiKey={voiceSettings.openAIApiKey}
+                language={voiceSettings.language}
+                autoSpeak={true}
+              />
+            </div>
+            
+            {/* AI Insights */}
+            <div className="medical-card p-6">
+              <h2 className="heading-secondary mb-6">🧠 Sugestii AI</h2>
+              <AIInsights />
+            </div>
+          </div>
+        </div>
 
-      {/* 💬 FLOATING CHAT WIDGET */}
+        {/* 🎯 ALL MODULES - Clear Grid */}
+        <div className="animate-slide-up animate-delay-500">
+          <div className="text-center mb-8">
+            <h2 className="heading-primary">🔧 Module MedicalCor</h2>
+            <p className="text-large text-muted-foreground">
+              Toate funcțiile principale într-un singur loc
+            </p>
+          </div>
+          <AIModulesGrid />
+        </div>
+      </main>
+
+      {/* 💬 Global Chat Widget */}
       <ChatWidget />
-    </SidebarProvider>
+    </div>
   );
 };
 

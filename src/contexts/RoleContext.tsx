@@ -169,11 +169,10 @@ const roleModules = {
     {
       title: "Sterilizare AI",
       description: "Urmărire și validare procese sterilizare",
-      status: "LIVE",
-      progress: 100,
+      status: "BETA",
+      progress: 85,
       icon: <Shield className="w-6 h-6" />,
       color: "bg-purple-500",
-      link: "/sterilization",
       priority: 3
     }
   ],
@@ -200,11 +199,10 @@ const roleModules = {
     {
       title: "Gestionare Plăți",
       description: "Facturare și urmărire încasări",
-      status: "LIVE",
-      progress: 100,
+      status: "BETA",
+      progress: 75,
       icon: <DollarSign className="w-6 h-6" />,
       color: "bg-green-500",
-      link: "/payments",
       priority: 3
     }
   ],
@@ -231,11 +229,10 @@ const roleModules = {
     {
       title: "Urmărire Materiale",
       description: "Stoc materie primă și consum",
-      status: "LIVE",
-      progress: 100,
+      status: "BETA",
+      progress: 80,
       icon: <Database className="w-6 h-6" />,
       color: "bg-blue-500",
-      link: "/materials",
       priority: 3
     }
   ],
@@ -253,21 +250,19 @@ const roleModules = {
     {
       title: "Management Personal",
       description: "Performanță echipă și planificare resurse",
-      status: "LIVE",
-      progress: 100,
+      status: "BETA",
+      progress: 90,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
-      link: "/staff",
       priority: 2
     },
     {
       title: "Business Intelligence",
       description: "Analize predictive și optimizare procese",
-      status: "LIVE",
-      progress: 100,
+      status: "BETA",
+      progress: 70,
       icon: <Database className="w-6 h-6" />,
       color: "bg-purple-500",
-      link: "/business-intelligence",
       priority: 3
     }
   ],
@@ -285,21 +280,19 @@ const roleModules = {
     {
       title: "Achiziție Pacienți",
       description: "Lead generation și conversie online",
-      status: "LIVE",
-      progress: 100,
+      status: "BETA",
+      progress: 85,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
-      link: "/patient-acquisition",
       priority: 2
     },
     {
       title: "Social Media AI",
       description: "Automatizare postări și engagement",
-      status: "LIVE",
-      progress: 100,
+      status: "BETA",
+      progress: 75,
       icon: <Palette className="w-6 h-6" />,
       color: "bg-purple-500",
-      link: "/social-media",
       priority: 3
     }
   ]

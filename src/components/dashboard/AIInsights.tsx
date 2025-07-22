@@ -71,12 +71,6 @@ const AIInsights = () => {
       // Fallback to role-specific insights if API fails
       const roleInsights = getRoleInsights();
       setInsights(roleInsights);
-      
-      // Show a helpful message for non-technical users
-      toast({
-        title: "📊 Date demonstrative încărcate",
-        description: "Aplicația funcționează cu date demonstrative până la configurarea completă.",
-      });
     } finally {
       setIsLoading(false);
     }
@@ -149,20 +143,10 @@ const AIInsights = () => {
                     {insight.message}
                   </p>
                   <div className="flex space-x-2">
-                    <button 
-                      className="btn-primary text-xs px-4 py-2 hover:scale-105 transition-transform"
-                      onClick={() => {
-                        console.log(`Apply insight: ${insight.title}`);
-                      }}
-                    >
+                    <button className="btn-primary text-xs px-4 py-2">
                       ✅ Aplică Sugestia
                     </button>
-                    <button 
-                      className="btn-outline text-xs px-4 py-2 hover:scale-105 transition-transform"
-                      onClick={() => {
-                        console.log(`Learn more: ${insight.title}`);
-                      }}
-                    >
+                    <button className="btn-outline text-xs px-4 py-2">
                       📖 Află Mai Multe
                     </button>
                   </div>

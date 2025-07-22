@@ -1,9 +1,6 @@
-// DEPRECATED: Use useCFODataOptimized.ts for better performance
-// This file is kept for backwards compatibility
-
 import { useState, useEffect } from 'react';
 
-// Generare date financiare live pentru clinica dentară (LEGACY VERSION)
+// Generare date financiare live pentru clinica dentară
 const generateFinancialData = () => ({
   kpis: {
     monthlyRevenue: Math.floor(Math.random() * 100000) + 150000,

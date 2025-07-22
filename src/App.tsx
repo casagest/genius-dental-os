@@ -17,17 +17,6 @@ import AIMarketing from "./pages/AIMarketing";
 import AllOnXHub from "./pages/AllOnXHub";
 import CFODashboard from "./pages/CFODashboard";
 import IStomaIntegration from "./pages/IStomaIntegration";
-import NativeFeatures from "./pages/NativeFeatures";
-import SterilizationAI from "./pages/SterilizationAI";
-import PaymentManagement from "./pages/PaymentManagement";
-import MaterialTracking from "./pages/MaterialTracking";
-import StaffManagement from "./pages/StaffManagement";
-import BusinessIntelligence from "./pages/BusinessIntelligence";
-import PatientAcquisition from "./pages/PatientAcquisition";
-import SocialMediaAI from "./pages/SocialMediaAI";
-import PatientPortal from "./pages/PatientPortal";
-import MedicalOSDashboard from "./pages/MedicalOSDashboard";
-import SurgicalPlanningAI from "./pages/SurgicalPlanningAI";
 
 const queryClient = new QueryClient();
 
@@ -40,8 +29,7 @@ const App = () => (
           <Sonner />
           <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MedicalOSDashboard />} />
-          <Route path="/index" element={<Index />} />
+          <Route path="/" element={<Index />} />
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/integrations" element={<Integrations />} />
           <Route path="/dashboard" element={<MedicalDashboard />} />
@@ -52,18 +40,8 @@ const App = () => (
           <Route path="/allonx" element={<AllOnXHub />} />
           <Route path="/cfo" element={<CFODashboard />} />
           <Route path="/istoma-integration" element={<IStomaIntegration />} />
-          <Route path="/native-features" element={<NativeFeatures />} />
-          <Route path="/sterilization" element={<SterilizationAI />} />
-          <Route path="/payments" element={<PaymentManagement />} />
-          <Route path="/materials" element={<MaterialTracking />} />
-          <Route path="/staff" element={<StaffManagement />} />
-          <Route path="/business-intelligence" element={<BusinessIntelligence />} />
-           <Route path="/patient-acquisition" element={<PatientAcquisition />} />
-            <Route path="/social-media" element={<SocialMediaAI />} />
-            <Route path="/patient-portal" element={<PatientPortal />} />
-            <Route path="/surgical" element={<SurgicalPlanningAI />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-           <Route path="*" element={<NotFound />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
         </TooltipProvider>

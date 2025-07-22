@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -52,141 +53,141 @@ const DashboardHeader = () => {
   };
 
   return (
-    <div className="flex items-center justify-between py-4 px-2">
-      {/* Revolutionary Logo & Branding - Desktop Only */}
-      <Link to="/" className="hidden md:flex items-center space-x-4 hover:opacity-80 transition-all duration-300 group">
-        <div className="relative">
-          <div className="w-14 h-14 bg-gradient-to-br from-primary via-accent to-secondary rounded-3xl flex items-center justify-center shadow-glow group-hover:shadow-primary/60 transition-all duration-300 cursor-pointer">
-            <span className="text-white font-black text-2xl">M</span>
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-3xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
+    <header className="bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-slate-900/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 shadow-2xl">
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 animate-pulse-slow"></div>
+      <div className="relative container mx-auto px-6">
+        <div className="flex items-center justify-between py-4">
+          {/* Revolutionary Logo & Branding */}
+          <Link to="/" className="flex items-center space-x-4 hover:opacity-80 transition-opacity duration-200">
+            <div className="relative group">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-400/70 transition-all duration-300 animate-heartbeat cursor-pointer">
+                <span className="text-white font-black text-xl">M</span>
+                <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
+              </div>
+            </div>
+            <div>
+              <h1 className="text-2xl font-black bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent">
+                MedicalCor GENIUS
+              </h1>
+              <p className="text-sm text-blue-200/80 font-medium">
+                {roleConfig.description}
+              </p>
+            </div>
+          </Link>
+
+          {/* Role Selector & Voice Interface */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <div className="flex items-center space-x-3 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200">
+              <div className={`w-3 h-3 rounded-full ${roleInfo.color} animate-fade-in`}></div>
+              <Select value={currentRole} onValueChange={setCurrentRole}>
+                <SelectTrigger className="w-48 border-0 bg-transparent shadow-none focus:ring-0 h-8">
+                  <div className="flex items-center space-x-2">
+                    {roleInfo.icon}
+                    <span className="text-sm font-medium">{roleConfig.name}</span>
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(roles).map(([key, role]) => (
+                    <SelectItem key={key} value={key}>
+                      <div className="flex items-center space-x-2">
+                        {role.icon}
+                        <span>{role.label}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Voice Interface Toggle */}
+            <Button
+              onClick={() => setIsVoiceActive(!isVoiceActive)}
+              variant={isVoiceActive ? "default" : "outline"}
+              size="sm"
+              className={`transition-all duration-300 animate-scale-in ${
+                isVoiceActive 
+                  ? 'bg-green-600 hover:bg-green-700 shadow-lg shadow-green-200' 
+                  : 'hover:bg-green-50 hover:border-green-300'
+              }`}
+            >
+              {isVoiceActive ? (
+                <>
+                  <Mic className="w-4 h-4 mr-2 animate-pulse" />
+                  <span className="text-sm">Voce Activă</span>
+                </>
+              ) : (
+                <>
+                  <MicOff className="w-4 h-4 mr-2" />
+                  <span className="text-sm">Activează Voce</span>
+                </>
+              )}
+            </Button>
+          </div>
+
+          {/* Status & Actions */}
+          <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-4 flex-shrink-0">
+            {/* Live Status - Hidden on mobile */}
+            <div className="hidden lg:flex items-center space-x-2">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span className="text-sm text-slate-600">{t('header.systemOnline')}</span>
+              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 text-xs">
+                {t('header.active24')}
+              </Badge>
+            </div>
+
+            <div className="hidden sm:block">
+              <LanguageSwitcher />
+            </div>
+
+            {/* Action Buttons */}
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="relative p-2 sm:px-3"
+              onClick={handleNotifications}
+            >
+              <Bell className="w-4 h-4" />
+              <span className="absolute -top-1 -right-1 w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full text-xs text-white flex items-center justify-center">
+                <span className="hidden sm:inline">3</span>
+              </span>
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleChat}
+              className="hidden sm:flex"
+            >
+              <MessageSquare className="w-4 h-4 mr-2" />
+              <span className="hidden lg:inline">{t('header.aiChat')}</span>
+            </Button>
+
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleSettings}
+              className="p-2 sm:px-3"
+            >
+              <Settings className="w-4 h-4" />
+            </Button>
+
+            <Button 
+              size="sm" 
+              className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 p-2 sm:px-3"
+              onClick={handleProfile}
+            >
+              <User className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">{t('header.profile')}</span>
+            </Button>
           </div>
         </div>
-        <div>
-          <h1 className="text-2xl md:text-3xl font-black bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
-            MedicalCor GENIUS
-          </h1>
-          <p className="text-sm text-muted-foreground font-medium">
-            {roleConfig.description}
-          </p>
-        </div>
-      </Link>
-
-      {/* Mobile Title */}
-      <div className="md:hidden flex-1 text-center">
-        <h1 className="text-lg font-black bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
-          MedicalCor
-        </h1>
-        <p className="text-xs text-muted-foreground">
-          {roleConfig.name}
-        </p>
-      </div>
-
-      {/* Role Selector & Voice Interface - Desktop Only */}
-      <div className="hidden lg:flex items-center space-x-4">
-        <div className="flex items-center space-x-3 px-4 py-3 bg-gradient-to-r from-card to-muted rounded-2xl border border-primary/30 backdrop-blur-xl">
-          <div className={`w-4 h-4 rounded-full ${roleInfo.color} animate-pulse shadow-lg`}></div>
-          <Select value={currentRole} onValueChange={setCurrentRole}>
-            <SelectTrigger className="w-52 border-0 bg-transparent shadow-none focus:ring-0 h-10">
-              <div className="flex items-center space-x-3">
-                {roleInfo.icon}
-                <span className="text-sm font-semibold">{roleConfig.name}</span>
-              </div>
-            </SelectTrigger>
-            <SelectContent className="bg-card/95 backdrop-blur-xl border-primary/30">
-              {Object.entries(roles).map(([key, role]) => (
-                <SelectItem key={key} value={key} className="focus:bg-primary/20">
-                  <div className="flex items-center space-x-3">
-                    {role.icon}
-                    <span>{role.label}</span>
-                  </div>
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Voice Interface Toggle */}
-        <Button
-          onClick={() => setIsVoiceActive(!isVoiceActive)}
-          variant={isVoiceActive ? "default" : "outline"}
-          size="sm"
-          className={`transition-all duration-300 rounded-2xl px-4 py-3 ${
-            isVoiceActive 
-              ? 'bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/80 hover:to-secondary shadow-lg shadow-secondary/30' 
-              : 'border-primary/30 hover:bg-primary/10 hover:border-primary/50'
-          }`}
-        >
-          {isVoiceActive ? (
-            <>
-              <Mic className="w-4 h-4 mr-2 animate-pulse" />
-              <span className="text-sm font-semibold">Voce Activă</span>
-            </>
-          ) : (
-            <>
-              <MicOff className="w-4 h-4 mr-2" />
-              <span className="text-sm font-semibold">Activează Voce</span>
-            </>
-          )}
-        </Button>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex items-center space-x-2 flex-shrink-0">
-        {/* Live Status - Desktop Only */}
-        <div className="hidden lg:flex items-center space-x-3 px-3 py-2 bg-gradient-to-r from-secondary/20 to-secondary/10 rounded-2xl border border-secondary/30">
-          <div className="w-3 h-3 bg-secondary rounded-full animate-pulse shadow-lg shadow-secondary/50"></div>
-          <span className="text-sm text-foreground font-medium">Online</span>
-        </div>
-
-        <div className="hidden sm:block">
+        
+        {/* Mobile-only bottom section for language switcher */}
+        <div className="sm:hidden pb-3 border-t border-slate-200/50 pt-3 flex justify-center">
           <LanguageSwitcher />
         </div>
-
-        {/* Notification Button */}
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="relative p-2 md:p-3 rounded-2xl border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
-          onClick={handleNotifications}
-        >
-          <Bell className="w-4 h-4" />
-          <span className="absolute -top-1 -right-1 w-3 h-3 bg-destructive rounded-full text-xs text-white flex items-center justify-center animate-pulse">
-            3
-          </span>
-        </Button>
-        
-        {/* Chat Button - Desktop Only */}
-        <Button 
-          variant="outline" 
-          size="sm"
-          onClick={handleChat}
-          className="hidden sm:flex px-3 md:px-4 py-2 md:py-3 rounded-2xl border-accent/30 hover:bg-accent/10 hover:border-accent/50 transition-all duration-300"
-        >
-          <MessageSquare className="w-4 h-4 mr-2" />
-          <span className="hidden lg:inline font-semibold">AI Chat</span>
-        </Button>
-
-        {/* Settings Button */}
-        <Button 
-          variant="outline" 
-          size="sm"
-          onClick={handleSettings}
-          className="p-2 md:p-3 rounded-2xl border-muted-foreground/30 hover:bg-muted/20 hover:border-muted-foreground/50 transition-all duration-300"
-        >
-          <Settings className="w-4 h-4" />
-        </Button>
-
-        {/* Profile Button */}
-        <Button 
-          size="sm" 
-          className="bg-gradient-to-r from-primary to-accent hover:from-primary/80 hover:to-accent/80 px-3 md:px-4 py-2 md:py-3 rounded-2xl shadow-lg shadow-primary/30 transition-all duration-300 hover:shadow-primary/50"
-          onClick={handleProfile}
-        >
-          <User className="w-4 h-4 sm:mr-2" />
-          <span className="hidden sm:inline font-semibold">Profil</span>
-        </Button>
       </div>
-    </div>
+    </header>
   );
 };
 

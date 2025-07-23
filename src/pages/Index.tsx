@@ -10,8 +10,11 @@ import HeroSection from "@/components/dashboard/HeroSection";
 import VoiceSettingsModal from "@/components/dashboard/VoiceSettingsModal";
 import NavigationSection from "@/components/dashboard/NavigationSection";
 import AIModulesGrid from "@/components/dashboard/AIModulesGrid";
+import { useRole } from "@/contexts/RoleContext";
 
 const Index = () => {
+  const { currentRole, getRoleConfig } = useRole();
+  const roleConfig = getRoleConfig();
   const [showVoiceSettings, setShowVoiceSettings] = useState(false);
   const [voiceSettings, setVoiceSettings] = useState({
     elevenLabsApiKey: '',
@@ -32,22 +35,22 @@ const Index = () => {
       <DashboardHeader />
       
       <main className="container mx-auto px-4 py-6 space-y-8">
-        {/* ⚡ DENTAL EXCELLENCE HUB */}
-        <div className="relative bg-gradient-to-r from-primary to-primary/80 text-white p-12 rounded-2xl shadow-2xl animate-fade-in overflow-hidden">
+        {/* ⚡ DENTAL EXCELLENCE HUB - ROLE PERSONALIZED */}
+        <div className={`relative bg-gradient-to-r ${roleConfig.gradientFrom} ${roleConfig.gradientTo} text-white p-12 rounded-2xl shadow-2xl animate-fade-in overflow-hidden`}>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 mix-blend-overlay"></div>
           <div className="relative z-10 max-w-6xl mx-auto">
             <div className="flex items-center justify-center mb-8">
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mr-4">
                 <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
               </div>
-              <span className="text-xl font-semibold">Sistema All-on-X ACTIVĂ</span>
+              <span className="text-xl font-semibold">Sistem {roleConfig.name} ACTIV</span>
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100">
               🦷 DENTAL OS
             </h1>
             <h2 className="text-2xl md:text-3xl mb-8 text-center font-light opacity-90">
-              Full Arch Rehabilitation Excellence
+              {roleConfig.description}
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -90,9 +93,14 @@ const Index = () => {
           onSettingsSave={handleVoiceSettingsSave}
         />
 
-        {/* 📊 STATISTICS - Visual & Easy */}
+        {/* 📊 ROLE-BASED STATISTICS */}
         <div className="animate-slide-up animate-delay-200">
           <StatsGrid />
+        </div>
+
+        {/* 🚀 ROLE-BASED QUICK ACTIONS */}
+        <div className="animate-slide-up animate-delay-250">
+          <QuickActions />
         </div>
 
         {/* 🚀 CLINICAL EXCELLENCE DASHBOARD */}

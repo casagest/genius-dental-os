@@ -21,6 +21,13 @@ import {
   Shield
 } from 'lucide-react';
 
+interface RealTimeSurgicalMonitorProps {
+  patientName?: string;
+  caseId?: string;
+  isActive?: boolean;
+  onAlert?: (alert: any) => void;
+}
+
 // Simulare monitorizare în timp real
 const generateVitalSigns = () => ({
   heartRate: Math.floor(Math.random() * 30) + 60,
@@ -49,7 +56,12 @@ const generateAlerts = () => {
   return alertTypes[Math.floor(Math.random() * alertTypes.length)];
 };
 
-const RealTimeSurgicalMonitor = () => {
+const RealTimeSurgicalMonitor = ({ 
+  patientName = "Current Patient", 
+  caseId = "LIVE-001", 
+  isActive = true, 
+  onAlert 
+}: RealTimeSurgicalMonitorProps = {}) => {
   const [vitalSigns, setVitalSigns] = useState(generateVitalSigns());
   const [currentAlert, setCurrentAlert] = useState(generateAlerts());
   const [isMonitoring, setIsMonitoring] = useState(true);
@@ -69,6 +81,12 @@ const RealTimeSurgicalMonitor = () => {
       if (Math.random() < 0.1) {
         const alert = generateAlerts();
         setCurrentAlert(alert);
+        
+        // Call the onAlert callback if provided
+        if (onAlert) {
+          onAlert(alert.message);
+        }
+        
         toast({
           title: "🔴 Real-Time Alert",
           description: alert.message,

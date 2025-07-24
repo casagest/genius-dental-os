@@ -26,6 +26,11 @@ import {
   AlertTriangle
 } from 'lucide-react';
 
+interface SurgicalPlanningAIProps {
+  caseId?: string;
+  onPlanComplete?: (plan: any) => void;
+}
+
 // Simulare AI avansat pentru planificare chirurgicală
 const generateAIRecommendations = () => ({
   riskAssessment: Math.floor(Math.random() * 30) + 70,
@@ -53,7 +58,7 @@ const generateRealTimeMetrics = () => ({
   estimatedRemaining: "00:23:15"
 });
 
-const SurgicalPlanningAI = () => {
+const SurgicalPlanningAI = ({ caseId, onPlanComplete }: SurgicalPlanningAIProps = {}) => {
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [aiRecommendations, setAiRecommendations] = useState(generateAIRecommendations());
   const [realTimeMetrics, setRealTimeMetrics] = useState(generateRealTimeMetrics());
@@ -82,7 +87,20 @@ const SurgicalPlanningAI = () => {
         if (prev >= 100) {
           clearInterval(progressInterval);
           setIsAnalyzing(false);
-          setAiRecommendations(generateAIRecommendations());
+          const newRecommendations = generateAIRecommendations();
+          setAiRecommendations(newRecommendations);
+          
+          // Call the onPlanComplete callback if provided
+          if (onPlanComplete) {
+            onPlanComplete({
+              aiAnalysis: {
+                successPrediction: newRecommendations.successProbability,
+                recommendations: newRecommendations.recommendedApproach,
+                confidence: newRecommendations.aiConfidence
+              }
+            });
+          }
+          
           toast({
             title: "🤖 AI Analysis Complete",
             description: "Advanced surgical plan generated with 97.3% confidence",

@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Bell, Settings, User, MessageSquare, Mic, MicOff, Stethoscope, Users, Calendar, BarChart3, Megaphone } from "lucide-react";
+import { Bell, Settings, User, MessageSquare, Mic, MicOff, Stethoscope, Users, Calendar, BarChart3, Megaphone, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useRole } from "@/contexts/RoleContext";
+import { useAuth } from "@/contexts/AuthContext";
 import LanguageSwitcher from "@/components/ui/language-switcher";
 import { Link } from "react-router-dom";
 
@@ -16,6 +17,7 @@ const DashboardHeader = () => {
   const { toast } = useToast();
   const { t } = useLanguage();
   const { currentRole, setCurrentRole, getRoleConfig } = useRole();
+  const { logout, profile } = useAuth();
   const [isVoiceActive, setIsVoiceActive] = useState(false);
 
   const handleRoleChange = (newRole) => {
@@ -67,8 +69,25 @@ const DashboardHeader = () => {
   const handleProfile = () => {
     toast({
       title: t('common.profile'),
-      description: "Dr. Marin - Configurări profil disponibile în curând",
+      description: `${profile?.name || profile?.email} - Configurări profil disponibile în curând`,
     });
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast({
+        title: "Deconectare reușită",
+        description: "Ai fost deconectat din sistem",
+      });
+      navigate('/auth');
+    } catch (error) {
+      toast({
+        title: "Eroare la deconectare",
+        description: "A apărut o problemă la deconectare",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -197,6 +216,16 @@ const DashboardHeader = () => {
             >
               <User className="w-4 h-4 sm:mr-2" />
               <span className="hidden sm:inline">{t('header.profile')}</span>
+            </Button>
+
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleLogout}
+              className="p-2 sm:px-3 hover:bg-red-50 hover:border-red-200 hover:text-red-600"
+            >
+              <LogOut className="w-4 h-4 sm:mr-2" />
+              <span className="hidden sm:inline">Ieșire</span>
             </Button>
           </div>
         </div>

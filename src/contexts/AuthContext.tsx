@@ -1,48 +1,25 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useSecureSession } from '@/hooks/useSecureStorage';
-import { generateSecureToken } from '@/lib/security';
+import { User, Session } from '@supabase/supabase-js';
+import { supabase } from '@/integrations/supabase/client';
 
-export interface User {
+export interface UserProfile {
   id: string;
   email: string;
-  name: string;
+  name?: string;
   role: 'admin' | 'doctor' | 'nurse' | 'receptionist';
-  permissions: string[];
-  lastLogin: Date;
-  sessionToken: string;
 }
 
 interface AuthContextType {
   user: User | null;
+  session: Session | null;
+  profile: UserProfile | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-  hasPermission: (permission: string) => boolean;
-  refreshSession: () => Promise<boolean>;
+  logout: () => Promise<void>;
+  hasRole: (role: string) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-// Mock user database - in real app, this would be in your backend
-const MOCK_USERS = [
-  {
-    id: '1',
-    email: 'admin@medicalcor.ro',
-    password: 'admin123', // In real app, this would be hashed
-    name: 'Dr. Administrator',
-    role: 'admin' as const,
-    permissions: ['read:all', 'write:all', 'delete:all', 'admin:settings']
-  },
-  {
-    id: '2',
-    email: 'doctor@medicalcor.ro',
-    password: 'doctor123',
-    name: 'Dr. Maria Popescu',
-    role: 'doctor' as const,
-    permissions: ['read:patients', 'write:patients', 'read:appointments', 'write:appointments']
-  }
-];
 
 interface AuthProviderProps {
   children: ReactNode;
@@ -50,163 +27,120 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const { value: session, setValue: setSession, removeValue: clearSession } = useSecureSession();
 
-  const isAuthenticated = !!user;
+  const isAuthenticated = !!user && !!session;
 
-  // Check session validity
-  const validateSession = async (sessionData: any): Promise<boolean> => {
-    if (!sessionData || !sessionData.sessionToken || !sessionData.userId) {
-      return false;
-    }
-
-    // Check if session has expired (24 hours)
-    const sessionAge = Date.now() - new Date(sessionData.lastLogin).getTime();
-    if (sessionAge > 24 * 60 * 60 * 1000) {
-      return false;
-    }
-
-    // In real app, validate with backend
-    const mockUser = MOCK_USERS.find(u => u.id === sessionData.userId);
-    if (!mockUser) return false;
-
-    setUser({
-      id: mockUser.id,
-      email: mockUser.email,
-      name: mockUser.name,
-      role: mockUser.role,
-      permissions: mockUser.permissions,
-      lastLogin: new Date(sessionData.lastLogin),
-      sessionToken: sessionData.sessionToken
-    });
-
-    return true;
-  };
-
-  // Login function
-  const login = async (email: string, password: string): Promise<boolean> => {
-    setIsLoading(true);
-    
+  // Fetch user profile and role
+  const fetchUserProfile = async (userId: string) => {
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Find user in mock database
-      const mockUser = MOCK_USERS.find(u => u.email === email && u.password === password);
-      
-      if (!mockUser) {
-        setIsLoading(false);
-        return false;
+      // Get user profile
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
+
+      if (profileError) {
+        console.error('Error fetching profile:', profileError);
+        return;
       }
 
-      // Generate session token
-      const sessionToken = generateSecureToken();
-      const now = new Date();
+      // Get user role
+      const { data: roleData, error: roleError } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', userId)
+        .single();
 
-      const userData: User = {
-        id: mockUser.id,
-        email: mockUser.email,
-        name: mockUser.name,
-        role: mockUser.role,
-        permissions: mockUser.permissions,
-        lastLogin: now,
-        sessionToken
-      };
+      if (roleError) {
+        console.error('Error fetching role:', roleError);
+        // Default to receptionist if no role found
+        setProfile({
+          id: userId,
+          email: user?.email || '',
+          name: profileData?.display_name,
+          role: 'receptionist'
+        });
+        return;
+      }
 
-      // Save session securely
-      await setSession({
-        userId: mockUser.id,
-        sessionToken,
-        lastLogin: now.toISOString()
+      setProfile({
+        id: userId,
+        email: user?.email || '',
+        name: profileData?.display_name,
+        role: roleData.role
       });
-
-      setUser(userData);
-      setIsLoading(false);
-      return true;
-
     } catch (error) {
-      console.error('Login failed:', error);
-      setIsLoading(false);
-      return false;
+      console.error('Error in fetchUserProfile:', error);
     }
   };
 
   // Logout function
-  const logout = () => {
-    setUser(null);
-    clearSession();
-  };
-
-  // Check user permissions
-  const hasPermission = (permission: string): boolean => {
-    if (!user) return false;
-    return user.permissions.includes(permission) || user.permissions.includes('admin:all');
-  };
-
-  // Refresh session
-  const refreshSession = async (): Promise<boolean> => {
-    if (!user) return false;
-    
-    try {
-      // Update session timestamp
-      const newSessionToken = generateSecureToken();
-      const now = new Date();
-
-      await setSession({
-        userId: user.id,
-        sessionToken: newSessionToken,
-        lastLogin: now.toISOString()
-      });
-
-      setUser(prev => prev ? {
-        ...prev,
-        sessionToken: newSessionToken,
-        lastLogin: now
-      } : null);
-
-      return true;
-    } catch (error) {
-      console.error('Session refresh failed:', error);
-      logout();
-      return false;
+  const logout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('Error signing out:', error);
     }
+    setUser(null);
+    setSession(null);
+    setProfile(null);
+  };
+
+  // Check user role
+  const hasRole = (role: string): boolean => {
+    if (!profile) return false;
+    return profile.role === role || profile.role === 'admin';
   };
 
   // Initialize auth state
   useEffect(() => {
-    const initializeAuth = async () => {
-      if (session) {
-        const isValid = await validateSession(session);
-        if (!isValid) {
-          clearSession();
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (event, session) => {
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        // Defer profile fetching to avoid deadlock
+        if (session?.user) {
+          setTimeout(() => {
+            fetchUserProfile(session.user.id);
+          }, 0);
+        } else {
+          setProfile(null);
         }
+        
+        setIsLoading(false);
       }
+    );
+
+    // THEN check for existing session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        setTimeout(() => {
+          fetchUserProfile(session.user.id);
+        }, 0);
+      }
+      
       setIsLoading(false);
-    };
+    });
 
-    initializeAuth();
-  }, [session, clearSession]);
-
-  // Auto-refresh session every 30 minutes
-  useEffect(() => {
-    if (!isAuthenticated) return;
-
-    const interval = setInterval(() => {
-      refreshSession();
-    }, 30 * 60 * 1000); // 30 minutes
-
-    return () => clearInterval(interval);
-  }, [isAuthenticated]);
+    return () => subscription.unsubscribe();
+  }, []);
 
   const contextValue: AuthContextType = {
     user,
+    session,
+    profile,
     isAuthenticated,
     isLoading,
-    login,
     logout,
-    hasPermission,
-    refreshSession
+    hasRole
   };
 
   return (
@@ -232,7 +166,7 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children, permission, fallback }: ProtectedRouteProps) {
-  const { isAuthenticated, hasPermission, isLoading } = useAuth();
+  const { isAuthenticated, hasRole, isLoading, profile } = useAuth();
 
   if (isLoading) {
     return <div className="flex items-center justify-center h-screen">Loading...</div>;
@@ -242,7 +176,7 @@ export function ProtectedRoute({ children, permission, fallback }: ProtectedRout
     return fallback || <div>Please log in to access this page.</div>;
   }
 
-  if (permission && !hasPermission(permission)) {
+  if (permission && !hasRole(permission)) {
     return <div>You don't have permission to access this page.</div>;
   }
 

@@ -7,7 +7,9 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { RoleProvider } from "@/contexts/RoleContext";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppLayout } from "@/components/layout/AppLayout";
+import { AuthProvider, ProtectedRoute } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import Appointments from "./pages/Appointments";
 import Integrations from "./pages/Integrations";
@@ -28,40 +30,48 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <LanguageProvider>
-      <RoleProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <SidebarProvider>
-              <AppLayout>
+    <AuthProvider>
+      <LanguageProvider>
+        <RoleProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/appointments" element={<Appointments />} />
-                <Route path="/integrations" element={<Integrations />} />
-                <Route path="/dashboard" element={<MedicalDashboard />} />
-                <Route path="/labsync" element={<LabSync />} />
-                <Route path="/lab-sync" element={<LabSync />} />
-                <Route path="/inventory" element={<InventoryBrain />} />
-                <Route path="/clinical" element={<ClinicalAgent />} />
-                <Route path="/marketing" element={<AIMarketing />} />
-                <Route path="/allonx" element={<AllOnXHub />} />
-                <Route path="/cfo" element={<CFODashboard />} />
-                <Route path="/istoma-integration" element={<IStomaIntegration />} />
-                <Route path="/patient-portal" element={<PatientPortal />} />
-                <Route path="/medical-workflow" element={<MedicalWorkflowDashboard />} />
-                <Route path="/surgical-ai" element={<SurgicalPlanningAI />} />
-                <Route path="/surgical-monitor" element={<RealTimeSurgicalMonitor />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
+                <Route path="/auth" element={<Auth />} />
+                <Route path="/*" element={
+                  <ProtectedRoute fallback={<Auth />}>
+                    <SidebarProvider>
+                      <AppLayout>
+                        <Routes>
+                          <Route path="/" element={<Index />} />
+                          <Route path="/appointments" element={<Appointments />} />
+                          <Route path="/integrations" element={<Integrations />} />
+                          <Route path="/dashboard" element={<MedicalDashboard />} />
+                          <Route path="/labsync" element={<LabSync />} />
+                          <Route path="/lab-sync" element={<LabSync />} />
+                          <Route path="/inventory" element={<InventoryBrain />} />
+                          <Route path="/clinical" element={<ClinicalAgent />} />
+                          <Route path="/marketing" element={<AIMarketing />} />
+                          <Route path="/allonx" element={<AllOnXHub />} />
+                          <Route path="/cfo" element={<CFODashboard />} />
+                          <Route path="/istoma-integration" element={<IStomaIntegration />} />
+                          <Route path="/patient-portal" element={<PatientPortal />} />
+                          <Route path="/medical-workflow" element={<MedicalWorkflowDashboard />} />
+                          <Route path="/surgical-ai" element={<SurgicalPlanningAI />} />
+                          <Route path="/surgical-monitor" element={<RealTimeSurgicalMonitor />} />
+                          <Route path="*" element={<NotFound />} />
+                        </Routes>
+                      </AppLayout>
+                    </SidebarProvider>
+                  </ProtectedRoute>
+                } />
               </Routes>
-              </AppLayout>
-            </SidebarProvider>
-          </BrowserRouter>
-        </TooltipProvider>
-      </RoleProvider>
-    </LanguageProvider>
+            </BrowserRouter>
+          </TooltipProvider>
+        </RoleProvider>
+      </LanguageProvider>
+    </AuthProvider>
   </QueryClientProvider>
 );
 

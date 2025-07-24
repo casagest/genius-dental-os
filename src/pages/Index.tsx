@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import StatsGrid from "@/components/dashboard/StatsGrid";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import QuickActions from "@/components/dashboard/QuickActions";
@@ -67,9 +68,18 @@ const Index = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                to="/medical-workflow"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
+              >
+                <span>🦄</span>
+                <span>GENIUS 3.0 - UNICORN INTERFACE</span>
+                <span className="bg-yellow-400 text-black px-2 py-1 rounded-full text-xs">NEW</span>
+              </Link>
+              
               <button
                 onClick={() => setShowVoiceSettings(true)}
-                className="bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 transition-all transform hover:scale-105"
+                className="bg-white text-primary px-8 py-4 rounded-xl font-semibold text-lg hover:bg-blue-50 transition-all transform hover:scale-105 border-2 border-primary/20"
               >
                 🎤 AI Voice Assistant
               </button>

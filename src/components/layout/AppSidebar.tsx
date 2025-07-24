@@ -30,6 +30,7 @@ import {
 import { useRole } from "@/contexts/RoleContext";
 
 const navigationItems = [
+  { title: "GENIUS 3.0", url: "/medical-workflow", icon: Brain, roles: ['medic', 'asistent', 'ceo'], premium: true },
   { title: "Dashboard", url: "/", icon: Home, roles: ['medic', 'asistent', 'receptie', 'tehnician', 'ceo', 'marketing'] },
   { title: "Appointments", url: "/appointments", icon: Calendar, roles: ['medic', 'asistent', 'receptie'] },
   { title: "Clinical Agent", url: "/clinical", icon: Brain, roles: ['medic'] },
@@ -77,8 +78,17 @@ export function AppSidebar() {
                       end 
                       className={getNavCls}
                     >
-                      <item.icon className="mr-2 h-4 w-4" />
-                      {!collapsed && <span>{item.title}</span>}
+                      <item.icon className={`mr-2 h-4 w-4 ${item.premium ? 'text-holographic' : ''}`} />
+                      {!collapsed && (
+                        <span className={item.premium ? 'text-holographic font-bold' : ''}>
+                          {item.title}
+                          {item.premium && !collapsed && (
+                            <span className="ml-2 text-xs bg-holographic/20 text-holographic px-2 py-0.5 rounded-full">
+                              🦄 UNICORN
+                            </span>
+                          )}
+                        </span>
+                      )}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

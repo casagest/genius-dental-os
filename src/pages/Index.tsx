@@ -1,43 +1,41 @@
 import React from 'react';
 import StatsGrid from "@/components/dashboard/StatsGrid";
-import RecentActivity from "@/components/dashboard/RecentActivity";
+import RealDataDisplay from "@/components/dashboard/RealDataDisplay";
 import QuickActions from "@/components/dashboard/QuickActions";
-import AIInsights from "@/components/dashboard/AIInsights";
+import { useRole } from "@/contexts/RoleContext";
 
 const Index = () => {
+  const { currentRole, getRoleConfig } = useRole();
+  const roleConfig = getRoleConfig();
+
   return (
-    <div className="space-y-8">
-      {/* Header simplu și curat */}
-      <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-8 rounded-xl">
-        <h1 className="text-4xl font-bold mb-2">🦷 DENTAL OS</h1>
-        <p className="text-lg opacity-90">Sistem Medical Integrat</p>
+    <div className="space-y-6 p-6">
+      {/* Header dinamic bazat pe rol */}
+      <div className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-6 rounded-xl">
+        <h1 className="text-3xl font-bold mb-2">🦷 DENTAL OS - {roleConfig.name}</h1>
+        <p className="text-lg opacity-90">{roleConfig.description}</p>
       </div>
 
-      {/* Dashboard principal cu 2 coloane */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Coloana stânga - Statistici și acțiuni */}
-        <div className="space-y-6">
+      {/* Dashboard principal */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        {/* Coloana principală - Date în timp real */}
+        <div className="xl:col-span-2 space-y-6">
           <div className="bg-card p-6 rounded-xl border">
-            <h2 className="text-xl font-semibold mb-4">📊 Statistici</h2>
-            <StatsGrid />
+            <h2 className="text-xl font-semibold mb-4">📊 Date în Timp Real</h2>
+            <RealDataDisplay />
           </div>
-          
+        </div>
+
+        {/* Coloana secundară - Acțiuni și statistici */}
+        <div className="space-y-6">
           <div className="bg-card p-6 rounded-xl border">
             <h2 className="text-xl font-semibold mb-4">⚡ Acțiuni Rapide</h2>
             <QuickActions />
           </div>
-        </div>
-
-        {/* Coloana dreapta - Activitate și AI */}
-        <div className="space-y-6">
-          <div className="bg-card p-6 rounded-xl border">
-            <h2 className="text-xl font-semibold mb-4">📋 Activitate Recentă</h2>
-            <RecentActivity />
-          </div>
           
           <div className="bg-card p-6 rounded-xl border">
-            <h2 className="text-xl font-semibold mb-4">🧠 AI Insights</h2>
-            <AIInsights />
+            <h2 className="text-xl font-semibold mb-4">📈 Statistici Role</h2>
+            <StatsGrid />
           </div>
         </div>
       </div>

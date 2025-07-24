@@ -18,6 +18,25 @@ const DashboardHeader = () => {
   const { currentRole, setCurrentRole, getRoleConfig } = useRole();
   const [isVoiceActive, setIsVoiceActive] = useState(false);
 
+  const handleRoleChange = (newRole) => {
+    setCurrentRole(newRole);
+    // Navigate to role-specific default page
+    const rolePages = {
+      medic: '/clinical',
+      asistent: '/inventory', 
+      receptie: '/appointments',
+      tehnician: '/labsync',
+      ceo: '/cfo',
+      marketing: '/marketing'
+    };
+    navigate(rolePages[newRole] || '/');
+    
+    toast({
+      title: `Rol schimbat: ${roles[newRole].label}`,
+      description: "Interfața s-a adaptat pentru noul rol",
+    });
+  };
+
   const roles = {
     'medic': { icon: <Stethoscope className="w-4 h-4" />, label: 'Medic Stomatolog', color: 'bg-blue-500' },
     'asistent': { icon: <Users className="w-4 h-4" />, label: 'Asistent Medical', color: 'bg-green-500' },
@@ -79,7 +98,7 @@ const DashboardHeader = () => {
           <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-3 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200">
               <div className={`w-3 h-3 rounded-full ${roleInfo.color}`}></div>
-              <Select value={currentRole} onValueChange={setCurrentRole}>
+              <Select value={currentRole} onValueChange={handleRoleChange}>
                 <SelectTrigger className="w-48 border-0 bg-transparent shadow-none focus:ring-0 h-8">
                   <div className="flex items-center space-x-2">
                     {roleInfo.icon}

@@ -40,6 +40,7 @@ export interface RoleInsight {
 interface RoleContextType {
   currentRole: UserRole;
   setCurrentRole: (role: UserRole) => void;
+  navigateToRole: (role: UserRole) => void;
   getRoleModules: () => RoleModule[];
   getRoleStats: () => RoleStat[];
   getRoleInsights: () => RoleInsight[];
@@ -797,9 +798,14 @@ export function RoleProvider({ children }: RoleProviderProps) {
     return roleConfigs[currentRole];
   };
 
+  const navigateToRole = (role: UserRole) => {
+    setCurrentRole(role);
+  };
+
   const value: RoleContextType = {
     currentRole,
     setCurrentRole,
+    navigateToRole,
     getRoleModules,
     getRoleStats,
     getRoleInsights,

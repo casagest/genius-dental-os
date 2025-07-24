@@ -19,6 +19,7 @@ import AllOnXHub from "./pages/AllOnXHub";
 import CFODashboard from "./pages/CFODashboard";
 import IStomaIntegration from "./pages/IStomaIntegration";
 import PatientPortal from "./pages/PatientPortal";
+import MedicalWorkflowDashboard from "./pages/MedicalWorkflowDashboard";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +45,7 @@ const App = () => (
                 <Route path="/cfo" element={<CFODashboard />} />
                 <Route path="/istoma-integration" element={<IStomaIntegration />} />
                 <Route path="/patient-portal" element={<PatientPortal />} />
+                <Route path="/medical-workflow" element={<MedicalWorkflowDashboard />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

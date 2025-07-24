@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { 
   Calendar, Users, Stethoscope, DollarSign, Clock, Activity,
   Plus, UserPlus, CalendarPlus, Wrench, FileText, AlertCircle,
-  TrendingUp, TrendingDown, ArrowRight, Play, Pause
+  TrendingUp, TrendingDown, ArrowRight, Play, Pause, Brain, Zap
 } from "lucide-react";
 
 const Index = () => {
@@ -87,7 +87,7 @@ const Index = () => {
       bgColor: "bg-orange-50",
       change: "+3%",
       trend: "up",
-      action: () => navigate('/medical-dashboard')
+      action: () => navigate('/dashboard')
     },
     { 
       title: "Comenzi Lab", 
@@ -107,7 +107,7 @@ const Index = () => {
       bgColor: "bg-emerald-50",
       change: "+15%",
       trend: "up",
-      action: () => navigate('/cfo-dashboard')
+      action: () => navigate('/cfo')
     },
     { 
       title: "Eficiență", 
@@ -117,7 +117,7 @@ const Index = () => {
       bgColor: "bg-cyan-50",
       change: "+2%",
       trend: "up",
-      action: () => navigate('/medical-dashboard')
+      action: () => navigate('/dashboard')
     }
   ];
 
@@ -140,6 +140,69 @@ const Index = () => {
       </div>
 
       <div className="px-6 pb-6">
+        {/* Revolutionary AI Modules */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <Card 
+            className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-purple-900/20 to-pink-900/20 border-purple-500/30"
+            onClick={() => navigate('/surgical-ai')}
+          >
+            <CardContent className="p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                <Brain className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+                🦄 GENIUS SURGICAL AI 3.0
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Primul sistem AI din lume pentru ghidare chirurgicală în timp real
+              </p>
+              <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+                UNICORN TECH
+              </Badge>
+            </CardContent>
+          </Card>
+
+          <Card 
+            className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-red-900/20 to-orange-900/20 border-red-500/30"
+            onClick={() => navigate('/surgical-monitor')}
+          >
+            <CardContent className="p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-red-500 to-orange-500 rounded-full flex items-center justify-center">
+                <Activity className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-red-400 to-orange-400 bg-clip-text text-transparent">
+                🔴 REAL-TIME MONITOR
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Monitorizare avansată în timp real cu AI predictiv
+              </p>
+              <Badge className="bg-gradient-to-r from-red-500 to-orange-500 text-white">
+                LIVE TECH
+              </Badge>
+            </CardContent>
+          </Card>
+
+          <Card 
+            className="cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-cyan-900/20 to-blue-900/20 border-cyan-500/30"
+            onClick={() => navigate('/lab-sync')}
+          >
+            <CardContent className="p-6 text-center">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                🔗 LAB SYNC GENIUS
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Sincronizare perfectă Exocad ↔ Medit ↔ ERP
+              </p>
+              <Badge className="bg-gradient-to-r from-cyan-500 to-blue-500 text-white">
+                SYNC MASTER
+              </Badge>
+            </CardContent>
+          </Card>
+        </div>
+
         <Tabs defaultValue="overview" className="w-full">
           <TabsList className="grid w-full grid-cols-4 mb-6">
             <TabsTrigger value="overview">Vizualizare Generală</TabsTrigger>
@@ -349,7 +412,7 @@ const Index = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">Interfața pentru tratamente va fi disponibilă în curând...</p>
-                <Button className="mt-4" onClick={() => navigate('/medical-dashboard')}>
+                <Button className="mt-4" onClick={() => navigate('/dashboard')}>
                   Accesează Dashboard Medical
                 </Button>
               </CardContent>
@@ -363,7 +426,7 @@ const Index = () => {
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground">Interfața pentru analize va fi disponibilă în curând...</p>
-                <Button className="mt-4" onClick={() => navigate('/cfo-dashboard')}>
+                <Button className="mt-4" onClick={() => navigate('/cfo')}>
                   Accesează Dashboard CFO
                 </Button>
               </CardContent>

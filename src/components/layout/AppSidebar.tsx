@@ -28,6 +28,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { Badge } from "@/components/ui/badge";
 import { useRole } from "@/contexts/RoleContext";
 
 const navigationItems = [
@@ -80,16 +81,20 @@ export function AppSidebar() {
                     <NavLink 
                       to={item.url} 
                       end 
-                      className={getNavCls}
+                      className={({ isActive }) => `flex items-center px-3 py-2 rounded-lg transition-all ${
+                        isActive 
+                          ? 'bg-primary/10 text-primary font-medium border-r-2 border-primary' 
+                          : 'hover:bg-muted/50 text-muted-foreground hover:text-foreground'
+                      }`}
                     >
-                      <item.icon className={`mr-2 h-4 w-4 ${item.premium ? 'text-holographic' : ''}`} />
+                      <item.icon className={`mr-3 h-5 w-5 ${item.premium ? 'text-holographic' : ''}`} />
                       {!collapsed && (
-                        <span className={item.premium ? 'text-holographic font-bold' : ''}>
+                        <span className={`${item.premium ? 'text-holographic font-bold' : ''} flex-1`}>
                           {item.title}
                           {item.premium && !collapsed && (
-                            <span className="ml-2 text-xs bg-holographic/20 text-holographic px-2 py-0.5 rounded-full">
+                            <Badge className="ml-2 text-xs bg-holographic/20 text-holographic border-holographic/50">
                               🦄 UNICORN
-                            </span>
+                            </Badge>
                           )}
                         </span>
                       )}

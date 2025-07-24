@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React from 'react';
 import { Calendar, MessageSquare, Plus, Search, Clock, FileText, Stethoscope, Users, Wrench, BarChart3, Megaphone, Phone } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useRole } from "@/contexts/RoleContext";
 
 const QuickActions = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { t } = useLanguage();
-  const [selectedRole, setSelectedRole] = useState('medic');
+  const { currentRole } = useRole();
 
   const handleAction = (actionTitle: string, route?: string) => {
     if (route) {
@@ -190,7 +190,7 @@ const QuickActions = () => {
     ]
   };
 
-  const currentActions = roleActions[selectedRole] || roleActions.medic;
+  const currentActions = roleActions[currentRole] || roleActions.medic;
 
   return (
     <div className="ai-card quantum-glow animate-fade-in">
@@ -201,23 +201,8 @@ const QuickActions = () => {
               <h3 className="text-xl font-bold text-holographic">🚀 Acțiuni Rapide AI</h3>
               <div className="flex items-center space-x-2">
                 <div className="w-2 h-2 bg-success rounded-full animate-vital-pulse"></div>
-                <span className="text-neural text-sm">Funcții personalizate pentru rolul tău</span>
+                <span className="text-neural text-sm">Funcții personalizate pentru rolul {currentRole}</span>
               </div>
-            </div>
-            <div className="neuro-card">
-              <Select value={selectedRole} onValueChange={setSelectedRole}>
-                <SelectTrigger className="w-40 border-quantum bg-card/50 backdrop-blur-sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-card/95 backdrop-blur-md border-quantum">
-                  <SelectItem value="medic">🔬 Medic</SelectItem>
-                  <SelectItem value="asistent">👨‍⚕️ Asistent</SelectItem>
-                  <SelectItem value="receptie">📞 Recepție</SelectItem>
-                  <SelectItem value="tehnician">🛠️ Tehnician</SelectItem>
-                  <SelectItem value="ceo">💼 CEO/Manager</SelectItem>
-                  <SelectItem value="marketing">📢 Marketing</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </div>
 
@@ -225,7 +210,7 @@ const QuickActions = () => {
             {currentActions.map((action, index) => (
               <div
                 key={index}
-                onClick={() => handleAction(action.title, action.route)}
+                onClick={() => handleAction(action.title, (action as any).route)}
                 className="glass-card hover-quantum cursor-pointer animate-slide-in-right"
                 style={{ animationDelay: `${index * 150}ms` }}
               >

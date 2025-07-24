@@ -119,153 +119,183 @@ const roleModules = {
     {
       title: "AllOnX Hub",
       description: "Planificare implantologie și ghidare chirurgicală",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Stethoscope className="w-6 h-6" />,
       color: "bg-blue-500",
       link: "/allonx",
-      priority: 1
+      priority: 1,
+      features: ["Planificare 3D", "Ghidare chirurgicală", "Simulare implanturi"],
+      badge: "🦷 PRO"
     },
     {
       title: "Clinical Agent",
       description: "Diagnostice AI și analiză imagistică",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Heart className="w-6 h-6" />,
       color: "bg-red-500",
       link: "/clinical",
-      priority: 2
+      priority: 2,
+      features: ["Diagnostic AI", "Analiză radiografii", "Recomandări tratament"],
+      badge: "🤖 AI"
     },
     {
       title: "Lab Sync",
       description: "Comunicare directă cu laboratorul protetic",
-      status: "LIVE", 
+      status: "active" as const,
       progress: 100,
       icon: <Clock className="w-6 h-6" />,
       color: "bg-orange-500",
       link: "/labsync",
-      priority: 3
+      priority: 3,
+      features: ["Comunicare direct", "Tracking comenzi", "Control calitate"],
+      badge: "⚡ SYNC"
     }
   ],
   asistent: [
     {
       title: "Inventory Brain",
       description: "Gestionare stoc materiale și instrumente",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Search className="w-6 h-6" />,
       color: "bg-green-500",
       link: "/inventory",
-      priority: 1
+      priority: 1,
+      features: ["Urmărire stoc", "Alerte nivel minim", "Comenzi auto"],
+      badge: "AI"
     },
     {
       title: "Programări",
       description: "Management programări și dosare pacienți",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Calendar className="w-6 h-6" />,
       color: "bg-blue-500",
       link: "/appointments",
-      priority: 2
+      priority: 2,
+      features: ["Calendar avizat", "Confirmare auto", "Reminder SMS"],
+      badge: "SMART"
     },
     {
       title: "Sterilizare AI",
       description: "Urmărire și validare procese sterilizare",
-      status: "BETA",
+      status: "development" as const,
       progress: 85,
       icon: <Shield className="w-6 h-6" />,
       color: "bg-purple-500",
-      priority: 3
+      priority: 3,
+      features: ["Monitorizare cicli", "Validare AI", "Rapoarte auto"],
+      badge: "BETA"
     }
   ],
   receptie: [
     {
       title: "Programări Avansate",
       description: "Optimizare calendar și confirmare programări",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Calendar className="w-6 h-6" />,
       color: "bg-purple-500",
       link: "/appointments",
-      priority: 1
+      priority: 1,
+      features: ["Calendar optimizat", "Confirmare auto", "Slot management"],
+      badge: "📅 SMART"
     },
     {
       title: "Comunicare Pacienți",
       description: "SMS/Email automat și reminder-uri",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <MessageSquare className="w-6 h-6" />,
       color: "bg-blue-500",
-      priority: 2
+      priority: 2,
+      features: ["SMS automat", "Email template", "Reminder personalizat"],
+      badge: "💬 AUTO"
     },
     {
       title: "Gestionare Plăți",
       description: "Facturare și urmărire încasări",
-      status: "BETA",
+      status: "development" as const,
       progress: 75,
       icon: <DollarSign className="w-6 h-6" />,
       color: "bg-green-500",
-      priority: 3
+      priority: 3,
+      features: ["Facturare auto", "Tracking plăți", "Rapoarte financiare"],
+      badge: "💰 BETA"
     }
   ],
   tehnician: [
     {
       title: "Lab Sync PRO",
       description: "Gestionare comenzi și program producție",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Wrench className="w-6 h-6" />,
       color: "bg-orange-500",
       link: "/labsync",
-      priority: 1
+      priority: 1,
+      features: ["Gestionare comenzi", "Program producție", "Status update"],
+      badge: "🔧 PRO"
     },
     {
       title: "Control Calitate",
       description: "Validare lucrări și urmărire defecte",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Shield className="w-6 h-6" />,
       color: "bg-red-500",
-      priority: 2
+      priority: 2,
+      features: ["Validare auto", "Urmărire defecte", "Rapoarte QC"],
+      badge: "✅ QC"
     },
     {
       title: "Urmărire Materiale",
       description: "Stoc materie primă și consum",
-      status: "BETA",
+      status: "development" as const,
       progress: 80,
       icon: <Database className="w-6 h-6" />,
       color: "bg-blue-500",
-      priority: 3
+      priority: 3,
+      features: ["Stoc inteligent", "Consum tracking", "Predicții"],
+      badge: "📊 BETA"
     }
   ],
   ceo: [
     {
       title: "CFO Dashboard",
       description: "Analiză financiară și KPI-uri business",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <BarChart3 className="w-6 h-6" />,
       color: "bg-red-500",
       link: "/cfo",
-      priority: 1
+      priority: 1,
+      features: ["KPI real-time", "Analiză profit", "Predicții financiare"],
+      badge: "💼 EXEC"
     },
     {
       title: "Management Personal",
       description: "Performanță echipă și planificare resurse",
-      status: "BETA",
+      status: "development" as const,
       progress: 90,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
-      priority: 2
+      priority: 2,
+      features: ["Evaluare performanță", "Planificare resurse", "HR analytics"],
+      badge: "👥 HR"
     },
     {
       title: "Business Intelligence",
       description: "Analize predictive și optimizare procese",
-      status: "BETA",
+      status: "development" as const,
       progress: 70,
       icon: <Database className="w-6 h-6" />,
       color: "bg-purple-500",
-      priority: 3
+      priority: 3,
+      features: ["Analize predictive", "Optimizare procese", "BI dashboards"],
+      badge: "🧠 BI"
     }
   ],
   marketing: [

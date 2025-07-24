@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import DashboardHeader from "@/components/dashboard/DashboardHeader";
 import StatsGrid from "@/components/dashboard/StatsGrid";
 import RecentActivity from "@/components/dashboard/RecentActivity";
 import QuickActions from "@/components/dashboard/QuickActions";
 import AIInsights from "@/components/dashboard/AIInsights";
 import ChatWidget from "@/components/chat/ChatWidget";
 import VoiceChatBot from "@/components/voice/VoiceChatBot";
-import HeroSection from "@/components/dashboard/HeroSection";
 import VoiceSettingsModal from "@/components/dashboard/VoiceSettingsModal";
 import NavigationSection from "@/components/dashboard/NavigationSection";
 import AIModulesGrid from "@/components/dashboard/AIModulesGrid";
@@ -31,12 +29,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <DashboardHeader />
-      
-      <main className="container mx-auto px-4 py-6 space-y-8">
-        {/* ⚡ DENTAL EXCELLENCE HUB - ROLE PERSONALIZED */}
-        <div className={`relative bg-gradient-to-r ${roleConfig.gradientFrom} ${roleConfig.gradientTo} text-white p-12 rounded-2xl shadow-2xl animate-fade-in overflow-hidden`}>
+    <div className="container mx-auto px-4 py-6 space-y-8">
+      {/* ⚡ DENTAL EXCELLENCE HUB - ROLE PERSONALIZED */}
+      <div className={`relative bg-gradient-to-r ${roleConfig.gradientFrom} ${roleConfig.gradientTo} text-white p-12 rounded-2xl shadow-2xl overflow-hidden`}>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 mix-blend-overlay"></div>
           <div className="relative z-10 max-w-6xl mx-auto">
             <div className="flex items-center justify-center mb-8">
@@ -93,25 +88,25 @@ const Index = () => {
           onSettingsSave={handleVoiceSettingsSave}
         />
 
-        {/* 📊 ROLE-BASED STATISTICS */}
-        <div className="animate-slide-up animate-delay-200">
-          <StatsGrid />
-        </div>
+      {/* 📊 ROLE-BASED STATISTICS */}
+      <div>
+        <StatsGrid />
+      </div>
 
-        {/* 🚀 ROLE-BASED QUICK ACTIONS */}
-        <div className="animate-slide-up animate-delay-250">
-          <QuickActions />
-        </div>
+      {/* 🚀 ROLE-BASED QUICK ACTIONS */}
+      <div>
+        <QuickActions />
+      </div>
 
-        {/* 🤖 AI MODULES GRID */}
-        <div className="animate-slide-up animate-delay-300">
-          <AIModulesGrid />
-        </div>
+      {/* 🤖 AI MODULES GRID */}
+      <div>
+        <AIModulesGrid />
+      </div>
 
-        {/* 🚀 CLINICAL EXCELLENCE DASHBOARD */}
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 animate-slide-up animate-delay-300">
-          {/* LEFT: Clinical Operations */}
-          <div className="space-y-6">
+      {/* 🚀 CLINICAL EXCELLENCE DASHBOARD */}
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        {/* LEFT: Clinical Operations */}
+        <div className="space-y-6">
             {/* Today's Surgery Schedule */}
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-200/50">
               <div className="flex items-center justify-between mb-6">
@@ -187,10 +182,10 @@ const Index = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-4">📋 Recent Patient Activity</h3>
               <RecentActivity />
             </div>
-          </div>
+        </div>
 
-          {/* RIGHT: AI & Technology Column */}
-          <div className="space-y-6">
+        {/* RIGHT: AI & Technology Column */}
+        <div className="space-y-6">
             {/* AI Voice Assistant */}
             <div className="bg-gradient-to-br from-purple-50 to-violet-50 p-6 rounded-xl border-2 border-purple-200/50">
               <h3 className="text-xl font-bold text-purple-900 mb-4">🎤 AI Clinical Assistant</h3>
@@ -213,18 +208,16 @@ const Index = () => {
               <h3 className="text-xl font-bold text-slate-900 mb-4">💬 Support & Chat</h3>
               <ChatWidget />
             </div>
-          </div>
         </div>
+      </div>
 
-        {/* 🎯 NAVIGATION SECTION */}
-        <div className="animate-slide-up animate-delay-400">
-          <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">🧭 Navigare Specializată</h3>
-            <NavigationSection />
-          </div>
+      {/* 🎯 NAVIGATION SECTION */}
+      <div>
+        <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+          <h3 className="text-xl font-bold text-gray-900 mb-4">🧭 Navigare Specializată</h3>
+          <NavigationSection />
         </div>
-      </main>
-
+      </div>
     </div>
   );
 };

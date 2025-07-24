@@ -53,14 +53,14 @@ const DashboardHeader = () => {
   };
 
   return (
-    <header className="bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-slate-900/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 shadow-2xl">
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20 animate-pulse-slow"></div>
+    <header className="bg-gradient-to-r from-slate-900/95 via-blue-900/95 to-slate-900/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-50 shadow-lg">
+      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-purple-600/10 to-blue-600/10"></div>
       <div className="relative container mx-auto px-6">
         <div className="flex items-center justify-between py-4">
           {/* Revolutionary Logo & Branding */}
           <Link to="/" className="flex items-center space-x-4 hover:opacity-80 transition-opacity duration-200">
             <div className="relative group">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/50 group-hover:shadow-blue-400/70 transition-all duration-300 animate-heartbeat cursor-pointer">
+              <div className="w-12 h-12 bg-gradient-to-br from-blue-400 via-purple-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg group-hover:shadow-blue-400/50 transition-all duration-300 cursor-pointer">
                 <span className="text-white font-black text-xl">M</span>
                 <div className="absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-600 rounded-2xl blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
               </div>
@@ -78,7 +78,7 @@ const DashboardHeader = () => {
           {/* Role Selector & Voice Interface */}
           <div className="hidden lg:flex items-center space-x-4">
             <div className="flex items-center space-x-3 px-3 py-2 bg-slate-50 rounded-lg border border-slate-200">
-              <div className={`w-3 h-3 rounded-full ${roleInfo.color} animate-fade-in`}></div>
+              <div className={`w-3 h-3 rounded-full ${roleInfo.color}`}></div>
               <Select value={currentRole} onValueChange={setCurrentRole}>
                 <SelectTrigger className="w-48 border-0 bg-transparent shadow-none focus:ring-0 h-8">
                   <div className="flex items-center space-x-2">
@@ -104,7 +104,7 @@ const DashboardHeader = () => {
               onClick={() => setIsVoiceActive(!isVoiceActive)}
               variant={isVoiceActive ? "default" : "outline"}
               size="sm"
-              className={`transition-all duration-300 animate-scale-in ${
+              className={`transition-all duration-300 ${
                 isVoiceActive 
                   ? 'bg-green-600 hover:bg-green-700 shadow-lg shadow-green-200' 
                   : 'hover:bg-green-50 hover:border-green-300'
@@ -112,7 +112,7 @@ const DashboardHeader = () => {
             >
               {isVoiceActive ? (
                 <>
-                  <Mic className="w-4 h-4 mr-2 animate-pulse" />
+                  <Mic className="w-4 h-4 mr-2" />
                   <span className="text-sm">Voce Activă</span>
                 </>
               ) : (

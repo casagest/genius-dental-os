@@ -41,7 +41,7 @@ const RealDataDisplay = () => {
       icon: <Users className="w-5 h-5" />,
       color: "text-green-600", 
       bgColor: "bg-green-100",
-      action: () => navigate('/medical')
+      action: () => navigate('/patient-portal')
     },
     {
       title: "Tratamente Active",
@@ -73,7 +73,7 @@ const RealDataDisplay = () => {
       icon: <Clock className="w-5 h-5" />,
       color: "text-indigo-600",
       bgColor: "bg-indigo-100",
-      action: () => navigate('/medical')
+      action: () => navigate('/dashboard')
     }
   ];
 

@@ -800,6 +800,8 @@ export function RoleProvider({ children }: RoleProviderProps) {
 
   const navigateToRole = (role: UserRole) => {
     setCurrentRole(role);
+    // Auto-navigate to main page when role changes
+    window.location.href = '/';
   };
 
   const value: RoleContextType = {

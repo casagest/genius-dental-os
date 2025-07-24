@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Settings, Shield } from "lucide-react";
-import { useSecureApiKeys } from "@/hooks/useSecureStorage";
+import { useSecureApiKeys } from "@/hooks/useSecureApiKeys";
 import { validateFormData, VoiceSettingsSchema } from "@/lib/validation";
 import { validateApiKey, sanitizeText, checkRateLimit } from "@/lib/security";
 import { useToast } from "@/hooks/use-toast";
@@ -27,7 +27,7 @@ interface VoiceSettings {
 
 const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
   const { toast } = useToast();
-  const { value: secureApiKeys, setValue: setSecureApiKeys } = useSecureApiKeys();
+  const { apiKeys: secureApiKeys, saveApiKeys: setSecureApiKeys } = useSecureApiKeys();
   
   const [settings, setSettings] = useState<VoiceSettings>({
     elevenLabsApiKey: '',
@@ -267,11 +267,11 @@ const VoiceSettings: React.FC<VoiceSettingsProps> = ({ onSettingsSave }) => {
         }
         
         // Load API keys from secure storage
-        if (secureApiKeys && typeof secureApiKeys === 'object' && 'elevenLabsApiKey' in secureApiKeys) {
+        if (secureApiKeys) {
           setSettings(prev => ({
             ...prev,
-            elevenLabsApiKey: (secureApiKeys as any).elevenLabsApiKey || '',
-            openAIApiKey: (secureApiKeys as any).openAIApiKey || ''
+            elevenLabsApiKey: secureApiKeys.elevenLabsApiKey || '',
+            openAIApiKey: secureApiKeys.openAIApiKey || ''
           }));
         }
       } catch (error) {

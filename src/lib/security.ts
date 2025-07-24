@@ -106,29 +106,33 @@ export function validateUrl(url: string, allowedDomains?: string[]): boolean {
 }
 
 /**
- * Content Security Policy headers
+ * Enhanced Content Security Policy headers
  */
 export const CSP_HEADER = `
   default-src 'self';
-  script-src 'self' 'unsafe-inline';
+  script-src 'self' 'unsafe-inline' 'unsafe-eval';
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
   font-src 'self' https://fonts.gstatic.com;
-  img-src 'self' data: https:;
-  connect-src 'self' https://api.elevenlabs.io https://api.openai.com https://api.notion.com;
+  img-src 'self' data: blob: https:;
+  connect-src 'self' https://ldtaveitfkiniibwebhn.supabase.co wss://ldtaveitfkiniibwebhn.supabase.co https://api.elevenlabs.io https://api.openai.com;
+  media-src 'self' blob:;
+  object-src 'none';
   frame-ancestors 'none';
   base-uri 'self';
   form-action 'self';
 `.replace(/\s+/g, ' ').trim();
 
 /**
- * Security headers for API responses
+ * Enhanced security headers for API responses
  */
 export const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
   'X-XSS-Protection': '1; mode=block',
   'Referrer-Policy': 'strict-origin-when-cross-origin',
-  'Content-Security-Policy': CSP_HEADER
+  'Content-Security-Policy': CSP_HEADER,
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=()'
 };
 
 /**

@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { Shield } from "lucide-react";
 
 interface ApiKeysSectionProps {
   elevenLabsApiKey: string;
@@ -27,7 +28,13 @@ const ApiKeysSection: React.FC<ApiKeysSectionProps> = ({
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold">Chei API</h3>
+      <div className="flex items-center space-x-2">
+        <Shield className="h-5 w-5 text-green-600" />
+        <h3 className="text-lg font-semibold">Chei API (Stocare Securizată)</h3>
+      </div>
+      <p className="text-sm text-muted-foreground">
+        Cheile API sunt criptate și stocate local pentru o sesiune.
+      </p>
       
       <div className="space-y-2">
         <Label htmlFor="elevenLabs">ElevenLabs API Key (Text-to-Speech)</Label>

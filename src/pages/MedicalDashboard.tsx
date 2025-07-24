@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { 
   Stethoscope, 
   Users, 
@@ -19,8 +24,28 @@ import { useRealData } from "@/hooks/useRealData";
 import { useNavigate } from "react-router-dom";
 
 const MedicalDashboard = () => {
-  const { data, stats, isLoading } = useRealData();
+  const { data, stats, isLoading, refreshData } = useRealData();
   const navigate = useNavigate();
+  const [isAddTreatmentOpen, setIsAddTreatmentOpen] = useState(false);
+  const [treatmentForm, setTreatmentForm] = useState({
+    treatment_name: '',
+    description: '',
+    estimated_cost: '',
+    status: 'planned'
+  });
+
+  const handleAddTreatment = async () => {
+    // In a real app, this would make an API call to add the treatment
+    console.log('Adding treatment:', treatmentForm);
+    setIsAddTreatmentOpen(false);
+    setTreatmentForm({
+      treatment_name: '',
+      description: '',
+      estimated_cost: '',
+      status: 'planned'
+    });
+    refreshData();
+  };
 
   if (isLoading) {
     return (
@@ -246,7 +271,84 @@ const MedicalDashboard = () => {
                       <Stethoscope className="w-16 h-16 mx-auto mb-4 text-muted-foreground opacity-50" />
                       <h3 className="text-lg font-medium mb-2">Nu sunt tratamente</h3>
                       <p className="text-muted-foreground">Începe prin a adăuga primul tratament</p>
-                      <Button className="mt-4">Adaugă Tratament</Button>
+                      <Dialog open={isAddTreatmentOpen} onOpenChange={setIsAddTreatmentOpen}>
+                        <DialogTrigger asChild>
+                          <Button className="mt-4">Adaugă Tratament</Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <DialogHeader>
+                            <DialogTitle>Adaugă Tratament Nou</DialogTitle>
+                            <DialogDescription>
+                              Completează detaliile pentru noul tratament.
+                            </DialogDescription>
+                          </DialogHeader>
+                          <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                              <Label htmlFor="name" className="text-right">
+                                Nume
+                              </Label>
+                              <Input
+                                id="name"
+                                value={treatmentForm.treatment_name}
+                                onChange={(e) => setTreatmentForm({...treatmentForm, treatment_name: e.target.value})}
+                                className="col-span-3"
+                                placeholder="ex. Implant dentar"
+                              />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                              <Label htmlFor="description" className="text-right">
+                                Descriere
+                              </Label>
+                              <Textarea
+                                id="description"
+                                value={treatmentForm.description}
+                                onChange={(e) => setTreatmentForm({...treatmentForm, description: e.target.value})}
+                                className="col-span-3"
+                                placeholder="Detalii despre tratament..."
+                              />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                              <Label htmlFor="cost" className="text-right">
+                                Cost (€)
+                              </Label>
+                              <Input
+                                id="cost"
+                                type="number"
+                                value={treatmentForm.estimated_cost}
+                                onChange={(e) => setTreatmentForm({...treatmentForm, estimated_cost: e.target.value})}
+                                className="col-span-3"
+                                placeholder="1500"
+                              />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                              <Label htmlFor="status" className="text-right">
+                                Status
+                              </Label>
+                              <Select 
+                                value={treatmentForm.status} 
+                                onValueChange={(value) => setTreatmentForm({...treatmentForm, status: value})}
+                              >
+                                <SelectTrigger className="col-span-3">
+                                  <SelectValue placeholder="Selectează statusul" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="planned">Planificat</SelectItem>
+                                  <SelectItem value="in_progress">În Curs</SelectItem>
+                                  <SelectItem value="completed">Completat</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                          </div>
+                          <div className="flex justify-end space-x-2">
+                            <Button variant="outline" onClick={() => setIsAddTreatmentOpen(false)}>
+                              Anulează
+                            </Button>
+                            <Button onClick={handleAddTreatment}>
+                              Adaugă Tratament
+                            </Button>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   )}
                 </div>

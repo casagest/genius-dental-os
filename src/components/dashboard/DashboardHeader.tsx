@@ -108,7 +108,7 @@ const DashboardHeader = () => {
                 MedicalCor GENIUS
               </h1>
               <p className="text-sm text-blue-200/80 font-medium">
-                {roleConfig.description}
+                Sistemul de management medical integrat
               </p>
             </div>
           </Link>

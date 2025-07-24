@@ -6,12 +6,14 @@ export type UserRole = 'medic' | 'asistent' | 'receptie' | 'tehnician' | 'ceo' |
 export interface RoleModule {
   title: string;
   description: string;
-  status: string;
+  status: 'active' | 'development' | 'coming-soon';
   progress: number;
   icon: React.ReactNode;
   color: string;
   link?: string;
   priority: number;
+  features: string[];
+  badge?: string;
 }
 
 export interface RoleStat {
@@ -270,30 +272,36 @@ const roleModules = {
     {
       title: "AI Marketing",
       description: "Campanii inteligente și segmentare pacienți",
-      status: "LIVE",
+      status: "active" as const,
       progress: 100,
       icon: <Megaphone className="w-6 h-6" />,
       color: "bg-pink-500",
       link: "/marketing",
-      priority: 1
+      priority: 1,
+      features: ["Segmentare automat", "A/B testing", "Optimizare campanii", "ROI tracking"],
+      badge: "📈 AI"
     },
     {
       title: "Achiziție Pacienți",
       description: "Lead generation și conversie online",
-      status: "BETA",
+      status: "development" as const,
       progress: 85,
       icon: <Users className="w-6 h-6" />,
       color: "bg-blue-500",
-      priority: 2
+      priority: 2,
+      features: ["Lead scoring", "Funnel optimization", "Retargeting automat", "Landing pages"],
+      badge: "🎯 CONV"
     },
     {
       title: "Social Media AI",
       description: "Automatizare postări și engagement",
-      status: "BETA",
+      status: "development" as const,
       progress: 75,
       icon: <Palette className="w-6 h-6" />,
       color: "bg-purple-500",
-      priority: 3
+      priority: 3,
+      features: ["Content automat", "Scheduling inteligent", "Engagement tracking", "Hashtag optimization"],
+      badge: "📱 SOCIAL"
     }
   ]
 };

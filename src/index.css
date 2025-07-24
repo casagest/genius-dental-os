@@ -6,78 +6,69 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================
-   USER-FRIENDLY MEDICAL INTERFACE - Easy for Everyone
-   Simple, Clear, Professional Design
-   ============================================ */
+/* ========== GENIUS DENTAL OS - NEURAL SYSTEM ========== */
 
 @layer base {
   :root {
-    /* 🎨 FRIENDLY COLOR PALETTE - Warm & Approachable */
-    --background: 210 25% 98%;           /* Very light blue-gray */
-    --foreground: 215 25% 15%;           /* Dark blue-gray for readability */
-    --card: 0 0% 100%;                   /* Pure white cards */
-    --card-foreground: 215 25% 15%;      /* Dark text on cards */
+    /* ========== NEURAL MEDICAL COLORS ========== */
+    --neural-primary: 220 91% 60%;
+    --neural-secondary: 260 85% 70%;
+    --neural-accent: 180 100% 50%;
+    --neural-success: 140 100% 50%;
+    --neural-warning: 45 100% 60%;
+    --neural-danger: 0 100% 65%;
+    --quantum: 280 100% 70%;
+    --holographic: 200 100% 60%;
+    
+    /* ========== NEURAL GRADIENTS ========== */
+    --gradient-neural: linear-gradient(135deg, hsl(var(--neural-primary)), hsl(var(--neural-secondary)));
+    --gradient-primary: linear-gradient(135deg, hsl(var(--neural-primary)), hsl(var(--neural-accent)));
+    --gradient-vitals: linear-gradient(135deg, hsl(var(--neural-success)), hsl(var(--neural-accent)));
+    --gradient-accent: linear-gradient(135deg, hsl(var(--neural-warning)), hsl(var(--neural-danger)));
+    --gradient-quantum: linear-gradient(135deg, hsl(var(--quantum)), hsl(var(--holographic)));
+    
+    /* ========== GLASS & GLOW EFFECTS ========== */
+    --glass-bg: hsla(220, 91%, 60%, 0.1);
+    --glass-border: hsla(220, 91%, 60%, 0.2);
+    --neural-glow: 0 0 20px hsl(var(--neural-primary) / 0.5);
+    --neural-pulse-glow: 0 0 40px hsl(var(--neural-accent) / 0.6);
+    --shadow-neural: 0 10px 30px hsla(220, 91%, 60%, 0.15);
+    
+    /* ========== STANDARD THEME ========== */
+    --background: 222 100% 99%;
+    --foreground: 220 13% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 15%;
-    
-    /* 💙 MEDICAL BLUE THEME - Trust & Professionalism */
-    --primary: 210 85% 58%;              /* Medical blue */
-    --primary-glow: 210 85% 75%;         /* Light blue */
-    --primary-dark: 210 85% 45%;         /* Dark blue */
-    --primary-foreground: 0 0% 100%;     /* White text on blue */
-    
-    --secondary: 142 76% 50%;            /* Medical green */
-    --secondary-glow: 142 76% 65%;       /* Light green */
-    --secondary-foreground: 0 0% 100%;   /* White text on green */
-    
-    --accent: 45 93% 58%;                /* Warm orange for highlights */
-    --accent-glow: 45 93% 75%;           /* Light orange */
-    --accent-foreground: 0 0% 100%;      /* White text on orange */
-    
-    /* 🎯 STATUS COLORS - Clear & Intuitive */
-    --success: 142 76% 50%;              /* Green for success */
-    --success-glow: 142 76% 65%;
-    --warning: 45 93% 58%;               /* Orange for warnings */
-    --warning-glow: 45 93% 75%;
-    --destructive: 0 84% 60%;            /* Red for errors */
-    --destructive-glow: 0 84% 75%;
+    --popover-foreground: 220 13% 9%;
+    --primary: var(--neural-primary);
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 13% 9%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
+    --accent: var(--neural-accent);
+    --accent-foreground: 0 0% 100%;
+    --destructive: var(--neural-danger);
     --destructive-foreground: 0 0% 100%;
+    --success: var(--neural-success);
+    --success-foreground: 0 0% 100%;
+    --warning: var(--neural-warning);
+    --warning-foreground: 0 0% 100%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: var(--neural-primary);
+    --radius: 0.75rem;
     
-    /* 🖼️ INTERFACE ELEMENTS - Soft & Clean */
-    --muted: 210 25% 95%;                /* Very light background */
-    --muted-foreground: 215 25% 55%;     /* Medium gray text */
-    --border: 210 25% 88%;               /* Light borders */
-    --input: 210 25% 96%;                /* Light input backgrounds */
-    --ring: 210 85% 58%;                 /* Focus ring color */
-    
-    /* 🌈 FRIENDLY GRADIENTS - Gentle & Welcoming */
-    --gradient-primary: linear-gradient(135deg, hsl(210 85% 58%), hsl(210 85% 75%));
-    --gradient-secondary: linear-gradient(135deg, hsl(142 76% 50%), hsl(142 76% 65%));
-    --gradient-accent: linear-gradient(135deg, hsl(45 93% 58%), hsl(45 93% 75%));
-    --gradient-gentle: linear-gradient(135deg, hsl(210 25% 98%), hsl(210 25% 95%));
-    
-    /* ✨ SOFT SHADOWS - Elegant & Subtle */
-    --shadow-gentle: 0 2px 8px hsl(215 25% 15% / 0.08);
-    --shadow-card: 0 4px 16px hsl(215 25% 15% / 0.12);
-    --shadow-button: 0 2px 4px hsl(215 25% 15% / 0.15);
-    --shadow-float: 0 8px 24px hsl(210 85% 58% / 0.15);
-    
-    /* 🎨 DESIGN TOKENS */
-    --radius: 12px;
-    --radius-large: 16px;
-    --radius-xl: 20px;
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* 📱 SIDEBAR COLORS */
-    --sidebar-background: 210 25% 97%;
-    --sidebar-foreground: 215 25% 15%;
-    --sidebar-primary: 210 85% 58%;
+    /* ========== SIDEBAR ========== */
+    --sidebar-background: 220 13% 97%;
+    --sidebar-foreground: 220 13% 9%;
+    --sidebar-primary: var(--neural-primary);
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 25% 94%;
-    --sidebar-accent-foreground: 215 25% 15%;
-    --sidebar-border: 210 25% 88%;
-    --sidebar-ring: 210 85% 58%;
+    --sidebar-accent: 220 13% 94%;
+    --sidebar-accent-foreground: 220 13% 9%;
+    --sidebar-border: 220 13% 88%;
+    --sidebar-ring: var(--neural-primary);
   }
 
   .dark {
@@ -145,19 +136,54 @@
 }
 
 @layer components {
-  /* 🏥 MEDICAL CARD COMPONENTS - Clean & Professional */
+  /* ========== NEURAL CARD COMPONENTS ========== */
+  .neuro-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 rounded-xl shadow-lg;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
+    box-shadow: var(--shadow-neural);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .neuro-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--neural-glow), var(--shadow-neural);
+  }
+  
+  .ai-card {
+    @apply bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-cyan-500/10 backdrop-blur-xl border border-blue-200/30 rounded-2xl;
+    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .ai-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--neural-pulse-glow), 0 25px 50px rgba(59, 130, 246, 0.25);
+  }
+  
+  .glass-card {
+    @apply backdrop-blur-xl border border-white/20 rounded-2xl;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 32px hsla(220, 91%, 60%, 0.25);
+  }
+  
   .medical-card {
-    background: hsl(var(--card));
-    border: 1px solid hsl(var(--border));
-    box-shadow: var(--shadow-card);
-    border-radius: var(--radius);
-    transition: var(--transition-smooth);
+    @apply bg-white border-2 border-blue-100 rounded-xl shadow-md hover:shadow-xl transition-all duration-300;
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
   }
   
   .medical-card:hover {
-    box-shadow: var(--shadow-float);
-    border-color: hsl(var(--primary) / 0.3);
-    transform: translateY(-2px);
+    @apply border-blue-200 transform -translate-y-1;
+  }
+  
+  .medical-card-revolutionary {
+    @apply bg-gradient-to-br from-purple-500/5 via-pink-500/5 to-indigo-500/5 border-2 border-purple-200/30 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500;
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.05), rgba(236, 72, 153, 0.05), rgba(99, 102, 241, 0.05));
+  }
+  
+  .medical-card-revolutionary:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(147, 51, 234, 0.2);
   }
   
   .status-card {
@@ -183,22 +209,69 @@
     background: hsl(var(--destructive) / 0.05);
   }
   
-  /* 🎯 ACTION BUTTONS - Clear & Clickable */
-  .btn-primary {
-    background: var(--gradient-primary);
-    color: hsl(var(--primary-foreground));
-    border: none;
-    box-shadow: var(--shadow-button);
-    border-radius: var(--radius);
-    font-weight: 600;
-    padding: 0.75rem 1.5rem;
-    transition: var(--transition-smooth);
-    cursor: pointer;
+  /* ========== NEURAL TEXT STYLES ========== */
+  .text-neural {
+    background: var(--gradient-neural);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
   }
   
-  .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-float);
+  .text-holographic {
+    background: linear-gradient(45deg, #00d4ff, #5a67d8, #ed64a6, #00d4ff);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: holographic 3s ease-in-out infinite;
+  }
+  
+  .text-holographic-1 {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: holographic 4s ease-in-out infinite;
+  }
+  
+  .heading-primary {
+    @apply text-4xl md:text-6xl font-bold;
+    background: var(--gradient-neural);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .heading-secondary {
+    @apply text-2xl md:text-3xl font-semibold text-slate-800;
+  }
+  
+  /* ========== NEURAL BUTTONS ========== */
+  .btn-neural {
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-300;
+    background: var(--gradient-neural);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-neural);
+  }
+  
+  .btn-neural:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--neural-glow), var(--shadow-neural);
+  }
+  
+  .btn-glass {
+    @apply backdrop-blur-md border border-white/30 rounded-xl px-6 py-3 font-medium;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-glass:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
   }
   
   .btn-secondary {
@@ -358,6 +431,50 @@
    🎬 GENTLE ANIMATIONS - Smooth & Natural
    ============================================ */
 
+/* ========== NEURAL ANIMATIONS ========== */
+@keyframes neural-pulse {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 20px hsl(var(--neural-primary) / 0.5);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.05);
+    box-shadow: 0 0 30px hsl(var(--neural-primary) / 0.8);
+  }
+}
+
+@keyframes vital-pulse {
+  0%, 100% { 
+    box-shadow: 0 0 15px hsl(var(--neural-success) / 0.6);
+  }
+  50% { 
+    box-shadow: 0 0 25px hsl(var(--neural-success) / 1);
+  }
+}
+
+@keyframes holographic {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes quantum-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-10px) rotate(1deg); }
+  66% { transform: translateY(5px) rotate(-1deg); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
 @keyframes pulse-gentle {
   0%, 100% { 
     opacity: 1;
@@ -407,12 +524,59 @@
   50% { transform: translateY(-5px); }
 }
 
-/* Animation Classes */
+/* ========== NEURAL ANIMATION CLASSES ========== */
+.animate-neural-pulse { animation: neural-pulse 2s ease-in-out infinite; }
+.animate-vital-pulse { animation: vital-pulse 1.5s ease-in-out infinite; }
+.animate-quantum-float { animation: quantum-float 6s ease-in-out infinite; }
+.animate-slide-in-right { animation: slide-in-right 0.8s ease-out; }
+.animate-bounce-subtle { animation: bounce-subtle 2s ease-in-out infinite; }
 .animate-pulse-gentle { animation: pulse-gentle 2s infinite; }
 .animate-fade-in { animation: fade-in 0.5s ease-out forwards; }
 .animate-slide-up { animation: slide-up 0.6s ease-out forwards; }
 .animate-scale-in { animation: scale-in 0.4s ease-out forwards; }
 .animate-float-gentle { animation: float-gentle 3s ease-in-out infinite; }
+
+.hover-quantum:hover { animation: quantum-float 0.6s ease-in-out; }
+
+/* ========== NEURAL EFFECTS ========== */
+.holographic-border {
+  position: relative;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+  padding: 2px;
+  border-radius: 1rem;
+  background-size: 400% 400%;
+  animation: holographic 4s ease-in-out infinite;
+}
+
+.holographic-content {
+  background: hsl(var(--card));
+  border-radius: calc(1rem - 2px);
+  padding: 1.5rem;
+}
+
+.quantum-glow {
+  box-shadow: 0 0 20px hsl(var(--quantum) / 0.3), 0 0 40px hsl(var(--holographic) / 0.2);
+}
+
+.ai-indicator {
+  position: relative;
+}
+
+.ai-indicator::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: hsl(var(--neural-success));
+  border-radius: 50%;
+  animation: vital-pulse 1.5s ease-in-out infinite;
+}
+
+.neural-pulse {
+  animation: neural-pulse 2s ease-in-out infinite;
+}
 
 /* Animation Delays */
 .animate-delay-100 { animation-delay: 0.1s; }

@@ -123,104 +123,133 @@ const LabSync = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-white">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-900 via-blue-700 to-blue-500 bg-clip-text text-transparent">
-              LabSync - Sincronizare Laborator
-            </h1>
-            <p className="text-slate-600 mt-2">
-              Exocad ↔ Medit ↔ ERP + Comenzi Vocale
-            </p>
-          </div>
-          
-          {/* Status și Voice Control */}
-          <div className="flex items-center space-x-4">
-            <Badge className={`${
-              syncStatus === 'connected' ? 'bg-green-100 text-green-800 border-green-200' :
-              syncStatus === 'syncing' ? 'bg-blue-100 text-blue-800 border-blue-200' :
-              'bg-red-100 text-red-800 border-red-200'
-            }`}>
-              <RefreshCw className="w-3 h-3 mr-1" />
-              {syncStatus === 'connected' ? 'Conectat' : 
-               syncStatus === 'syncing' ? 'Sincronizare...' : 'Eroare'}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white">
+      <div className="container mx-auto px-6 py-8">
+        {/* Revolutionary Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
+            🔗 LAB SYNC GENIUS
+          </h1>
+          <p className="text-xl text-blue-200 mb-6">
+            Cea mai avansată sincronizare laborator din lume
+          </p>
+          <div className="flex justify-center space-x-4">
+            <Badge className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2">
+              <CheckCircle className="w-4 h-4 mr-2" />
+              Exocad ↔ Medit ↔ ERP Live
             </Badge>
-            
-            <Button
-              onClick={startVoiceCommand}
-              disabled={isListening}
-              className={`space-x-2 ${isListening ? 'bg-red-600 hover:bg-red-700' : 'bg-blue-600 hover:bg-blue-700'}`}
-            >
-              {isListening ? <Volume2 className="w-4 h-4 animate-pulse" /> : <Mic className="w-4 h-4" />}
-              <span>{isListening ? 'Ascult...' : 'Comandă Vocală'}</span>
-            </Button>
+            <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2">
+              <Mic className="w-4 h-4 mr-2" />
+              Voice Control Active
+            </Badge>
+            <Badge className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2">
+              <Workflow className="w-4 h-4 mr-2" />
+              99.9% Sync Rate
+            </Badge>
+          </div>
+        </div>
+        {/* Control Panel */}
+        <div className="flex justify-center mb-8">
+          <div className="bg-slate-800/50 rounded-full p-2 backdrop-blur-sm border border-cyan-500/30">
+            <div className="flex items-center space-x-4">
+              <Badge className={`px-4 py-2 ${
+                syncStatus === 'connected' 
+                  ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
+                  : syncStatus === 'syncing' 
+                  ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white animate-pulse' 
+                  : 'bg-gradient-to-r from-red-500 to-orange-500 text-white'
+              }`}>
+                <RefreshCw className={`w-4 h-4 mr-2 ${syncStatus === 'syncing' ? 'animate-spin' : ''}`} />
+                {syncStatus === 'connected' ? 'LIVE SYNC ACTIVE' : 
+                 syncStatus === 'syncing' ? 'SYNCING...' : 'CONNECTION ERROR'}
+              </Badge>
+              
+              <Button
+                onClick={startVoiceCommand}
+                disabled={isListening}
+                className={`px-6 py-3 rounded-full ${
+                  isListening 
+                    ? 'bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 animate-pulse' 
+                    : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600'
+                }`}
+              >
+                {isListening ? <Volume2 className="w-5 h-5 mr-2 animate-bounce" /> : <Mic className="w-5 h-5 mr-2" />}
+                <span className="font-semibold">{isListening ? 'VOICE LISTENING...' : 'VOICE COMMAND'}</span>
+              </Button>
+            </div>
           </div>
         </div>
 
         {/* Voice Command Display */}
         {voiceCommand && (
-          <Alert className="mb-6 border-blue-200 bg-blue-50">
-            <Mic className="h-4 w-4" />
-            <AlertDescription>
-              <strong>Comandă Vocală:</strong> "{voiceCommand}"
+          <Alert className="mb-8 bg-gradient-to-r from-green-900/30 to-emerald-900/30 border-2 border-green-500/50">
+            <Mic className="h-5 w-5 text-green-400" />
+            <AlertDescription className="text-lg font-medium text-green-200">
+              <strong className="text-green-400">🎙️ Voice Command Executed:</strong> "{voiceCommand}"
             </AlertDescription>
           </Alert>
         )}
 
         <Tabs defaultValue="dashboard" className="space-y-6">
-          <TabsList className="grid w-fit grid-cols-4 bg-white border-2">
-            <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
-            <TabsTrigger value="exocad">Exocad Sync</TabsTrigger>
-            <TabsTrigger value="medit">Medit Scan</TabsTrigger>
-            <TabsTrigger value="workflow">Workflow ERP</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 bg-slate-800/50 border border-cyan-500/30">
+            <TabsTrigger value="dashboard" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-cyan-500 data-[state=active]:to-blue-500">
+              🏠 Dashboard
+            </TabsTrigger>
+            <TabsTrigger value="exocad" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-pink-500">
+              🎯 Exocad Sync
+            </TabsTrigger>
+            <TabsTrigger value="medit" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-green-500 data-[state=active]:to-emerald-500">
+              📷 Medit Scan
+            </TabsTrigger>
+            <TabsTrigger value="workflow" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-red-500">
+              ⚡ Workflow ERP
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="dashboard" className="space-y-6">
-            {/* Stats Overview */}
+            {/* Revolutionary Stats Overview */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <Card className="border-2">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <Scan className="w-8 h-8 text-blue-600" />
-                    <Badge className="text-xs bg-blue-100 text-blue-700">+15%</Badge>
+              <Card className="bg-gradient-to-br from-blue-900/50 to-cyan-900/50 border-blue-500/30 backdrop-blur-sm">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <Scan className="w-12 h-12 text-blue-400" />
+                    <Badge className="bg-blue-500/20 text-blue-300 animate-pulse">+15%</Badge>
                   </div>
-                  <h3 className="text-2xl font-bold">12</h3>
-                  <p className="text-sm text-slate-600">Cazuri Active</p>
+                  <h3 className="text-3xl font-bold text-blue-400">12</h3>
+                  <p className="text-blue-200">Cazuri Active Live</p>
                 </CardContent>
               </Card>
               
-              <Card className="border-2">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <Cpu className="w-8 h-8 text-green-600" />
-                    <Badge className="text-xs bg-green-100 text-green-700">Live</Badge>
+              <Card className="bg-gradient-to-br from-green-900/50 to-emerald-900/50 border-green-500/30 backdrop-blur-sm">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <Cpu className="w-12 h-12 text-green-400" />
+                    <Badge className="bg-green-500/20 text-green-300">LIVE</Badge>
                   </div>
-                  <h3 className="text-2xl font-bold">8</h3>
-                  <p className="text-sm text-slate-600">Exocad Sync</p>
+                  <h3 className="text-3xl font-bold text-green-400">8</h3>
+                  <p className="text-green-200">Exocad Sync Active</p>
                 </CardContent>
               </Card>
               
-              <Card className="border-2">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <Camera className="w-8 h-8 text-purple-600" />
-                    <Badge className="text-xs bg-purple-100 text-purple-700">92%</Badge>
+              <Card className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 border-purple-500/30 backdrop-blur-sm">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <Camera className="w-12 h-12 text-purple-400" />
+                    <Badge className="bg-purple-500/20 text-purple-300">99.7%</Badge>
                   </div>
-                  <h3 className="text-2xl font-bold">15</h3>
-                  <p className="text-sm text-slate-600">Medit Scanuri</p>
+                  <h3 className="text-3xl font-bold text-purple-400">15</h3>
+                  <p className="text-purple-200">Medit Scanuri HD</p>
                 </CardContent>
               </Card>
               
-              <Card className="border-2">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <Truck className="w-8 h-8 text-orange-600" />
-                    <Badge className="text-xs bg-orange-100 text-orange-700">On Time</Badge>
+              <Card className="bg-gradient-to-br from-orange-900/50 to-red-900/50 border-orange-500/30 backdrop-blur-sm">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between mb-4">
+                    <Truck className="w-12 h-12 text-orange-400" />
+                    <Badge className="bg-orange-500/20 text-orange-300">ON TIME</Badge>
                   </div>
-                  <h3 className="text-2xl font-bold">6</h3>
-                  <p className="text-sm text-slate-600">Livrări Astăzi</p>
+                  <h3 className="text-3xl font-bold text-orange-400">6</h3>
+                  <p className="text-orange-200">Livrări Astăzi</p>
                 </CardContent>
               </Card>
             </div>

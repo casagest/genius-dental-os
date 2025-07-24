@@ -13,7 +13,8 @@ import {
   DollarSign,
   Package,
   Users,
-  Wrench
+  Wrench,
+  Activity
 } from "lucide-react";
 import {
   Sidebar,
@@ -30,7 +31,10 @@ import {
 import { useRole } from "@/contexts/RoleContext";
 
 const navigationItems = [
-  { title: "GENIUS 3.0", url: "/medical-workflow", icon: Brain, roles: ['medic', 'asistent', 'ceo'], premium: true },
+  { title: "🦄 GENIUS 3.0", url: "/medical-workflow", icon: Brain, roles: ['medic', 'asistent', 'ceo'], premium: true },
+  { title: "🚀 AI SURGICAL", url: "/surgical-ai", icon: Brain, roles: ['medic'], premium: true },
+  { title: "🔴 REAL-TIME MONITOR", url: "/surgical-monitor", icon: Activity, roles: ['medic', 'asistent'], premium: true },
+  { title: "🔗 LAB SYNC GENIUS", url: "/lab-sync", icon: Wrench, roles: ['medic', 'tehnician'], premium: true },
   { title: "Dashboard", url: "/", icon: Home, roles: ['medic', 'asistent', 'receptie', 'tehnician', 'ceo', 'marketing'] },
   { title: "Appointments", url: "/appointments", icon: Calendar, roles: ['medic', 'asistent', 'receptie'] },
   { title: "Clinical Agent", url: "/clinical", icon: Brain, roles: ['medic'] },

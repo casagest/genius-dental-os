@@ -21,6 +21,8 @@ import CFODashboard from "./pages/CFODashboard";
 import IStomaIntegration from "./pages/IStomaIntegration";
 import PatientPortal from "./pages/PatientPortal";
 import MedicalWorkflowDashboard from "./pages/MedicalWorkflowDashboard";
+import SurgicalPlanningAI from "./components/surgical/SurgicalPlanningAI";
+import RealTimeSurgicalMonitor from "./components/surgical/RealTimeSurgicalMonitor";
 
 const queryClient = new QueryClient();
 
@@ -48,6 +50,8 @@ const App = () => (
                 <Route path="/istoma-integration" element={<IStomaIntegration />} />
                 <Route path="/patient-portal" element={<PatientPortal />} />
                 <Route path="/medical-workflow" element={<MedicalWorkflowDashboard />} />
+                <Route path="/surgical-ai" element={<SurgicalPlanningAI />} />
+                <Route path="/surgical-monitor" element={<RealTimeSurgicalMonitor />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

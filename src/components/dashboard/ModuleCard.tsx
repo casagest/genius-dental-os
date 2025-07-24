@@ -97,7 +97,7 @@ const ModuleCard = ({
             🎯 Funcții principale:
           </div>
           <div className="space-y-1">
-            {features.slice(0, 3).map((feature, index) => (
+            {(features || []).slice(0, 3).map((feature, index) => (
               <div key={index} className="flex items-center space-x-2 text-xs">
                 <div className="w-1.5 h-1.5 bg-success rounded-full animate-vital-pulse"></div>
                 <span className="text-muted-foreground">{feature}</span>

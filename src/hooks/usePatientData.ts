@@ -85,10 +85,31 @@ export const usePatientData = () => {
         .from('patients')
         .select('*')
         .eq('user_id', user.id)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
-      setPatient(data);
+      
+      if (!data) {
+        // Create a basic patient profile if it doesn't exist
+        const { data: newPatient, error: createError } = await supabase
+          .from('patients')
+          .insert({
+            user_id: user.id,
+            first_name: user.user_metadata?.first_name || 'Utilizator',
+            last_name: user.user_metadata?.last_name || 'Nou',
+            email: user.email || ''
+          })
+          .select()
+          .single();
+
+        if (createError) {
+          console.error('Error creating patient profile:', createError);
+          return;
+        }
+        setPatient(newPatient);
+      } else {
+        setPatient(data);
+      }
     } catch (err) {
       console.error('Error fetching patient profile:', err);
       setError('Failed to load patient profile');
@@ -98,16 +119,12 @@ export const usePatientData = () => {
   // Fetch appointments
   const fetchAppointments = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!patient) return;
 
       const { data, error } = await supabase
         .from('patient_appointments')
-        .select(`
-          *,
-          patients!patient_appointments_patient_id_fkey(user_id)
-        `)
-        .eq('patients.user_id', user.id)
+        .select('*')
+        .eq('patient_id', patient.id)
         .order('appointment_date', { ascending: true });
 
       if (error) throw error;
@@ -120,16 +137,12 @@ export const usePatientData = () => {
   // Fetch messages
   const fetchMessages = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!patient) return;
 
       const { data, error } = await supabase
         .from('patient_messages')
-        .select(`
-          *,
-          patients!patient_messages_patient_id_fkey(user_id)
-        `)
-        .eq('patients.user_id', user.id)
+        .select('*')
+        .eq('patient_id', patient.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -142,16 +155,12 @@ export const usePatientData = () => {
   // Fetch documents
   const fetchDocuments = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!patient) return;
 
       const { data, error } = await supabase
         .from('patient_documents')
-        .select(`
-          *,
-          patients!patient_documents_patient_id_fkey(user_id)
-        `)
-        .eq('patients.user_id', user.id)
+        .select('*')
+        .eq('patient_id', patient.id)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -164,16 +173,12 @@ export const usePatientData = () => {
   // Fetch notifications
   const fetchNotifications = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!patient) return;
 
       const { data, error } = await supabase
         .from('patient_notifications')
-        .select(`
-          *,
-          patients!patient_notifications_patient_id_fkey(user_id)
-        `)
-        .eq('patients.user_id', user.id)
+        .select('*')
+        .eq('patient_id', patient.id)
         .or('expires_at.is.null,expires_at.gt.now()')
         .order('created_at', { ascending: false });
 
@@ -267,21 +272,27 @@ export const usePatientData = () => {
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      await Promise.all([
-        fetchPatientProfile(),
-        fetchAppointments(),
-        fetchMessages(),
-        fetchDocuments(),
-        fetchNotifications()
-      ]);
+      await fetchPatientProfile();
       setLoading(false);
     };
 
     loadData();
   }, []);
 
+  // Fetch other data when patient is loaded
+  useEffect(() => {
+    if (patient) {
+      fetchAppointments();
+      fetchMessages();
+      fetchDocuments();
+      fetchNotifications();
+    }
+  }, [patient]);
+
   // Real-time subscriptions
   useEffect(() => {
+    if (!patient) return;
+
     const messagesSubscription = supabase
       .channel('patient_messages_changes')
       .on('postgres_changes', {
@@ -320,7 +331,7 @@ export const usePatientData = () => {
       supabase.removeChannel(notificationsSubscription);
       supabase.removeChannel(appointmentsSubscription);
     };
-  }, []);
+  }, [patient]);
 
   return {
     patient,

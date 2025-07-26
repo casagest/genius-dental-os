@@ -23,7 +23,8 @@ export default function Auth() {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
-        navigate('/');
+        // Redirect to patient portal for authenticated users
+        navigate('/patient-portal');
       }
     };
     checkUser();
@@ -54,7 +55,7 @@ export default function Auth() {
         description: "Bine ai revenit!",
       });
       
-      navigate('/');
+      navigate('/patient-portal');
     } catch (err) {
       setError('A apărut o eroare neașteptată');
     } finally {

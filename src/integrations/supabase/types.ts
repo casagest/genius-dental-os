@@ -220,6 +220,168 @@ export type Database = {
           },
         ]
       }
+      patient_documents: {
+        Row: {
+          category: string
+          created_at: string
+          document_name: string
+          document_type: string
+          file_size: number | null
+          file_url: string
+          id: string
+          is_public: boolean
+          patient_id: string
+          uploaded_by: string | null
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          document_name: string
+          document_type: string
+          file_size?: number | null
+          file_url: string
+          id?: string
+          is_public?: boolean
+          patient_id: string
+          uploaded_by?: string | null
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          document_name?: string
+          document_type?: string
+          file_size?: number | null
+          file_url?: string
+          id?: string
+          is_public?: boolean
+          patient_id?: string
+          uploaded_by?: string | null
+        }
+        Relationships: []
+      }
+      patient_messages: {
+        Row: {
+          attachment_url: string | null
+          created_at: string
+          id: string
+          message: string
+          patient_id: string
+          priority: string
+          responded_at: string | null
+          responded_by: string | null
+          response: string | null
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          attachment_url?: string | null
+          created_at?: string
+          id?: string
+          message: string
+          patient_id: string
+          priority?: string
+          responded_at?: string | null
+          responded_by?: string | null
+          response?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          attachment_url?: string | null
+          created_at?: string
+          id?: string
+          message?: string
+          patient_id?: string
+          priority?: string
+          responded_at?: string | null
+          responded_by?: string | null
+          response?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      patient_notifications: {
+        Row: {
+          action_url: string | null
+          created_at: string
+          expires_at: string | null
+          id: string
+          is_read: boolean
+          message: string
+          patient_id: string
+          title: string
+          type: string
+        }
+        Insert: {
+          action_url?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_read?: boolean
+          message: string
+          patient_id: string
+          title: string
+          type?: string
+        }
+        Update: {
+          action_url?: string | null
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          is_read?: boolean
+          message?: string
+          patient_id?: string
+          title?: string
+          type?: string
+        }
+        Relationships: []
+      }
+      patient_reviews: {
+        Row: {
+          appointment_id: string | null
+          created_at: string
+          facility_rating: number | null
+          id: string
+          is_public: boolean
+          patient_id: string
+          rating: number
+          review_text: string | null
+          staff_rating: number | null
+          treatment_satisfaction: number | null
+          would_recommend: boolean | null
+        }
+        Insert: {
+          appointment_id?: string | null
+          created_at?: string
+          facility_rating?: number | null
+          id?: string
+          is_public?: boolean
+          patient_id: string
+          rating: number
+          review_text?: string | null
+          staff_rating?: number | null
+          treatment_satisfaction?: number | null
+          would_recommend?: boolean | null
+        }
+        Update: {
+          appointment_id?: string | null
+          created_at?: string
+          facility_rating?: number | null
+          id?: string
+          is_public?: boolean
+          patient_id?: string
+          rating?: number
+          review_text?: string | null
+          staff_rating?: number | null
+          treatment_satisfaction?: number | null
+          would_recommend?: boolean | null
+        }
+        Relationships: []
+      }
       patients: {
         Row: {
           allergies: string[] | null
